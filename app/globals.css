@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.auth-toggler {
+	display: none;
+}
+
+.signup-form {
+	display: none;
+}
+
+:where(.auth-toggler:checked) + * > .login-form {
+	display: none;
+}
+
+:where(.auth-toggler:checked) + * + * > .signup-form {
+	display: block;
+}
+
+#show-login {
+	visibility: hidden;
+}
+
+:where(.auth-toggler:checked) + * > #show-login {
+	visibility: visible;
+}
+
+:where(.auth-toggler:checked) + * + * > #show-signup {
+	visibility: hidden;
+}

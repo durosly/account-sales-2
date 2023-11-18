@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/components/*": ["./app/components/*"],
+      "@/images/*": ["./public/images/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/models/*": ["./models/*"],
+      "@/validators/*": ["./validators/*"],
+      "@/emails/*": ["./emails/*"],
+      "@/auth/*": ["./app/api/auth/[...nextauth]/*"],
+    }
+  }
+}
