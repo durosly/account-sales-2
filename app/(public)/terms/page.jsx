@@ -61,18 +61,18 @@ function TermsPage() {
 				<p>
 					The-Owlet will only be used to promote your
 					Instagram/Twitter/Facebook or Social account and help boost
-					your "Appearance" and "Activity" depending on the service
-					you paid for. We DO NOT guarantee your new followers will
-					interact with you, we simply guarantee you to get the
-					followers you pay for. We DO NOT guarantee 100% of our
-					accounts will have a profile picture, full bio and uploaded
-					pictures, although we strive to make this the reality for
-					all accounts. You will not upload anything into the
-					The-Owlet site including nudity or any material that is not
-					accepted or suitable for the Instagram/Twitter/Facebook or
-					Social Media community. Private accounts would not get a
-					refund! Please ensure that your account is public before
-					ordering.
+					your &quot;Appearance&quot; and &quot;Activity&quot;
+					depending on the service you paid for. We DO NOT guarantee
+					your new followers will interact with you, we simply
+					guarantee you to get the followers you pay for. We DO NOT
+					guarantee 100% of our accounts will have a profile picture,
+					full bio and uploaded pictures, although we strive to make
+					this the reality for all accounts. You will not upload
+					anything into the The-Owlet site including nudity or any
+					material that is not accepted or suitable for the
+					Instagram/Twitter/Facebook or Social Media community.
+					Private accounts would not get a refund! Please ensure that
+					your account is public before ordering.
 				</p>
 				<h2 className="text-secondary uppercase">REFUND POLICY</h2>
 				<p>
@@ -225,10 +225,10 @@ function TermsPage() {
 					We want to inform you that whenever you visit our Service,
 					we collect information that your browser sends to us that is
 					called Log Data. This Log Data may include information such
-					as your computer's Internet Protocol (“IP”) address, browser
-					version, pages of our Service that you visit, the time and
-					date of your visit, the time spent on those pages, and other
-					statistics.
+					as your computer&apos;s Internet Protocol (&quot;IP&quot;)
+					address, browser version, pages of our Service that you
+					visit, the time and date of your visit, the time spent on
+					those pages, and other statistics.
 				</p>
 				<h2 className="uppercase font-semibold">
 					Prohibited Activities
