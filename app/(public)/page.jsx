@@ -127,7 +127,7 @@ function Home() {
 							Diverse Platform Options
 						</h3>
 						<p>
-							Whether you're looking to establish a strong
+							Whether you&apos;re looking to establish a strong
 							presence on Instagram, Twitter, Facebook, or other
 							popular platforms, we have a wide range of premium
 							accounts to cater to your specific requirements.
