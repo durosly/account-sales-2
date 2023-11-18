@@ -71,16 +71,11 @@ async function PublicLayout({ children }) {
 										className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
 									>
 										<li>
-											<a className="justify-between">
+											<Link href="/auth/user/account">
 												Profile
-												<span className="badge">
-													New
-												</span>
-											</a>
+											</Link>
 										</li>
-										<li>
-											<a>Settings</a>
-										</li>
+
 										<li>
 											<LogoutBtn>Logout</LogoutBtn>
 										</li>

@@ -1,7 +1,9 @@
+import UserProfile from "./__components/user-profile";
+
 function UserAccountPage() {
 	return (
 		<>
-			<div className="px-10 mb-20">
+			<div className="px-10 mb-10 mt-5">
 				<h1 className="text-4xl font-bold">Profile</h1>
 			</div>
 
@@ -9,14 +11,7 @@ function UserAccountPage() {
 				<div className="card border">
 					<div className="card-body">
 						<ul>
-							<li className="flex gap-2">
-								<span>Name</span>
-								<span className="font-bold">John Doe</span>
-							</li>
-							<li className="flex gap-2">
-								<span>E-mail</span>
-								<span className="font-bold">joe@doe.com</span>
-							</li>
+							<UserProfile />
 						</ul>
 					</div>
 				</div>
