@@ -1,3 +1,4 @@
+import PasswordResetForm from "./__components/password-reset-form";
 import UserProfile from "./__components/user-profile";
 
 function UserAccountPage() {
@@ -18,54 +19,9 @@ function UserAccountPage() {
 			</div>
 
 			<div className="px-10 mb-20">
-				<div className="card border shadow">
+				<div className="card border">
 					<div className="card-body">
-						<form action="">
-							<div className="form-control">
-								<label
-									htmlFor="current-password"
-									className="label"
-								>
-									Current password
-								</label>
-								<input
-									type="password"
-									name="cpassword"
-									id="current-password"
-									className="input input-bordered"
-								/>
-							</div>
-							<div className="form-control">
-								<label
-									htmlFor="new-password"
-									className="label"
-								>
-									New password
-								</label>
-								<input
-									type="password"
-									name="cpassword"
-									id="new-password"
-									className="input input-bordered"
-								/>
-							</div>
-							<div className="form-control mb-5">
-								<label
-									htmlFor="repeat-new-password"
-									className="label"
-								>
-									Repeat new password
-								</label>
-								<input
-									type="password"
-									name="cpassword"
-									id="repeat-new-password"
-									className="input input-bordered"
-								/>
-							</div>
-
-							<button className="btn btn-primary">Submit</button>
-						</form>
+						<PasswordResetForm />
 					</div>
 				</div>
 			</div>
