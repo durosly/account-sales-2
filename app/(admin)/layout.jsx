@@ -3,6 +3,8 @@ import { SlGrid, SlLayers, SlDrawer, SlLogout } from "react-icons/sl";
 import LogoutBtn from "../components/logout-btn";
 import "easymde/dist/easymde.min.css";
 
+export const dynamic = "force-dynamic";
+
 function AdminLayout({ children }) {
 	return (
 		<div className="drawer lg:drawer-open max-lg:block ">
