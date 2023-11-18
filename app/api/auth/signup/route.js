@@ -65,7 +65,6 @@ async function signupUser(request) {
 		return NextResponse.json({
 			status: true,
 			message: "Success",
-			user,
 		});
 	} catch (error) {
 		console.log("error", error);

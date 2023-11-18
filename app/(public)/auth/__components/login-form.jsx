@@ -117,7 +117,7 @@ function LoginForm() {
 			</div>
 			<div className="text-center">
 				<Link
-					href="/forgot-password"
+					href="/auth/forgot-password"
 					className="link"
 				>
 					Forgot password?
