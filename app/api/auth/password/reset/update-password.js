@@ -75,8 +75,6 @@ async function updateUserPassword(request) {
 		user.password = re_new;
 		await user.save();
 
-		console.log(passwordReset);
-
 		await PasswordResetModel.findOneAndDelete({
 			email,
 			code: token,

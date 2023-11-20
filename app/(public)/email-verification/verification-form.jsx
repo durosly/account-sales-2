@@ -33,7 +33,7 @@ function VerificationForm() {
 				throw new Error("Something went wrong");
 			}
 
-			// console.log(res);
+			//
 			localStorage.removeItem("VERIFICATION_EMAIL");
 			toast.success("Success");
 			router.push("/email-verification/success");

@@ -40,7 +40,7 @@ function SignupForm() {
 
 			const resData = response.data;
 
-			// console.log(resData);
+			//
 			if (resData.status) {
 				toast.success("Signup successful", { id: toastId });
 				localStorage.setItem("VERIFICATION_EMAIL", data.data.email);

@@ -54,7 +54,6 @@ async function resendEmailHandler(request) {
 			message: "Email sent",
 		});
 	} catch (error) {
-		console.log("error", error);
 		return NextResponse.json({
 			status: false,
 			message: "An error occured",

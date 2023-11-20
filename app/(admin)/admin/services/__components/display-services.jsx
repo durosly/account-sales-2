@@ -20,8 +20,6 @@ function DisplayServices() {
 	const queryResponse = data?.data?.data || {};
 	const { docs, limit, totalDocs, hasNextPage, hasPrevPage } = queryResponse;
 
-	console.log(data);
-
 	return (
 		<>
 			<form

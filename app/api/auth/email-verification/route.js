@@ -8,7 +8,7 @@ async function verifyEmailHandler(request) {
 
 		const res = await request.json();
 
-		// console.log({ res });
+		//
 		const { is_verified, has_expires } = await verifyEmail(res);
 
 		if (has_expires) {
@@ -39,7 +39,6 @@ async function verifyEmailHandler(request) {
 			message: "E-mail verified",
 		});
 	} catch (error) {
-		console.log("error", error);
 		return NextResponse.json(
 			{
 				status: false,

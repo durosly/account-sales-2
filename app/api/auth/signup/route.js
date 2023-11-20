@@ -35,7 +35,7 @@ async function signupUser(request) {
 			);
 		}
 
-		// console.log({ res });
+		//
 
 		const user = await UserModel.create({
 			name: data.data.name,
@@ -67,7 +67,6 @@ async function signupUser(request) {
 			message: "Success",
 		});
 	} catch (error) {
-		console.log("error", error);
 		return NextResponse.json({
 			status: false,
 			message: "An error occured",

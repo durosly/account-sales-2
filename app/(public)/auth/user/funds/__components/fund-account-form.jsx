@@ -14,7 +14,6 @@ function FundAccountForm({ user }) {
 
 	const { isPending, mutate } = useMutation({
 		mutationFn: (ref) => {
-			console.log(ref, amt);
 			toastId.current = toast.loading("Creating fund request...");
 			return axios.post("/api/user/fund", { ref, amt });
 		},
@@ -54,15 +53,13 @@ function FundAccountForm({ user }) {
 	const initializePayment = usePaystackPayment(config);
 	function onSuccess(reference) {
 		// makeRegistrationRequest(reference);
-		console.log(reference);
+
 		if (reference.status === "success") {
 			mutate(reference.reference, amt);
 		}
 	}
 
-	function onClose() {
-		console.log("...closed...");
-	}
+	function onClose() {}
 
 	function initPayment(e) {
 		e.preventDefault();

@@ -25,7 +25,6 @@ async function getUserInfo() {
 			user,
 		});
 	} catch (error) {
-		console.log(error.message);
 		return NextResponse.json({
 			status: false,
 			message: `An error occured: ${error.message}`,
