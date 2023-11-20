@@ -1,17 +1,12 @@
-import Link from "next/link";
-import { SlBell, SlMenu, SlLogin } from "react-icons/sl";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import LogoutBtn from "../components/logout-btn";
 import { options } from "@/auth/options";
+import { getServerSession } from "next-auth";
+import Link from "next/link";
+import { SlBell, SlLogin, SlMenu } from "react-icons/sl";
+import LogoutBtn from "../components/logout-btn";
 import NavLinks from "./__components/nav-links";
 
 async function PublicLayout({ children }) {
 	const session = await getServerSession(options);
-
-	if (session?.user.account_type === "admin") {
-		redirect("/admin");
-	}
 
 	return (
 		<div className="drawer max-md:block">
