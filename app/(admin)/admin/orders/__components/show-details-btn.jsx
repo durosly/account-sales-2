@@ -2,7 +2,7 @@
 import { handleClientError } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { SlExclamation } from "react-icons/sl";
 import Markdown from "react-markdown";
@@ -36,12 +36,12 @@ function ShowDetailsBtn({ id, details, status }) {
 		},
 	});
 
-	const onChange = useCallback((value) => {
+	const onChange = (value) => {
 		setUpdate({
 			...update,
 			details: value,
 		});
-	}, []);
+	};
 
 	async function handleSubmit(e) {
 		e.preventDefault();
