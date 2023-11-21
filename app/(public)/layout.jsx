@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SlBell, SlLogin, SlMenu } from "react-icons/sl";
 import LogoutBtn from "../components/logout-btn";
 import NavLinks from "./__components/nav-links";
+import ShowNotificationStatus from "./__components/show-notification-status";
 
 async function PublicLayout({ children }) {
 	const session = await getServerSession(options);
@@ -46,7 +47,7 @@ async function PublicLayout({ children }) {
 								>
 									<div className="indicator">
 										<SlBell className="h-5 w-5" />
-										<span className="badge badge-xs badge-primary indicator-item"></span>
+										<ShowNotificationStatus />
 									</div>
 								</Link>
 								<div className="dropdown dropdown-end">
