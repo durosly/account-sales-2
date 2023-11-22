@@ -1,9 +1,9 @@
 import connectMongo from "@/lib/connectDB";
-import NotificationModel from "@/models/notification";
 import OrderModel from "@/models/order";
+import addNotification from "@/utils/backend/add-notification";
 import isValidObjectId from "@/utils/backend/verify-mongodb-id";
-import { NextResponse } from "next/server";
 import { DateTime } from "luxon";
+import { NextResponse } from "next/server";
 
 async function updateOrder(request, { params: { id } }) {
 	try {
@@ -25,7 +25,7 @@ async function updateOrder(request, { params: { id } }) {
 
 		// TODO: send email about order
 
-		// TODO: add local notification
+		// add local notification
 		const date = DateTime.fromJSDate(order.createdAt).toLocaleString(
 			DateTime.DATETIME_SHORT
 		);
@@ -38,11 +38,8 @@ async function updateOrder(request, { params: { id } }) {
 
 		message += " Check order history for more information.";
 
-		await NotificationModel.create({
-			userId: order.userId,
-			title: `Recent order (${order.quantity} ${order.serviceId.name})`,
-			body: message,
-		});
+		let title = `Recent order (${order.quantity} ${order.serviceId.name})`;
+		await addNotification(title, message, order.userId);
 
 		return NextResponse.json({
 			status: false,

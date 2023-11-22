@@ -3,6 +3,10 @@ import connectMongo from "@/lib/connectDB";
 import UserModel from "@/models/user";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { DateTime } from "luxon";
+import NotificationModel from "@/models/notification";
+import commaNumber from "comma-number";
+import addNotification from "@/utils/backend/add-notification";
 
 async function addToUserBalance(request) {
 	try {
@@ -43,7 +47,17 @@ async function addToUserBalance(request) {
 			}
 		);
 
+		const session = await getServerSession(options);
+
+		await connectMongo();
+		const date = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
+		let message = `Your deposit of ${commaNumber(amt)} naira on ${date}`;
+		const title = `Deposit (${commaNumber(amt)} ${date})`;
+
 		if (!verifyTran.ok) {
+			message += " failed.";
+			await addNotification(title, message, session.user.id);
+
 			return NextResponse.json(
 				{ status: false, message: "Transaction failed" },
 				{ status: 500 }
@@ -53,20 +67,23 @@ async function addToUserBalance(request) {
 		const verifyResponse = await verifyTran.json();
 
 		if (verifyResponse.data.status !== "success") {
+			message += " failed.";
+			await addNotification(title, message, session.user.id);
+
 			return NextResponse.json(
 				{ status: false, message: "Transaction failed" },
 				{ status: 500 }
 			);
 		}
 
-		const session = await getServerSession(options);
-
-		// TODO: add transaction history
-
-		await connectMongo();
 		const user = await UserModel.findByIdAndUpdate(session.user.id, {
 			$inc: { balance: amt },
 		});
+
+		// add transaction history
+		message += " is successful";
+
+		await addNotification(title, message, session.user.id);
 
 		return NextResponse.json({
 			status: true,
