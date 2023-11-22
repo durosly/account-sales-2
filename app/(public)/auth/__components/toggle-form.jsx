@@ -13,6 +13,7 @@ function ToggleForms() {
 			id="toggle"
 			className="peer auth-toggler"
 			checked={action === "signup"}
+			onChange={() => {}}
 		/>
 	);
 }
