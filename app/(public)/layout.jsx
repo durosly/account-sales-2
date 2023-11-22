@@ -121,23 +121,78 @@ async function PublicLayout({ children }) {
 					</aside>
 					<nav>
 						<header className="footer-title">Services</header>
-						<a className="link link-hover">Branding</a>
-						<a className="link link-hover">Design</a>
-						<a className="link link-hover">Marketing</a>
-						<a className="link link-hover">Advertisement</a>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Branding
+						</Link>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Design
+						</Link>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Marketing
+						</Link>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Advertisement
+						</Link>
 					</nav>
 					<nav>
 						<header className="footer-title">Company</header>
-						<a className="link link-hover">About us</a>
-						<a className="link link-hover">Contact</a>
-						<a className="link link-hover">Jobs</a>
-						<a className="link link-hover">Press kit</a>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							About us
+						</Link>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Contact
+						</Link>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Jobs
+						</Link>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Press kit
+						</Link>
 					</nav>
 					<nav>
 						<header className="footer-title">Legal</header>
-						<a className="link link-hover">Terms of use</a>
-						<a className="link link-hover">Privacy policy</a>
-						<a className="link link-hover">Cookie policy</a>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Terms of use
+						</Link>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Privacy policy
+						</Link>
+						<Link
+							href="/nice"
+							className="link link-hover"
+						>
+							Cookie policy
+						</Link>
 					</nav>
 				</footer>
 			</div>

@@ -31,7 +31,6 @@ async function getNotifications(request) {
 			sort: { createdAt: -1 },
 		});
 
-		console.log(query);
 		return NextResponse.json({
 			status: true,
 			message: "success",

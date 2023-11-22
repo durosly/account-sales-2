@@ -3,12 +3,12 @@ import { signOut } from "next-auth/react";
 
 function LogoutBtn(props) {
 	return (
-		<a
+		<span
 			onClick={() => signOut()}
 			className={props.className}
 		>
 			{props.children}
-		</a>
+		</span>
 	);
 }
 
