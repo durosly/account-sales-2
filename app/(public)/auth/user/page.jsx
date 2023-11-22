@@ -1,6 +1,7 @@
 import { SlChart, SlTrophy, SlWallet } from "react-icons/sl";
 import OrderForm from "./__components/order-form";
 import UserBalance from "./__components/user-balance";
+import UserOrdersCount from "./__components/user-orders-count";
 
 function UserDashboardPage() {
 	return (
@@ -20,7 +21,7 @@ function UserDashboardPage() {
 				<div className="flex-1 flex gap-5 p-10 rounded-xl border">
 					<SlChart className="w-10 h-10" />
 					<div>
-						<p className="text-3xl font-semibold">2,000.00</p>
+						<UserOrdersCount />
 						<p className="text-sm uppercase">Completed Orders</p>
 					</div>
 				</div>
