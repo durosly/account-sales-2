@@ -31,7 +31,7 @@ async function PublicLayout({ children }) {
 								<SlMenu className="inline-block w-5 h-5 stroke-current" />
 							</label>
 						</div>
-						<div className=" px-2 mx-2 md:mr-20">Navbar Title</div>
+						<div className=" px-2 mx-2 md:mr-20">Acchub</div>
 						<div className="flex-none hidden lg:block">
 							<ul className="menu menu-horizontal">
 								<NavLinks />
@@ -203,7 +203,7 @@ async function PublicLayout({ children }) {
 					className="drawer-overlay"
 				></label>
 				<div className="menu p-4 w-80 min-h-full bg-base-200">
-					<h2 className="text-xl font-bold text-center">SalesMart</h2>
+					<h2 className="text-xl font-bold text-center">Acchub</h2>
 					<ul>
 						{/* Sidebar content here */}
 						<NavLinks />
