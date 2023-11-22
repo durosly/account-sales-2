@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
+      "@/*": ["./*"],
       "@/components/*": ["./app/components/*"],
       "@/images/*": ["./public/images/*"],
       "@/lib/*": ["./lib/*"],
