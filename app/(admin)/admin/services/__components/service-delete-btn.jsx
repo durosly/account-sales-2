@@ -35,7 +35,7 @@ function ServiceDeleteBtn({ id }) {
 	return (
 		<>
 			<button
-				className="btn btn-error btn-square btn-outline"
+				className="btn btn-sm md:btn-md btn-error btn-square btn-outline"
 				onClick={() =>
 					document.getElementById(`service-modal-${id}`).showModal()
 				}

@@ -5,7 +5,7 @@ import CategoryModel from "./category";
 
 const serviceSchema = new mongoose.Schema({
 	name: String,
-	categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+	categoryId: { type: mongoose.Schema.Types.ObjectId, ref: CategoryModel },
 	price: Number,
 	createdAt: { type: Date, default: Date.now },
 });

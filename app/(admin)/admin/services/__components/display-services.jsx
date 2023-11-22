@@ -60,6 +60,7 @@ function DisplayServices() {
 							<th></th>
 							<th>Service</th>
 							<th>Category</th>
+							<th>Price (N)</th>
 							<th>Created at</th>
 							<th>Action</th>
 						</tr>
@@ -71,7 +72,7 @@ function DisplayServices() {
 								.fill(3)
 								.map((_, i) => (
 									<tr key={i}>
-										<td colSpan={5}>
+										<td colSpan={6}>
 											<Skeleton />
 										</td>
 									</tr>
@@ -79,7 +80,7 @@ function DisplayServices() {
 						) : isError ? (
 							<tr>
 								<td
-									colSpan={5}
+									colSpan={6}
 									className="text-error font-bold"
 								>
 									{error.message}
@@ -103,7 +104,7 @@ function DisplayServices() {
 						)}
 						{isFetching ? (
 							<tr>
-								<td colSpan={5}>
+								<td colSpan={6}>
 									<span className="loading loading-spinner"></span>
 									<span> Loading...</span>
 								</td>
