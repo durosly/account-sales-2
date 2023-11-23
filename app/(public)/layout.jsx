@@ -8,6 +8,8 @@ import NavLinks from "./__components/nav-links";
 import ShowNotificationStatus from "./__components/show-notification-status";
 import { NavigationEvents } from "../components/navigation-event";
 
+export const dynamic = "force-dynamic";
+
 async function PublicLayout({ children }) {
 	const session = await getServerSession(options);
 

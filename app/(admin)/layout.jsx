@@ -20,7 +20,7 @@ function AdminLayout({ children }) {
 				<div className="navbar border-b lg:hidden">
 					<div className="flex-none">
 						<label
-							htmlFor="my-drawer-2"
+							htmlFor="my-drawer-3"
 							className="btn btn-square btn-ghost drawer-button lg:hidden"
 						>
 							<svg
@@ -69,7 +69,7 @@ function AdminLayout({ children }) {
 			</div>
 			<div className="drawer-side">
 				<label
-					htmlFor="my-drawer-2"
+					htmlFor="my-drawer-3"
 					aria-label="close sidebar"
 					className="drawer-overlay"
 				></label>
