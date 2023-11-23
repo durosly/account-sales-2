@@ -321,7 +321,7 @@ function Home() {
 
 			{/* Get started */}
 
-			<div className="p-7 md:p-10 rounded-2xl sm:rounded-full bg-primary/30 text-center mx-10 mb-20">
+			<div className="p-7 md:p-10 rounded-xl border border-primary text-center mx-10 mb-20">
 				<h2 className="text-2xl md:text-4xl font-bold mb-5">
 					Can&apos;t wait to have you with us
 				</h2>
