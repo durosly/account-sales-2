@@ -29,15 +29,9 @@ function VerificationForm() {
 				email: localStorage.getItem("VERIFICATION_EMAIL"),
 			});
 
-			if (res.statusText !== "OK") {
-				throw new Error("Something went wrong");
-			}
-
-			//
 			localStorage.removeItem("VERIFICATION_EMAIL");
 			toast.success("Success");
 			router.push("/email-verification/success");
-			// setIsLoading(false);
 		} catch (error) {
 			const message = handleClientError(error);
 			toast.error(message);
@@ -51,10 +45,6 @@ function VerificationForm() {
 			const res = await axios.put("/api/auth/email-verification/resend", {
 				email: localStorage.getItem("VERIFICATION_EMAIL"),
 			});
-
-			if (res.statusText !== "OK") {
-				throw new Error("Something went wrong");
-			}
 
 			toast.success("E-mail sent", { id: toastId });
 		} catch (error) {

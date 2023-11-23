@@ -54,10 +54,13 @@ async function resendEmailHandler(request) {
 			message: "Email sent",
 		});
 	} catch (error) {
-		return NextResponse.json({
-			status: false,
-			message: "An error occured",
-		});
+		return NextResponse.json(
+			{
+				status: false,
+				message: "An error occured",
+			},
+			{ status: 500 }
+		);
 	}
 }
 
