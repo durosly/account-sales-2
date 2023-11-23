@@ -34,13 +34,8 @@ function SignupForm() {
 				...data.data,
 			});
 
-			if (response.statusText !== "OK") {
-				throw new Error("Failed to create account");
-			}
-
 			const resData = response.data;
 
-			//
 			if (resData.status) {
 				toast.success("Signup successful", { id: toastId });
 				localStorage.setItem("VERIFICATION_EMAIL", data.data.email);
