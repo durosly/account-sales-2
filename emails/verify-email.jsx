@@ -6,13 +6,11 @@ import {
 	Heading,
 	Hr,
 	Html,
-	Img,
 	Link,
 	Preview,
 	Section,
 	Text,
 } from "@react-email/components";
-import * as React from "react";
 
 const baseUrl = process.env.NEXT_PUBLIC_URL
 	? `https://${process.env.NEXT_PUBLIC_URL}`
@@ -24,13 +22,7 @@ export const VerifyEmail = ({ email, validationCode = "tt226-5398x" }) => (
 		<Preview>Your E-mail verification code</Preview>
 		<Body style={main}>
 			<Container style={container}>
-				<Img
-					src={`${baseUrl}/static/linear-logo.png`}
-					width="42"
-					height="42"
-					alt="Linear"
-					style={logo}
-				/>
+				<Heading style={title}>AccHub.net</Heading>
 				<Heading style={heading}>Your E-mail verification code</Heading>
 				<Section style={buttonContainer}>
 					<Button
@@ -48,10 +40,10 @@ export const VerifyEmail = ({ email, validationCode = "tt226-5398x" }) => (
 				<code style={code}>{validationCode}</code>
 				<Hr style={hr} />
 				<Link
-					href="https://linear.app"
+					href="https://acchub.net"
 					style={reportLink}
 				>
-					Linear
+					Acchub.net
 				</Link>
 			</Container>
 		</Body>
@@ -59,6 +51,12 @@ export const VerifyEmail = ({ email, validationCode = "tt226-5398x" }) => (
 );
 
 export default VerifyEmail;
+
+const title = {
+	fontSize: "32px",
+	fontWeight: "bold",
+	textAlign: "center",
+};
 
 const logo = {
 	borderRadius: 21,

@@ -5,7 +5,6 @@ import {
 	Head,
 	Heading,
 	Html,
-	Img,
 	Preview,
 	Section,
 	Text,
@@ -21,13 +20,7 @@ export const passwordResetEmail = ({ email, token = "tt226-5398x" }) => (
 		<Preview>Password reset</Preview>
 		<Body style={main}>
 			<Container style={container}>
-				<Img
-					src={`${baseUrl}/static/linear-logo.png`}
-					width="42"
-					height="42"
-					alt="Linear"
-					style={logo}
-				/>
+				<Heading style={title}>AccHub.net</Heading>
 				<Heading style={heading}>Password Reset</Heading>
 				<Section style={buttonContainer}>
 					<Button
@@ -51,6 +44,12 @@ export const passwordResetEmail = ({ email, token = "tt226-5398x" }) => (
 );
 
 export default passwordResetEmail;
+
+const title = {
+	fontSize: "32px",
+	fontWeight: "bold",
+	textAlign: "center",
+};
 
 const logo = {
 	borderRadius: 21,
