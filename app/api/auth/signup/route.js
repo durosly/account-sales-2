@@ -18,10 +18,13 @@ async function signupUser(request) {
 		const data = UserSignupSchema.safeParse(res);
 
 		if (!data.success) {
-			return NextResponse.json({
-				status: false,
-				message: data.error.issues[0].message,
-			});
+			return NextResponse.json(
+				{
+					status: false,
+					message: data.error.issues[0].message,
+				},
+				{ status: 401 }
+			);
 		}
 
 		const emailTaken = await UserModel.findOne({ email: data.data.email });
@@ -34,8 +37,6 @@ async function signupUser(request) {
 				{ status: 400 }
 			);
 		}
-
-		//
 
 		const user = await UserModel.create({
 			name: data.data.name,
