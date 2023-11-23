@@ -7,6 +7,8 @@ import xIcon from "@/images/x-icon.png";
 import ytIcon from "@/images/yt-icon.png";
 import Image from "next/image";
 
+export const metadata = { title: "Services" };
+
 function ServicesPage() {
 	return (
 		<>

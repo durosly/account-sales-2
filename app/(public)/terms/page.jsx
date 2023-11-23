@@ -1,3 +1,5 @@
+export const metadata = { title: "Terms and conditions" };
+
 function TermsPage() {
 	return (
 		<>
