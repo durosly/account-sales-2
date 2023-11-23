@@ -54,23 +54,27 @@ async function signupUser(request) {
 		);
 
 		const options = {
-			from: `${process.env.SMTP_INFO} <onboarding@resend.dev>`,
+			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
 			to: user.email,
 			subject: "Verify email address",
 			html: htmlEmail,
 		};
 
 		await transporter.sendMail(options);
+
 		// send email using verification ID and code
 		return NextResponse.json({
 			status: true,
 			message: "Success",
 		});
 	} catch (error) {
-		return NextResponse.json({
-			status: false,
-			message: "An error occured",
-		});
+		return NextResponse.json(
+			{
+				status: false,
+				message: "An error occured",
+			},
+			{ status: 500 }
+		);
 	}
 }
 

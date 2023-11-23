@@ -45,7 +45,7 @@ async function sendResetPasswordEmail(request) {
 		);
 
 		const options = {
-			from: `${process.env.SMTP_INFO} <onboarding@resend.dev>`,
+			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
 			to: user.email,
 			subject: "Password Reset",
 			html: htmlEmail,

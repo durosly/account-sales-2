@@ -41,7 +41,7 @@ async function resendEmailHandler(request) {
 		);
 
 		const options = {
-			from: `${process.env.SMTP_INFO} <onboarding@resend.dev>`,
+			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
 			to: email,
 			subject: "Verify email address",
 			html: htmlEmail,
