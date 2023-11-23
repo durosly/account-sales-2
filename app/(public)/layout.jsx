@@ -6,6 +6,7 @@ import { SlEnvolope } from "react-icons/sl";
 import LogoutBtn from "../components/logout-btn";
 import NavLinks from "./__components/nav-links";
 import ShowNotificationStatus from "./__components/show-notification-status";
+import { NavigationEvents } from "../components/navigation-event";
 
 async function PublicLayout({ children }) {
 	const session = await getServerSession(options);
@@ -17,6 +18,7 @@ async function PublicLayout({ children }) {
 				type="checkbox"
 				className="drawer-toggle"
 			/>
+			<NavigationEvents />
 			<div className="drawer-content flex flex-col">
 				{/* Navbar */}
 				<div

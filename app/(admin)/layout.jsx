@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SlGrid, SlLayers, SlDrawer, SlLogout } from "react-icons/sl";
 import LogoutBtn from "../components/logout-btn";
 import "easymde/dist/easymde.min.css";
+import { NavigationEvents } from "../components/navigation-event";
 
 export const dynamic = "force-dynamic";
 
@@ -9,10 +10,11 @@ function AdminLayout({ children }) {
 	return (
 		<div className="drawer lg:drawer-open max-lg:block ">
 			<input
-				id="my-drawer-2"
+				id="my-drawer-3"
 				type="checkbox"
 				className="drawer-toggle"
 			/>
+			<NavigationEvents />
 			<div className="drawer-content">
 				{/* mobile header navigation */}
 				<div className="navbar border-b lg:hidden">
