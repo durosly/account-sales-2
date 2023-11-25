@@ -4,11 +4,12 @@ import { FaTimes } from "react-icons/fa";
 import { SlBell } from "react-icons/sl";
 
 import { app } from "@/lib/firebase";
-import { getMessaging, onMessage } from "firebase/messaging";
+import { getMessaging, onMessage, isSupported } from "firebase/messaging";
 import toast from "react-hot-toast";
 
 function HandleNotification() {
-	const messaging = getMessaging(app);
+	// const messaging = getMessaging(app);
+	const messaging = async () => (await isSupported()) && getMessaging(app);
 
 	useEffect(() => {
 		const unsubscribe = onMessage(messaging, (payload) => {

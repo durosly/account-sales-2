@@ -12,7 +12,8 @@ function useRequestPermission({ topic }) {
 		},
 	});
 
-	const messaging = getMessaging(app);
+	// const messaging = getMessaging(app);
+	const messaging = async () => (await isSupported()) && getMessaging(app);
 
 	useEffect(() => {
 		async function handleNotice(topic) {
