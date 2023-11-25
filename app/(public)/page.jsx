@@ -56,18 +56,21 @@ function Home() {
 						width={50}
 						height={50}
 						className="absolute top-36 right-5 drop-shadow-2xl"
+						alt=""
 					/>
 					<Image
 						src={igIcon}
 						width={50}
 						height={50}
 						className="absolute top-10 right-28 drop-shadow-2xl"
+						alt=""
 					/>
 
 					<Image
 						src={coverImg}
 						fill
 						className="object-contain"
+						alt=""
 						sizes="(min-width: 780px) calc(50vw - 40px), (min-width: 420px) calc(100vw - 80px), calc(8vw + 288px)"
 					/>
 					<Image
@@ -75,6 +78,7 @@ function Home() {
 						width={50}
 						height={50}
 						className="absolute top-8 left-52 z-20 drop-shadow-2xl"
+						alt=""
 					/>
 					<div className="border bg-base-100 absolute top-1/4 -translate-y-1/2 -left-3 sm:left-10  p-5 rounded-2xl shadow-xl">
 						<span className="bg-success/10 shadow-2xl flex w-8 h-8 rounded-full justify-center items-center">
@@ -88,12 +92,14 @@ function Home() {
 						width={50}
 						height={50}
 						className="absolute bottom-8 left-52 z-20 drop-shadow-2xl"
+						alt=""
 					/>
 					<Image
 						src={likeIcon}
 						width={50}
 						height={50}
 						className="absolute bottom-16 right-36 z-20 drop-shadow-2xl"
+						alt=""
 					/>
 				</div>
 			</div>

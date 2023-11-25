@@ -7,6 +7,7 @@ import { DateTime } from "luxon";
 import NotificationModel from "@/models/notification";
 import commaNumber from "comma-number";
 import addNotification from "@/utils/backend/add-notification";
+import PNotificationModel from "@/models/p-notification";
 
 async function addToUserBalance(request) {
 	try {
@@ -90,6 +91,7 @@ async function addToUserBalance(request) {
 			message: "success",
 		});
 	} catch (error) {
+		console.log(error.message);
 		return NextResponse.json({
 			status: false,
 			message: `An error occured: ${error.message}`,

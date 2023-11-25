@@ -1,12 +1,13 @@
-import { Inter } from "next/font/google";
-import "react-loading-skeleton/dist/skeleton.css";
-import "./globals.css";
-import { Toaster } from "react-hot-toast";
-import ClientWrapper from "./components/client-wrapper";
-const inter = Inter({ subsets: ["latin"] });
-import keywordsList from "@/app/keywords.json";
 import categoryList from "@/app/categories.json";
+import keywordsList from "@/app/keywords.json";
+import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+import "react-loading-skeleton/dist/skeleton.css";
+import ClientWrapper from "./components/client-wrapper";
+import "./globals.css";
 import { metaInfo } from "./meta";
+import HandleNotification from "./components/handle-notification";
+const inter = Inter({ subsets: ["latin"] });
 
 export const viewport = {
 	themeColor: "#4A00FF",
@@ -56,6 +57,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
+				<HandleNotification />
 				<ClientWrapper>{children}</ClientWrapper>
 				<Toaster />
 			</body>

@@ -1,12 +1,12 @@
 import { options } from "@/auth/options";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { SlBell, SlLogin, SlMenu } from "react-icons/sl";
-import { SlEnvolope } from "react-icons/sl";
+import { SlBell, SlEnvolope, SlLogin, SlMenu } from "react-icons/sl";
+import HandleNotificationTopic from "../components/handle-notification-topic";
 import LogoutBtn from "../components/logout-btn";
+import { NavigationEvents } from "../components/navigation-event";
 import NavLinks from "./__components/nav-links";
 import ShowNotificationStatus from "./__components/show-notification-status";
-import { NavigationEvents } from "../components/navigation-event";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +20,9 @@ async function PublicLayout({ children }) {
 				type="checkbox"
 				className="drawer-toggle"
 			/>
+			{session?.user ? (
+				<HandleNotificationTopic topic={"regular"} />
+			) : null}
 			<NavigationEvents />
 			<div className="drawer-content flex flex-col">
 				{/* Navbar */}

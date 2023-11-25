@@ -19,6 +19,8 @@
 		"bcryptjs": "^2.4.3",
 		"comma-number": "^2.1.0",
 		"easymde": "^2.18.0",
+		"firebase": "^10.6.0",
+		"firebase-admin": "^11.11.1",
 		"luxon": "^3.4.4",
 		"mongoose": "^8.0.0",
 		"mongoose-paginate-v2": "1.7.4",

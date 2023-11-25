@@ -3,6 +3,7 @@ import { SlGrid, SlLayers, SlDrawer, SlLogout } from "react-icons/sl";
 import LogoutBtn from "../components/logout-btn";
 import "easymde/dist/easymde.min.css";
 import { NavigationEvents } from "../components/navigation-event";
+import HandleNotificationTopic from "../components/handle-notification-topic";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +15,7 @@ function AdminLayout({ children }) {
 				type="checkbox"
 				className="drawer-toggle"
 			/>
+			<HandleNotificationTopic topic={"admin"} />
 			<NavigationEvents />
 			<div className="drawer-content">
 				{/* mobile header navigation */}

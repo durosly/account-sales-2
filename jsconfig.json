@@ -9,6 +9,7 @@
       "@/models/*": ["./models/*"],
       "@/validators/*": ["./validators/*"],
       "@/emails/*": ["./emails/*"],
+      "@/hooks/*": ["./hooks/*"],
       "@/auth/*": ["./app/api/auth/[...nextauth]/*"],
     }
   }
