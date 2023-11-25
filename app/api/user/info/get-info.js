@@ -27,10 +27,13 @@ async function getUserInfo() {
 			user,
 		});
 	} catch (error) {
-		return NextResponse.json({
-			status: false,
-			message: `An error occured: ${error.message}`,
-		});
+		return NextResponse.json(
+			{
+				status: false,
+				message: `An error occured: ${error.message}`,
+			},
+			{ status: 500 }
+		);
 	}
 }
 
