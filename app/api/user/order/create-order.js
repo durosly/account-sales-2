@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { CreateOrderSchema } from "@/validators/order";
 import { NextResponse } from "next/server";
 import UserModel from "@/models/user";
+import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
 
 async function createOrder(request) {
 	try {
@@ -61,6 +62,11 @@ async function createOrder(request) {
 			charge,
 			userId: session.user.id,
 		});
+
+		await pushNotifyAdmin(
+			"New order request",
+			`New order request for service "${service.name}" from ${user.name}`
+		);
 
 		return NextResponse.json({
 			status: false,

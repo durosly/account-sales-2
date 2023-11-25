@@ -12,7 +12,6 @@ function HandleNotification() {
 
 	useEffect(() => {
 		const unsubscribe = onMessage(messaging, (payload) => {
-			console.log(payload);
 			const { notification } = payload;
 			toast.custom((t) => (
 				<div

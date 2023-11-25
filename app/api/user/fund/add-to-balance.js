@@ -8,6 +8,7 @@ import NotificationModel from "@/models/notification";
 import commaNumber from "comma-number";
 import addNotification from "@/utils/backend/add-notification";
 import PNotificationModel from "@/models/p-notification";
+import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
 
 async function addToUserBalance(request) {
 	try {
@@ -70,6 +71,11 @@ async function addToUserBalance(request) {
 		if (verifyResponse.data.status !== "success") {
 			message += " failed.";
 			await addNotification(title, message, session.user.id);
+
+			await pushNotifyAdmin(
+				"User funding",
+				`A user just funded his/her account`
+			);
 
 			return NextResponse.json(
 				{ status: false, message: "Transaction failed" },

@@ -1,21 +1,14 @@
 import connectMongo from "@/lib/connectDB";
 import { firebaseAdmin } from "@/lib/firebase-admin";
-import NotificationModel from "@/models/notification";
 import PNotificationModel from "@/models/p-notification";
 import { getMessaging } from "firebase-admin/messaging";
 
-async function addNotification(title, message, id) {
+async function pushNotifyAdmin(title, message) {
 	try {
 		await connectMongo();
 
-		await NotificationModel.create({
-			userId: id,
-			title,
-			body: message,
-		});
-
 		const pUserNotifications = await PNotificationModel.find({
-			userId: id,
+			topics: "admin",
 		});
 
 		if (pUserNotifications.length) {
@@ -38,4 +31,4 @@ async function addNotification(title, message, id) {
 	}
 }
 
-export default addNotification;
+export default pushNotifyAdmin;

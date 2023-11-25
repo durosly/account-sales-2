@@ -10,7 +10,7 @@ const pNotificationSchema = new mongoose.Schema({
 
 		default: ["regular"],
 	},
-	token: { type: String, default: "pending..." },
+	token: { type: String, unique: true },
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now },
 });
