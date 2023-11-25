@@ -4,6 +4,8 @@ import OrderModel from "@/models/order";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 async function getOrders(request) {
 	try {
 		const { searchParams } = new URL(request.url);

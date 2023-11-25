@@ -4,6 +4,8 @@ import NotificationModel from "@/models/notification";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 async function getNotifications(request) {
 	try {
 		const { searchParams } = new URL(request.url);

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import connectMongo from "@/lib/connectDB";
 import CategoryModel from "@/models/category";
 
+export const dynamic = "force-dynamic";
+
 async function getCategories(request) {
 	try {
 		const { searchParams } = new URL(request.url);

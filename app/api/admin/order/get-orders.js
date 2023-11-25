@@ -2,6 +2,8 @@ import connectMongo from "@/lib/connectDB";
 import OrderModel from "@/models/order";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 async function getOrders(request) {
 	try {
 		const { searchParams } = new URL(request.url);

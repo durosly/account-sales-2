@@ -4,6 +4,8 @@ import UserModel from "@/models/user";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 async function getUserInfo() {
 	try {
 		const session = await getServerSession(options);

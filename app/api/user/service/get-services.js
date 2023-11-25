@@ -3,6 +3,8 @@ import ServiceModel from "@/models/service";
 import isValidObjectId from "@/utils/backend/verify-mongodb-id";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 async function getServices(request) {
 	try {
 		const { searchParams } = new URL(request.url);

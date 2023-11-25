@@ -2,6 +2,8 @@ import connectMongo from "@/lib/connectDB";
 import ServiceModel from "@/models/service";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 async function getServices(request) {
 	try {
 		const { searchParams } = new URL(request.url);
