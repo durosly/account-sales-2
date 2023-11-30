@@ -2,10 +2,10 @@
 import { handleClientError } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
-import { usePaystackPayment } from "react-paystack";
 
 function FundAccountForm({ user }) {
 	const [amt, setAmt] = useState("");
@@ -31,35 +31,32 @@ function FundAccountForm({ user }) {
 	});
 
 	const config = {
-		email: user?.email || "none@gmail.com",
-		amount: amt * 100, //Amount is in the country's lowest currency. E.g Kobo, so 20000 kobo = N200
-		publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
-		metadata: {
-			custom_fields: [
-				{
-					display_name: "user name",
-					variable_name: "user_name",
-					value: user?.name || "nil",
-				},
-				{
-					display_name: "user ID",
-					variable_name: "user_id",
-					value: user?.id || null,
-				},
-			],
+		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
+		tx_ref: Date.now(),
+		amount: amt,
+		currency: "NGN",
+		payment_options: "card,mobilemoney,ussd,banktransfer",
+		customer: {
+			email: user?.email || "none@gmail.com",
+			name: user?.name || "nil",
+		},
+		customizations: {
+			title: "Fund account",
+			description: "Payment for funding of user account",
+			logo: "https://www.acchub.net/favicon.ico",
+		},
+		meta: {
+			customer_id: user?.id || null,
 		},
 	};
 
-	const initializePayment = usePaystackPayment(config);
-	function onSuccess(reference) {
-		// makeRegistrationRequest(reference);
+	const handleFlutterPayment = useFlutterwave(config);
 
-		if (reference.status === "success") {
-			mutate(reference.reference, amt);
+	function onSuccess(reference) {
+		if (reference.status === "successful") {
+			mutate(reference.transaction_id, amt);
 		}
 	}
-
-	function onClose() {}
 
 	function initPayment(e) {
 		e.preventDefault();
@@ -70,7 +67,14 @@ function FundAccountForm({ user }) {
 
 		if (isPending) return;
 
-		initializePayment(onSuccess, onClose);
+		handleFlutterPayment({
+			callback: (response) => {
+				console.log(response);
+				closePaymentModal(); // this will close the modal programmatically
+				onSuccess(response);
+			},
+			onClose: () => {},
+		});
 	}
 
 	return (

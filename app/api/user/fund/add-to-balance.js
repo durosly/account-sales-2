@@ -1,14 +1,12 @@
 import { options } from "@/auth/options";
 import connectMongo from "@/lib/connectDB";
 import UserModel from "@/models/user";
+import addNotification from "@/utils/backend/add-notification";
+import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
+import commaNumber from "comma-number";
+import { DateTime } from "luxon";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { DateTime } from "luxon";
-import NotificationModel from "@/models/notification";
-import commaNumber from "comma-number";
-import addNotification from "@/utils/backend/add-notification";
-import PNotificationModel from "@/models/p-notification";
-import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
 
 async function addToUserBalance(request) {
 	try {
@@ -41,13 +39,23 @@ async function addToUserBalance(request) {
 		}
 
 		const verifyTran = await fetch(
-			`https://api.paystack.co/transaction/verify/${ref}`,
+			`https://api.flutterwave.com/v3/transactions/${ref}/verify`,
 			{
 				headers: {
-					Authorization: `Bearer ${process.env.PAYSTACK_KEY}`,
+					Authorization: `Bearer ${process.env.FLUTTERWAVE_KEY}`,
 				},
 			}
 		);
+
+		if (!verifyTran.ok) {
+			return NextResponse.json(
+				{
+					status: false,
+					message: "An error occured verifying transaction",
+				},
+				{ status: 400 }
+			);
+		}
 
 		const session = await getServerSession(options);
 
@@ -56,7 +64,9 @@ async function addToUserBalance(request) {
 		let message = `Your deposit of ${commaNumber(amt)} naira on ${date}`;
 		const title = `Deposit (${commaNumber(amt)} ${date})`;
 
-		if (!verifyTran.ok) {
+		const verifyResponse = await verifyTran.json();
+
+		if (verifyResponse.status !== "success") {
 			message += " failed.";
 			await addNotification(title, message, session.user.id);
 
@@ -66,16 +76,9 @@ async function addToUserBalance(request) {
 			);
 		}
 
-		const verifyResponse = await verifyTran.json();
-
-		if (verifyResponse.data.status !== "success") {
+		if (verifyResponse.data.amount !== Number(amt)) {
 			message += " failed.";
 			await addNotification(title, message, session.user.id);
-
-			await pushNotifyAdmin(
-				"User funding",
-				`A user just funded his/her account`
-			);
 
 			return NextResponse.json(
 				{ status: false, message: "Transaction failed" },
@@ -91,6 +94,10 @@ async function addToUserBalance(request) {
 		message += " is successful";
 
 		await addNotification(title, message, session.user.id);
+		await pushNotifyAdmin(
+			"User funding",
+			`A user just funded his/her account`
+		);
 
 		return NextResponse.json({
 			status: true,
