@@ -62,7 +62,7 @@ export const options = {
 					const userObj = strigifyObj(user);
 					return {
 						id: userObj._id,
-						name: `${userObj.firstname} ${userObj.lastname}`,
+						name: userObj.name,
 						email: userObj.email,
 						account_type: userObj.account_type,
 					};
