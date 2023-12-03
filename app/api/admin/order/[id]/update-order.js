@@ -1,5 +1,6 @@
 import connectMongo from "@/lib/connectDB";
 import OrderModel from "@/models/order";
+import ServiceModel from "@/models/service";
 import addNotification from "@/utils/backend/add-notification";
 import isValidObjectId from "@/utils/backend/verify-mongodb-id";
 import { DateTime } from "luxon";
@@ -40,6 +41,13 @@ async function updateOrder(request, { params: { id } }) {
 
 		let title = `Recent order (${order.quantity} ${order.serviceId.name})`;
 		await addNotification(title, message, order.userId);
+
+		if (status === "success") {
+			let quantity = -order.quantity;
+			await ServiceModel.findByIdAndUpdate(order.serviceId._id, {
+				$inc: { quantity },
+			});
+		}
 
 		return NextResponse.json({
 			status: false,

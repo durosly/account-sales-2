@@ -1,21 +1,25 @@
-"use client";
 import { handleClientError } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import commaNumber from "comma-number";
 import { useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
-import { FaPencilAlt } from "react-icons/fa";
+import { FaPlusMinus } from "react-icons/fa6";
 
-function ServiceUpdateBtn({ id }) {
-	const [price, setPrice] = useState("");
+function ServiceQuantity({ quantity: q, id }) {
+	const [quantity, setQuantity] = useState("");
+	const [direction, setDirection] = useState("inc");
 	const queryClient = useQueryClient();
 	let toastId = useRef(null);
 
 	const { isPending, mutate, isError, error } = useMutation({
-		mutationFn: (price) => {
-			toastId.current = toast.loading("Updating service price...");
-			return axios.put(`/api/admin/service/${id}`, { price });
+		mutationFn: (quantity) => {
+			toastId.current = toast.loading("Updating service quantity...");
+			return axios.put(`/api/admin/service/${id}/quantity`, {
+				quantity,
+				direction,
+			});
 		},
 		// make sure to _return_ the Promise from the query invalidation
 		// so that the mutation stays in `pending` state until the refetch is finished
@@ -25,9 +29,11 @@ function ServiceUpdateBtn({ id }) {
 			});
 		},
 		onSuccess: () => {
-			toast.success("Service price updated", { id: toastId.current });
-			setPrice("");
-			document.getElementById(`service-update-modal-${id}`).close();
+			toast.success("Service quantity updated", { id: toastId.current });
+			setQuantity("");
+			document
+				.getElementById(`service-quantity-update-modal-${id}`)
+				.close();
 		},
 		onError: (error) => {
 			const message = handleClientError(error);
@@ -38,60 +44,86 @@ function ServiceUpdateBtn({ id }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		if (!price) {
-			return toast.error("Price cannot be empty");
+		if (!quantity) {
+			return toast.error("Quantity cannot be empty");
 		}
 
-		mutate(price);
+		mutate(quantity);
 	}
 
 	return (
 		<>
-			<button
-				className="btn btn-sm md:btn-md btn-primary btn-square btn-outline"
-				onClick={() =>
-					document
-						.getElementById(`service-update-modal-${id}`)
-						.showModal()
-				}
-			>
-				<FaPencilAlt />
-			</button>
+			<span className="space-x-1">
+				<span>{commaNumber(q)}</span>
+				<button
+					className="btn btn-xs"
+					onClick={() =>
+						document
+							.getElementById(
+								`service-quantity-update-modal-${id}`
+							)
+							.showModal()
+					}
+				>
+					<FaPlusMinus />
+				</button>
+			</span>
+
 			{/* Open the modal using document.getElementById('ID').showModal() method */}
 
 			<dialog
-				id={`service-update-modal-${id}`}
+				id={`service-quantity-update-modal-${id}`}
 				className="modal"
 			>
 				<div className="modal-box">
 					<h3 className="font-bold text-lg mb-2">
-						Update Service price
+						Update Service quantity
 					</h3>
 					<form onSubmit={handleSubmit}>
 						<div className="form-control mb-5">
 							<label
-								htmlFor="price"
+								htmlFor="quantity"
 								className="label"
 							>
-								Price
+								Quantity
 							</label>
 
 							<CurrencyInput
-								id="price"
-								name="price"
-								placeholder="Price..."
+								id="quantity"
+								name="quantity"
+								placeholder="Quantity..."
 								decimalsLimit={2}
 								className="input input-bordered"
-								value={price}
+								value={quantity}
 								disabled={isPending}
-								onValueChange={(value) => setPrice(value)}
+								onValueChange={(value) => setQuantity(value)}
 							/>
+						</div>
+						<div className="mb-5">
+							<div className="join">
+								<input
+									type="radio"
+									className="btn join-item"
+									name="direction"
+									checked={direction === "des"}
+									onChange={() => setDirection("des")}
+									aria-label="Decrease"
+								/>
+								<input
+									type="radio"
+									className="btn join-item"
+									name="direction"
+									aria-label="Increase"
+									checked={direction === "inc"}
+									onChange={() => setDirection("inc")}
+								/>
+							</div>
 						</div>
 						<button
 							disabled={isPending}
 							className="btn btn-primary"
 						>
-							Update price
+							Update quantity
 						</button>
 					</form>
 					{isPending ? (
@@ -116,4 +148,4 @@ function ServiceUpdateBtn({ id }) {
 	);
 }
 
-export default ServiceUpdateBtn;
+export default ServiceQuantity;

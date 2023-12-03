@@ -3,16 +3,23 @@ import { DateTime } from "luxon";
 import ServiceDeleteBtn from "./service-delete-btn";
 import ServiceUpdateBtn from "./service-update-btn";
 import commaNumber from "comma-number";
+import ServiceQuantity from "./service-quantity";
 
 function ServiceRow({ item }) {
-	const { createdAt, name, _id, categoryId, price } = item;
+	const { createdAt, name, _id, categoryId, price, quantity } = item;
 
 	return (
 		<tr>
 			<td>
-				{_id.substring(0, 5) + "..." + _id.substring(_id.length - 5)}
+				{_id.substring(0, 2) + "..." + _id.substring(_id.length - 2)}
 			</td>
 			<td>{name}</td>
+			<td>
+				<ServiceQuantity
+					quantity={quantity}
+					id={_id}
+				/>
+			</td>
 			<td>{categoryId?.name || "nil"}</td>
 			<td>{commaNumber(price)}</td>
 			<td>

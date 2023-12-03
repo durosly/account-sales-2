@@ -27,7 +27,7 @@ async function getServices(request) {
 			);
 		}
 
-		const query = {};
+		const query = { quantity: { $gt: 0 } };
 
 		if (!!q) {
 			query.name = { $regex: q, $options: "i" };

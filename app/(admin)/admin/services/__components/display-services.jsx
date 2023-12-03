@@ -59,6 +59,7 @@ function DisplayServices() {
 						<tr>
 							<th></th>
 							<th>Service</th>
+							<th>Quantity</th>
 							<th>Category</th>
 							<th>Price (N)</th>
 							<th>Created at</th>
