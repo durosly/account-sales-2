@@ -30,6 +30,13 @@ async function createOrder(request) {
 			);
 		}
 
+		if (service.quantity < valid.data.quantity) {
+			return NextResponse.json(
+				{ status: false, message: "Not enough to meet this demand" },
+				{ status: 403 }
+			);
+		}
+
 		let charge = Number(service.price * valid.data.quantity);
 		const session = await getServerSession(options);
 		const id = session?.user?.id || null;
