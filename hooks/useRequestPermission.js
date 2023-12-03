@@ -34,7 +34,7 @@ function useRequestPermission({ topic }) {
 		}
 
 		handleNotice(topic);
-	}, []);
+	});
 }
 
 export default useRequestPermission;
