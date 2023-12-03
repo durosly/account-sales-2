@@ -1,6 +1,7 @@
 "use client";
 import { handleClientError } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FaPencilAlt } from "react-icons/fa";
 import axios from "axios";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -55,7 +56,7 @@ function ServiceUpdateBtn({ id }) {
 						.showModal()
 				}
 			>
-				<SlTrash />
+				<FaPencilAlt />
 			</button>
 			{/* Open the modal using document.getElementById('ID').showModal() method */}
 
