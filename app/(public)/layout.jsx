@@ -41,7 +41,7 @@ async function PublicLayout({ children }) {
 						</div>
 						<div className=" px-2 mx-2 md:mr-20">
 							<Link
-								href="/"
+								href={session?.user ? "/auth/user" : "/"}
 								className="font-bold"
 							>
 								AccHub

@@ -1,13 +1,18 @@
 import { SlChart, SlTrophy, SlWallet } from "react-icons/sl";
+import { options } from "@/auth/options";
+import { getServerSession } from "next-auth";
 import OrderForm from "./__components/order-form";
 import UserBalance from "./__components/user-balance";
 import UserOrdersCount from "./__components/user-orders-count";
 
-function UserDashboardPage() {
+async function UserDashboardPage() {
+	const session = await getServerSession(options);
 	return (
 		<>
 			<div className="px-10 mb-10 mt-5 max-w-4xl mx-auto">
-				<h1 className="text-sm font-bold">Welcome, John Doe</h1>
+				<h1 className="text-sm font-bold">
+					Welcome, {session.user.name}
+				</h1>
 			</div>
 
 			<div className="flex flex-wrap gap-10 max-w-4xl mx-auto mb-20 px-10">
