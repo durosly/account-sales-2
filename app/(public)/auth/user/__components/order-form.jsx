@@ -183,7 +183,7 @@ function OrderForm() {
 								value={item._id}
 								key={item._id}
 							>
-								{item.name}
+								{item.name} ({commaNumber(item.quantity)})
 							</option>
 						))
 					)}
