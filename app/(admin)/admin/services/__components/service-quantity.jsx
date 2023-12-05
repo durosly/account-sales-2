@@ -1,25 +1,24 @@
 import { handleClientError } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import commaNumber from "comma-number";
+import Skeleton from "react-loading-skeleton";
 import { useRef, useState } from "react";
-import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
 import { FaPlusMinus } from "react-icons/fa6";
+import { SimpleMdeReact } from "react-simplemde-editor";
 
-function ServiceQuantity({ quantity: q, id }) {
-	const [quantity, setQuantity] = useState("");
-	const [direction, setDirection] = useState("inc");
+function ServiceQuantity({ id }) {
+	const [accounts, setAccounts] = useState("");
+	const [instruction, setInstruction] = useState("");
 	const queryClient = useQueryClient();
 	let toastId = useRef(null);
 
 	const { isPending, mutate, isError, error } = useMutation({
-		mutationFn: (quantity) => {
+		mutationFn: (data) => {
 			toastId.current = toast.loading("Updating service quantity...");
-			return axios.put(`/api/admin/service/${id}/quantity`, {
-				quantity,
-				direction,
-			});
+			return axios.post(`/api/admin/service/${id}/add-accounts`, data);
 		},
 		// make sure to _return_ the Promise from the query invalidation
 		// so that the mutation stays in `pending` state until the refetch is finished
@@ -30,7 +29,8 @@ function ServiceQuantity({ quantity: q, id }) {
 		},
 		onSuccess: () => {
 			toast.success("Service quantity updated", { id: toastId.current });
-			setQuantity("");
+			setAccounts("");
+			setInstruction("");
 			document
 				.getElementById(`service-quantity-update-modal-${id}`)
 				.close();
@@ -41,20 +41,42 @@ function ServiceQuantity({ quantity: q, id }) {
 		},
 	});
 
+	const { isPending: isPendingQuantity, data } = useQuery({
+		queryKey: ["services", id, "service-items", "quantity", "new"],
+		queryFn: () => axios(`/api/admin/service/${id}/quantity`),
+		refetchInterval: 500,
+	});
+
+	const queryResponse = data?.data || {};
+
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		if (!quantity) {
-			return toast.error("Quantity cannot be empty");
+		if (!instruction) {
+			return toast.error("Please, enter instruction");
 		}
 
-		mutate(quantity);
+		if (!accounts) {
+			return toast.error("Please, accounts");
+		}
+
+		const data = { accounts, instruction };
+
+		mutate(data);
 	}
 
 	return (
 		<>
 			<span className="space-x-1">
-				<span>{commaNumber(q)}</span>
+				<span>
+					{isPendingQuantity ? (
+						<Skeleton />
+					) : queryResponse?.quantity ? (
+						commaNumber(queryResponse?.quantity)
+					) : (
+						0
+					)}
+				</span>
 				<button
 					className="btn btn-xs"
 					onClick={() =>
@@ -80,50 +102,40 @@ function ServiceQuantity({ quantity: q, id }) {
 						Update Service quantity
 					</h3>
 					<form onSubmit={handleSubmit}>
-						<div className="form-control mb-5">
+						<div className="form-control">
 							<label
-								htmlFor="quantity"
+								htmlFor="accounts"
 								className="label"
 							>
-								Quantity
+								Accounts
 							</label>
-
-							<CurrencyInput
-								id="quantity"
-								name="quantity"
-								placeholder="Quantity..."
-								decimalsLimit={2}
-								className="input input-bordered"
-								value={quantity}
-								disabled={isPending}
-								onValueChange={(value) => setQuantity(value)}
+							<textarea
+								name="accounts"
+								id="accounts"
+								className="textarea textarea-bordered"
+								rows={5}
+								value={accounts}
+								onChange={(e) => setAccounts(e.target.value)}
+							></textarea>
+						</div>
+						<div className="form-control mb-5">
+							<label
+								className="label"
+								htmlFor="details"
+							>
+								Instructions
+							</label>
+							<SimpleMdeReact
+								value={instruction}
+								onChange={setInstruction}
 							/>
 						</div>
-						<div className="mb-5">
-							<div className="join">
-								<input
-									type="radio"
-									className="btn join-item"
-									name="direction"
-									checked={direction === "des"}
-									onChange={() => setDirection("des")}
-									aria-label="Decrease"
-								/>
-								<input
-									type="radio"
-									className="btn join-item"
-									name="direction"
-									aria-label="Increase"
-									checked={direction === "inc"}
-									onChange={() => setDirection("inc")}
-								/>
-							</div>
-						</div>
+
 						<button
 							disabled={isPending}
 							className="btn btn-primary"
 						>
-							Update quantity
+							Add accounts
 						</button>
 					</form>
 					{isPending ? (

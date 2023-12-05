@@ -7,6 +7,7 @@ import { CreateOrderSchema } from "@/validators/order";
 import { NextResponse } from "next/server";
 import UserModel from "@/models/user";
 import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
+import ServiceItemModel from "@/models/service-item";
 
 async function createOrder(request) {
 	try {
@@ -62,13 +63,29 @@ async function createOrder(request) {
 
 		await connectMongo();
 
+		const serviceItems = await ServiceItemModel.findAndUpdate(
+			{
+				stautus: "new",
+				serviceId: valid.data.service,
+			},
+			{ status: "sold" }
+		)
+			.sort("-createdAt")
+			.limit(valid.data.quantity);
+
+		const ids = serviceItems.map((item) => item._id);
+
 		const order = await OrderModel.create({
 			serviceId: valid.data.service,
 			categoryId: valid.data.category,
+			serviceItemIds: ids,
 			quantity: valid.data.quantity,
 			charge,
 			userId: session.user.id,
 		});
+
+		service.quantity -= valid.data.quantity;
+		await service.save();
 
 		await pushNotifyAdmin(
 			"New order request",

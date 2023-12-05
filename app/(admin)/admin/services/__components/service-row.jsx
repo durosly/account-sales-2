@@ -6,7 +6,7 @@ import commaNumber from "comma-number";
 import ServiceQuantity from "./service-quantity";
 
 function ServiceRow({ item }) {
-	const { createdAt, name, _id, categoryId, price, quantity } = item;
+	const { createdAt, name, _id, categoryId, price } = item;
 
 	return (
 		<tr>
@@ -15,10 +15,7 @@ function ServiceRow({ item }) {
 			</td>
 			<td>{name}</td>
 			<td>
-				<ServiceQuantity
-					quantity={quantity}
-					id={_id}
-				/>
+				<ServiceQuantity id={_id} />
 			</td>
 			<td>{categoryId?.name || "nil"}</td>
 			<td>{commaNumber(price)}</td>

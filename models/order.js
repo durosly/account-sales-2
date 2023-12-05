@@ -3,12 +3,19 @@ import paginate from "mongoose-paginate-v2";
 import CategoryModel from "./category";
 import ServiceModel from "./service";
 import UserModel from "./user";
+import ServiceItemModel from "./service-item";
 // import referralCodeGenerator from 'referral-code-generator';
 
 const orderSchema = new mongoose.Schema({
 	categoryId: { type: mongoose.Schema.Types.ObjectId, ref: CategoryModel },
 	serviceId: { type: mongoose.Schema.Types.ObjectId, ref: ServiceModel },
 	userId: { type: mongoose.Schema.Types.ObjectId, ref: UserModel },
+	serviceItemIds: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: ServiceItemModel,
+		},
+	],
 	charge: { type: Number, default: 0 },
 	quantity: { type: Number, default: 0 },
 	status: {

@@ -12,29 +12,28 @@ function useRequestPermission({ topic }) {
 		},
 	});
 
-	// const messaging = getMessaging(app);
-	const messaging = async () => (await isSupported()) && getMessaging(app);
+	const messaging = getMessaging(app);
+	// const messaging = async () => (await isSupported()) && getMessaging(app);
 
 	useEffect(() => {
 		async function handleNotice(topic) {
-			if (typeof window !== "undefined") {
-				try {
-					const permission = await Notification.requestPermission();
+			try {
+				const permission = await Notification.requestPermission();
 
-					if (permission === "granted") {
-						const token = await getToken(messaging, {
-							vapidKey: vapid,
-						});
+				if (permission === "granted") {
+					const token = await getToken(messaging, {
+						vapidKey: vapid,
+					});
 
-						mutate({ token, topic });
-						// console.log(error);
-					}
-				} catch (error) {}
-			}
+					mutate({ token, topic });
+					console.log(token);
+					// console.log(error);
+				}
+			} catch (error) {}
 		}
 
 		handleNotice(topic);
-	});
+	}, []);
 }
 
 export default useRequestPermission;
