@@ -2221,7 +2221,7 @@ __metadata:
     axios: "npm:^1.6.1"
     bcryptjs: "npm:^2.4.3"
     comma-number: "npm:^2.1.0"
-    daisyui: "npm:^4.0.1"
+    daisyui: "npm:^4.4.19"
     easymde: "npm:^2.18.0"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.0.2"
@@ -3132,15 +3132,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "daisyui@npm:4.0.1"
+"daisyui@npm:^4.4.19":
+  version: 4.4.19
+  resolution: "daisyui@npm:4.4.19"
   dependencies:
     css-selector-tokenizer: "npm:^0.8"
     culori: "npm:^3"
     picocolors: "npm:^1"
     postcss-js: "npm:^4"
-  checksum: fad0d9933fbf567e79bba29a303d6d6d81ceafa8b989a7de1a86c7e63717141e0a69d5d3fd402546100179296129bc61811bcbc8a3793a197d96d0aceb8fa0f5
+  checksum: bcd330b00a6417ce5d36b483b69683a1921b5b3636176a2e36f22ddaf22e607ae8119ab723e8872ebdc653289a988c593d727bff85c52eb5f1e2a7a9f72f360e
   languageName: node
   linkType: hard
 
