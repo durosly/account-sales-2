@@ -13,7 +13,7 @@ function UserBalance() {
 	const queryResponse = data?.data?.user || {};
 
 	return (
-		<p className="text-3xl font-semibold">
+		<p className="text-xl font-semibold">
 			{isPending ? (
 				<Skeleton />
 			) : (
