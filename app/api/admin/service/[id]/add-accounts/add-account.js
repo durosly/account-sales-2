@@ -15,8 +15,8 @@ async function addAccountToService(request, { params: { id } }) {
 
 		const { accounts, instruction } = await request.json();
 
-		// console.log(accounts);
-		// console.log(instruction);
+		//
+		//
 
 		const regex = /\([0-9]+\.\)/g;
 		const entries = accounts.split(regex);

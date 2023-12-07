@@ -3,7 +3,6 @@ import { SlExclamation } from "react-icons/sl";
 import Markdown from "react-markdown";
 
 function ShowDetailsBtn({ id, details, items }) {
-	console.log(items);
 	return (
 		<>
 			<button

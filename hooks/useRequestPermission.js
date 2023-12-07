@@ -26,8 +26,8 @@ function useRequestPermission({ topic }) {
 					});
 
 					mutate({ token, topic });
-					console.log(token);
-					// console.log(error);
+
+					//
 				}
 			} catch (error) {}
 		}

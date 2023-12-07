@@ -26,9 +26,7 @@ async function pushNotifyAdmin(title, message) {
 
 			await getMessaging(firebaseAdmin).sendMulticast(messageInfo);
 		}
-	} catch (error) {
-		console.log(error);
-	}
+	} catch (error) {}
 }
 
 export default pushNotifyAdmin;

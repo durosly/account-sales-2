@@ -104,7 +104,6 @@ async function addToUserBalance(request) {
 			message: "success",
 		});
 	} catch (error) {
-		console.log(error.message);
 		return NextResponse.json({
 			status: false,
 			message: `An error occured: ${error.message}`,

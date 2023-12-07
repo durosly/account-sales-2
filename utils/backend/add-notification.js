@@ -33,9 +33,7 @@ async function addNotification(title, message, id) {
 
 			await getMessaging(firebaseAdmin).sendMulticast(messageInfo);
 		}
-	} catch (error) {
-		console.log(error);
-	}
+	} catch (error) {}
 }
 
 export default addNotification;

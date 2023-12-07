@@ -38,8 +38,6 @@ async function updateServicePrice(request, { params: { id } }) {
 
 		const service = await ServiceModel.findByIdAndUpdate(id, { price });
 
-		console.log("...reached...");
-
 		return NextResponse.json({
 			status: true,
 			message: "success",
