@@ -2,8 +2,10 @@ import CategoryModel from "@/models/category";
 import { notFound } from "next/navigation";
 import DisplayServices from "./__components/display-services";
 import Image from "next/image";
+import connectMongo from "@/lib/connectDB";
 
 async function page({ params: { id } }) {
+	await connectMongo();
 	const category = await CategoryModel.findById(id);
 
 	if (!category) {
