@@ -16,6 +16,7 @@ import {
 	SlGraph,
 	SlLock,
 } from "react-icons/sl";
+import Categories from "./__components/public-categories";
 
 function Home() {
 	return (
@@ -103,7 +104,14 @@ function Home() {
 					/>
 				</div>
 			</div>
-
+			<div className="px-10 mb-20">
+				<p className="text-secondary">What we have for you</p>
+				<h2 className="text-4xl font-bold mb-5">
+					Products and services
+				</h2>
+				{/* <OrderForm /> */}
+				<Categories />
+			</div>
 			<div className="px-10 mb-20">
 				<p className="text-secondary">Why Choose Us?</p>
 				<h2 className="text-3xl md:text-5xl font-bold mb-10">
