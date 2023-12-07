@@ -21,7 +21,7 @@ import Categories from "./__components/public-categories";
 function Home() {
 	return (
 		<>
-			<div className="md:flex px-10 min-h-[30rem] mb-20">
+			<div className="md:flex px-10 md:min-h-[30rem] mb-20">
 				<div className="flex-1 my-auto space-y-5 max-md:my-10">
 					<p className="text-xl text-secondary">
 						Best Social Media Market
@@ -45,13 +45,13 @@ function Home() {
 						</Link>
 						<Link
 							href="/about-us"
-							className="max-sm:hidden btn btn-sm md:btn-md btn-secondary"
+							className="max-md:hidden btn btn-sm md:btn-md btn-secondary"
 						>
 							Learn more
 						</Link>
 					</div>
 				</div>
-				<div className="relative flex-1 max-md:h-96">
+				<div className="relative flex-1 max-md:hidden">
 					<Image
 						src={fbIcon}
 						width={50}
