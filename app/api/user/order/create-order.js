@@ -71,6 +71,13 @@ async function createOrder(request) {
 			.sort("-createdAt")
 			.limit(valid.data.quantity);
 
+		if (serviceItems.length === 0) {
+			return NextResponse.json(
+				{ status: false, message: "No service available" },
+				{ status: 404 }
+			);
+		}
+
 		const ids = serviceItems.map((item) => item._id);
 
 		const order = await OrderModel.create({

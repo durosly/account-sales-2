@@ -1,9 +1,10 @@
 "use client";
 import { DateTime } from "luxon";
+import Image from "next/image";
 import CategoryDeleteBtn from "./category-delete-btn";
 
 function CategoryRow({ item }) {
-	const { createdAt, name, _id } = item;
+	const { createdAt, name, _id, cover } = item;
 	return (
 		<>
 			<tr>
@@ -12,7 +13,15 @@ function CategoryRow({ item }) {
 						"..." +
 						_id.substring(_id.length - 5)}
 				</td>
-				<td>{name}</td>
+				<td className="flex gap-2">
+					<Image
+						src={`/images/${cover}`}
+						height={20}
+						width={20}
+						alt={`${name} category`}
+					/>
+					<span>{name}</span>
+				</td>
 				<td>
 					{DateTime.fromISO(createdAt).toLocaleString(
 						DateTime.DATETIME_SHORT

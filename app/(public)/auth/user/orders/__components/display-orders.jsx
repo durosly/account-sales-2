@@ -26,6 +26,8 @@ function DisplayOrders() {
 	const queryResponse = data?.data?.data || {};
 	const { docs, limit, totalDocs, hasNextPage, hasPrevPage } = queryResponse;
 
+	console.log(queryResponse);
+
 	return (
 		<>
 			<div className="text-right flex font-bold">

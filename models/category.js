@@ -4,6 +4,7 @@ import paginate from "mongoose-paginate-v2";
 
 const categorySchema = new mongoose.Schema({
 	name: String,
+	cover: { type: String, default: "like-icon.png" },
 	createdAt: { type: Date, default: Date.now },
 });
 

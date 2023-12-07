@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import OrderForm from "./__components/order-form";
 import UserBalance from "./__components/user-balance";
 import UserOrdersCount from "./__components/user-orders-count";
+import Categories from "./__components/categories";
 
 async function UserDashboardPage() {
 	const session = await getServerSession(options);
@@ -40,8 +41,11 @@ async function UserDashboardPage() {
 			</div>
 
 			<div className="px-10 max-w-4xl mx-auto mb-20">
-				<h2 className="text-4xl font-bold mb-5">New Order</h2>
-				<OrderForm />
+				<h2 className="text-4xl font-bold mb-5 text-center">
+					Products and services
+				</h2>
+				{/* <OrderForm /> */}
+				<Categories />
 			</div>
 		</>
 	);

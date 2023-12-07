@@ -1,65 +1,29 @@
 "use client";
 import { handleClientError } from "@/lib/utils";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import commaNumber from "comma-number";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-function OrderForm() {
+function OrderForm({ cId, sId, price }) {
+	const router = useRouter();
 	const [charge, setCharge] = useState(0);
 	const [entry, setEntry] = useState({
-		category: "",
-		service: "",
+		service: sId,
+		category: cId,
 		quantity: "",
 	});
-	// Load categories
-	const {
-		isPending: isCategoryPending,
-		isError,
-		data,
-		error,
-	} = useQuery({
-		queryKey: ["categories", "all"],
-		queryFn: () => axios(`/api/user/category?page=all`),
-	});
-
-	const categoryResponse = data?.data?.data || [];
-
-	// Load services
-	const {
-		isPending: isServicePending,
-		isError: isServiceError,
-		data: serviceData,
-		error: serviceError,
-	} = useQuery({
-		queryKey: ["services", entry.category, "all"],
-		queryFn: () => axios(`/api/user/service?c=${entry.category}&page=all`),
-		enabled: !!entry.category,
-	});
-
-	const serviceResponse = serviceData?.data?.data || [];
 
 	useEffect(() => {
-		setEntry({
-			...entry,
-			service: "",
-			quantity: "",
-		});
-	}, [entry.category]);
-
-	useEffect(() => {
-		if (entry.service && entry.quantity && serviceResponse.length > 0) {
-			// get service selected by user from sericeResponse array
-			let srv = serviceResponse.find((s) => s._id === entry.service);
-			if (srv?.price) {
-				setCharge(Number(srv.price * Number(entry.quantity)));
-			}
+		if (entry.quantity) {
+			setCharge(Number(price * Number(entry.quantity)));
 		} else {
 			setCharge(0);
 		}
-	}, [entry.service, entry.quantity, serviceResponse]);
+	}, [entry.quantity]);
 
 	// place order
 	const queryClient = useQueryClient();
@@ -80,14 +44,17 @@ function OrderForm() {
 			queryClient.invalidateQueries({
 				queryKey: ["user-info"],
 			});
+			queryClient.invalidateQueries({
+				queryKey: ["services"],
+			});
 		},
 		onSuccess: () => {
 			setEntry({
-				category: "",
-				service: "",
 				quantity: "",
 			});
 			toast.success("Order created", { id: toastId.current });
+			document.getElementById(`service-purchase-${cId}-${sId}`).close();
+			router.push("/auth/user/orders");
 		},
 		onError: (error) => {
 			const message = handleClientError(error);
@@ -103,10 +70,10 @@ function OrderForm() {
 	return (
 		<form
 			action=""
-			className="p-5 rounded-2xl border"
+			className=""
 			onSubmit={handleSubmit}
 		>
-			<div className="form-control">
+			{/* <div className="form-control">
 				<label
 					htmlFor="category"
 					className="label"
@@ -188,7 +155,7 @@ function OrderForm() {
 						))
 					)}
 				</select>
-			</div>
+			</div> */}
 			<div className="form-control mb-5">
 				<label
 					htmlFor="amount"
@@ -202,7 +169,6 @@ function OrderForm() {
 					name="quantity"
 					placeholder="Quantity..."
 					decimalsLimit={2}
-					disabled={isServicePending || !entry.service}
 					className="input input-bordered"
 					value={entry.quantity}
 					onValueChange={(value, name) =>

@@ -4,16 +4,29 @@ import CategoryModel from "@/models/category";
 
 async function createCategory(request) {
 	try {
-		const { category: categoryName } = await request.json();
+		const { cName: categoryName, cCover: cover } = await request.json();
 		if (!categoryName) {
 			return NextResponse.json(
 				{ status: false, message: "Category name cannot be empty" },
 				{ status: 400 }
 			);
 		}
+		if (!cover) {
+			return NextResponse.json(
+				{
+					status: false,
+					message: "Category cover image cannot be empty",
+				},
+				{ status: 400 }
+			);
+		}
+
 		await connectMongo();
 
-		const category = await CategoryModel.create({ name: categoryName });
+		const category = await CategoryModel.create({
+			name: categoryName,
+			cover,
+		});
 
 		return NextResponse.json({
 			status: false,

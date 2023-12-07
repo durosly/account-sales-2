@@ -9,6 +9,7 @@ function OrderRow({ item, count }) {
 		_id,
 		categoryId,
 		serviceId,
+		serviceItemIds,
 		quantity,
 		charge,
 		status,
@@ -28,6 +29,7 @@ function OrderRow({ item, count }) {
 					<ShowDetailsBtn
 						id={_id}
 						details={info}
+						items={serviceItemIds}
 					/>
 				</td>
 				<td>{commaNumber(quantity)}</td>

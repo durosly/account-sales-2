@@ -2,7 +2,8 @@
 import { SlExclamation } from "react-icons/sl";
 import Markdown from "react-markdown";
 
-function ShowDetailsBtn({ id, details }) {
+function ShowDetailsBtn({ id, details, items }) {
+	console.log(items);
 	return (
 		<>
 			<button
@@ -21,11 +22,23 @@ function ShowDetailsBtn({ id, details }) {
 			>
 				<div className="modal-box">
 					<h3 className="font-bold text-lg mb-2">Service details</h3>
-					<div className="divider">Info</div>
+					{items && items.length > 0 ? (
+						items.map((item) => (
+							<>
+								<div className="divider">Info</div>
 
-					<div className="prose">
-						<Markdown>{details}</Markdown>
-					</div>
+								<div className="prose">
+									<pre>{item.info}</pre>
+									<p className="font-bold my-5">
+										Instructions
+									</p>
+									<Markdown>{item.instruction}</Markdown>
+								</div>
+							</>
+						))
+					) : (
+						<p>No item</p>
+					)}
 					<p className="py-4 text-xs">
 						Infomation about response or status
 					</p>
