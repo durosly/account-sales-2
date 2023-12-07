@@ -8,6 +8,7 @@ import { NextResponse } from "next/server";
 import UserModel from "@/models/user";
 import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
 import ServiceItemModel from "@/models/service-item";
+import addNotification from "@/utils/backend/add-notification";
 
 async function createOrder(request) {
 	try {
@@ -63,13 +64,10 @@ async function createOrder(request) {
 
 		await connectMongo();
 
-		const serviceItems = await ServiceItemModel.findAndUpdate(
-			{
-				stautus: "new",
-				serviceId: valid.data.service,
-			},
-			{ status: "sold" }
-		)
+		const serviceItems = await ServiceItemModel.find({
+			status: "new",
+			serviceId: valid.data.service,
+		})
 			.sort("-createdAt")
 			.limit(valid.data.quantity);
 
@@ -82,6 +80,7 @@ async function createOrder(request) {
 			quantity: valid.data.quantity,
 			charge,
 			userId: session.user.id,
+			status: "success",
 		});
 
 		service.quantity -= valid.data.quantity;
@@ -90,6 +89,17 @@ async function createOrder(request) {
 		await pushNotifyAdmin(
 			"New order request",
 			`New order request for service "${service.name}" from ${user.name}`
+		);
+
+		await addNotification(
+			"New order completed",
+			"Your new order has been completed",
+			session.user.id
+		);
+
+		await ServiceItemModel.updateMany(
+			{ _id: { $in: ids } },
+			{ status: "sold" }
 		);
 
 		return NextResponse.json({
