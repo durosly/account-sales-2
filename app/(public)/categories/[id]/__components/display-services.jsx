@@ -71,7 +71,7 @@ function DisplayServices({ id, categoryCover }) {
 
 							<button
 								className="btn btn-primary max-sm:btn-block"
-								onClick={() => toast("Login first")}
+								onClick={() => toast("You are not logged in")}
 							>
 								<IoCartOutline />
 								Buy now
