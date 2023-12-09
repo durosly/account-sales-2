@@ -18,15 +18,16 @@ function ShowDetailsBtn({ id, items }) {
 	return (
 		<>
 			<button
-				className="btn btn-xs ml-2 btn-accent btn-square btn-outline"
+				className="btn btn-xs ml-2 btn-accent btn-outline"
 				onClick={() =>
 					document.getElementById(`details-modal-${id}`).showModal()
 				}
 			>
 				<SlExclamation />
+				<span>info</span>
 			</button>
 			<button
-				className="btn btn-xs ml-2 btn-primary btn-square btn-outline"
+				className="btn btn-xs ml-2 btn-primary btn-outline"
 				onClick={() =>
 					downloadFile(
 						items
@@ -36,6 +37,7 @@ function ShowDetailsBtn({ id, items }) {
 				}
 			>
 				<LuDownload />
+				<span>Download</span>
 			</button>
 			{/* Open the modal using document.getElementById('ID').showModal() method */}
 
