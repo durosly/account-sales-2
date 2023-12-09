@@ -27,7 +27,7 @@ async function UserDashboardPage() {
 			</div>
 
 			<div className="px-10 max-w-4xl mx-auto mb-20">
-				<h2 className="text-4xl font-bold mb-5 text-center">
+				<h2 className="text-4xl font-bold mb-5 text-center capitalize">
 					Products and services
 				</h2>
 				{/* <OrderForm /> */}
