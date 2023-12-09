@@ -3,9 +3,10 @@ import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import useDownload from "@/hooks/useDownload";
 import { Fragment } from "react";
 import { IoCopyOutline } from "react-icons/io5";
-import { SlExclamation } from "react-icons/sl";
-import Markdown from "react-markdown";
 import { LuDownload } from "react-icons/lu";
+import { SlExclamation } from "react-icons/sl";
+import { SlPaperClip } from "react-icons/sl";
+import Markdown from "react-markdown";
 
 function ShowDetailsBtn({ id, items }) {
 	const { copy } = useCopyToClipboard();
@@ -56,30 +57,41 @@ function ShowDetailsBtn({ id, items }) {
 								<div className="">
 									{/* <pre>{item.info}</pre> */}
 									<div className="space-y-2">
-										{item.info
-											.split(/\s+/)
-											.map((data, i) => {
-												if (data)
-													return (
-														<p
-															key={i}
-															className="space-x-1"
-														>
-															<span>{data}</span>
+										{item.info.split(",").map((data, i) => {
+											if (data) {
+												const items = data.split(":");
+												return (
+													<p
+														key={i}
+														className="space-x-1"
+													>
+														<span className="uppercase font-bold">
+															{items[0]}:
+														</span>
+														<span>
+															{items[1].trim()}
+														</span>
 
-															<button
-																onClick={() =>
-																	copy(data)
-																}
-																className="btn btn-xs btn-square"
-															>
-																<IoCopyOutline />
-															</button>
-														</p>
-													);
-											})}
+														<button
+															onClick={() =>
+																copy(
+																	items[1].replace(
+																		/\s+/g,
+																		""
+																	)
+																)
+															}
+															className="btn btn-xs btn-square"
+														>
+															<IoCopyOutline />
+														</button>
+													</p>
+												);
+											}
+										})}
 									</div>
-									<p className="font-bold my-5">
+									<p className="font-bold my-5 flex gap-2 items-center">
+										<SlPaperClip className="w-4 h-4" />
 										Instructions
 									</p>
 									<div className="prose">
