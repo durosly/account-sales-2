@@ -30,6 +30,7 @@
 		"next-auth": "^4.24.5",
 		"nodemailer": "^6.9.7",
 		"react": "^18",
+		"react-copy-to-clipboard": "^5.1.0",
 		"react-currency-input-field": "^3.6.12",
 		"react-dom": "^18",
 		"react-email": "1.9.5",
