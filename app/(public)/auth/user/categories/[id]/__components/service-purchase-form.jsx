@@ -6,7 +6,7 @@ function ServicePurchase({ cId, sId, price }) {
 	return (
 		<>
 			<button
-				className="btn btn-primary"
+				className="btn btn-primary max-sm:btn-block"
 				onClick={() =>
 					document
 						.getElementById(`service-purchase-${cId}-${sId}`)

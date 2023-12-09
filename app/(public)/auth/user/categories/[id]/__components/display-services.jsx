@@ -32,26 +32,37 @@ function DisplayServices({ id, categoryCover }) {
 							key={s._id}
 							className="flex flex-wrap gap-5 items-center justify-between border rounded-2xl p-5"
 						>
-							<div className="relative w-6 h-6">
-								<Image
-									src={`/images/${
-										categoryCover || "like-icon.png"
-									}`}
-									fill
-									className="object-contain"
-								/>
+							<div className="flex gap-2">
+								<div className="relative w-6 h-6 flex-shrink-0">
+									<Image
+										src={`/images/${
+											categoryCover || "like-icon.png"
+										}`}
+										fill
+										className="object-contain"
+									/>
+								</div>
+								<p className="uppercase font-bold">{s.name}</p>
 							</div>
-							<div className="flex gap-1 items-center">
+							<div className="flex gap-1 items-center p-2 rounded-md text-red-500 border border-red-500">
+								<span>Price:</span>
+								<span className="font-bold">
+									&#8358;{commaNumber(s.price)}
+								</span>
+							</div>
+							<div className="flex gap-1 items-center p-2 rounded-md text-blue-500 border border-blue-500">
+								<span>Available:</span>
+								<span className="font-bold">
+									{commaNumber(s.quantity)}
+								</span>
+							</div>
+							<div className="flex gap-1 items-center p-2 rounded-md text-yellow-500 border border-yellow-500">
+								<span>Country:</span>
 								<span
 									className={`fi fi-${s.country.toLowerCase()}`}
 								></span>
-								<p>{s.name}</p>
 							</div>
-							<div className="flex gap-1 items-center">
-								<HiOutlineBriefcase />
-								<span>{commaNumber(s.quantity)}</span>
-							</div>
-							<div>&#8358; {commaNumber(s.price)}</div>
+
 							<ServicePurchase
 								sId={s._id}
 								cId={id}
