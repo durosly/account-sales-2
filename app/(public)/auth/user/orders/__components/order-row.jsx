@@ -26,6 +26,8 @@ function OrderRow({ item, count }) {
 				</td>
 				<td>
 					{serviceId.name}/{categoryId.name}
+				</td>
+				<td className="whitespace-nowrap">
 					<ShowDetailsBtn
 						id={_id}
 						details={info}

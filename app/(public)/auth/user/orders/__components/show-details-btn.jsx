@@ -1,12 +1,20 @@
 "use client";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+import useDownload from "@/hooks/useDownload";
 import { Fragment } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 import { SlExclamation } from "react-icons/sl";
 import Markdown from "react-markdown";
+import { LuDownload } from "react-icons/lu";
 
 function ShowDetailsBtn({ id, items }) {
 	const { copy } = useCopyToClipboard();
+	const { downloadAsTxt } = useDownload();
+
+	function downloadFile(data) {
+		downloadAsTxt(data);
+	}
+
 	return (
 		<>
 			<button
@@ -16,6 +24,18 @@ function ShowDetailsBtn({ id, items }) {
 				}
 			>
 				<SlExclamation />
+			</button>
+			<button
+				className="btn btn-xs ml-2 btn-primary btn-square btn-outline"
+				onClick={() =>
+					downloadFile(
+						items
+							.map((item) => item.info.trim())
+							.join("\n\n**********\n\n")
+					)
+				}
+			>
+				<LuDownload />
 			</button>
 			{/* Open the modal using document.getElementById('ID').showModal() method */}
 

@@ -51,6 +51,7 @@ function DisplayOrders() {
 								<th></th>
 								<th>Date/Time</th>
 								<th>Service/Category</th>
+								<th></th>
 								<th>Quality</th>
 								<th>Charge</th>
 								<th>Status</th>
