@@ -19,6 +19,7 @@ function OrderRow({ item, count }) {
 		<>
 			<tr>
 				<th>{count}</th>
+				<td className="italic">{_id}</td>
 				<td>
 					{DateTime.fromISO(createdAt).toLocaleString(
 						DateTime.DATETIME_SHORT

@@ -49,6 +49,7 @@ function DisplayOrders() {
 						<thead>
 							<tr>
 								<th></th>
+								<th>Transaction ID</th>
 								<th>Date/Time</th>
 								<th>Service/Category</th>
 								<th></th>
