@@ -100,6 +100,9 @@ function CreateCategoryForm() {
 								<option value="tg-icon.png">
 									Telegram default
 								</option>
+								<option value="sc-icon.png">
+									Snapchat default
+								</option>
 								<option value="tk-icon.png">
 									TikTok default
 								</option>
