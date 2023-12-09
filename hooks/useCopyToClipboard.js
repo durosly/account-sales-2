@@ -5,6 +5,8 @@ export function useCopyToClipboard() {
 	const [copiedText, setCopiedText] = useState(null);
 
 	const copy = async (text) => {
+		if (typeof window === "undefined") return;
+
 		if (!navigator?.clipboard) {
 			console.warn("Clipboard not supported");
 			return false;
