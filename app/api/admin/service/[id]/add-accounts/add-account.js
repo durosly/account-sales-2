@@ -30,9 +30,10 @@ async function addAccountToService(request, { params: { id } }) {
 		}
 
 		const data = [];
+		const regEx = /\s+/;
 
 		entries.map((item) => {
-			if (item) {
+			if (item && !regEx.test(item)) {
 				data.push({
 					serviceId: id,
 					instruction,
