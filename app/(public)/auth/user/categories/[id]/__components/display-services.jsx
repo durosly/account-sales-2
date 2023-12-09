@@ -3,12 +3,13 @@ import { handleClientError } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import commaNumber from "comma-number";
+import Image from "next/image";
 import { HiOutlineBriefcase } from "react-icons/hi";
 
 import Skeleton from "react-loading-skeleton";
 import ServicePurchase from "./service-purchase-form";
 
-function DisplayServices({ id }) {
+function DisplayServices({ id, categoryCover }) {
 	// Load services
 	const { isPending, isError, data, error } = useQuery({
 		queryKey: ["services", id, "all"],
@@ -31,7 +32,19 @@ function DisplayServices({ id }) {
 							key={s._id}
 							className="flex flex-wrap gap-5 items-center justify-between border rounded-2xl p-5"
 						>
+							<div className="relative w-6 h-6">
+								<Image
+									src={`/images/${
+										categoryCover || "like-icon.png"
+									}`}
+									fill
+									className="object-contain"
+								/>
+							</div>
 							<div className="flex gap-1 items-center">
+								<span
+									className={`fi fi-${s.country.toLowerCase()}`}
+								></span>
 								<p>{s.name}</p>
 							</div>
 							<div className="flex gap-1 items-center">

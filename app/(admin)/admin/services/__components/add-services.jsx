@@ -6,11 +6,12 @@ import { useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
 
-function AddServices() {
+function AddServices({ countries }) {
 	const [newService, setNewService] = useState({
 		category: "",
 		name: "",
 		price: "",
+		country: "",
 	});
 	const {
 		isPending: isCategoryPending,
@@ -150,6 +151,41 @@ function AddServices() {
 									})
 								}
 							/>
+						</div>
+						<div className="form-control">
+							<label
+								htmlFor="country"
+								className="label"
+							>
+								Country
+							</label>
+							<select
+								name="country"
+								id="country"
+								className="select select-bordered"
+								value={newService.country}
+								onChange={(e) =>
+									setNewService({
+										...newService,
+										[e.target.name]: e.target.value,
+									})
+								}
+							>
+								<option
+									disabled
+									value={""}
+								>
+									-- select country --
+								</option>
+								{countries.map((c) => (
+									<option
+										value={c.code}
+										key={c.name}
+									>
+										{c.name}
+									</option>
+								))}
+							</select>
 						</div>
 						<div className="form-control mb-5">
 							<label

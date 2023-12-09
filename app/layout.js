@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "react-loading-skeleton/dist/skeleton.css";
 import ClientWrapper from "./components/client-wrapper";
+import "flag-icons/css/flag-icons.min.css";
 import "./globals.css";
 import { metaInfo } from "./meta";
 import HandleNotification from "./components/handle-notification";

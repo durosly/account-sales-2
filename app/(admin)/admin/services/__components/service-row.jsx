@@ -6,14 +6,19 @@ import commaNumber from "comma-number";
 import ServiceQuantity from "./service-quantity";
 
 function ServiceRow({ item }) {
-	const { createdAt, name, _id, categoryId, price } = item;
+	const { createdAt, name, _id, categoryId, price, country } = item;
+
+	console.log(country);
 
 	return (
 		<tr>
 			<td>
 				{_id.substring(0, 2) + "..." + _id.substring(_id.length - 2)}
 			</td>
-			<td>{name}</td>
+			<td>
+				<span className={`fi fi-${country.toLowerCase()}`}></span>
+				<span className="ml-1">{name}</span>
+			</td>
 			<td>
 				<ServiceQuantity id={_id} />
 			</td>

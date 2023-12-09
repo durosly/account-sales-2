@@ -7,7 +7,7 @@ export const CreateServiceSchema = z.object({
 		.min(3, { message: "Name must be atleast three characters" })
 		.trim(),
 	price: z.coerce.number().gt(0),
-
+	country: z.string().optional(),
 	category: z.custom((id) => {
 		return isValidObjectId(id);
 	}),
