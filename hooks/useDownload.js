@@ -7,10 +7,6 @@ function useDownload() {
 		element.classList.add("hidden");
 		document.body.appendChild(element); // Required for this to work in FireFox
 		element.click();
-
-		setTimeout(() => {
-			document.body.removeChild(element);
-		}, 10000);
 	};
 	return { downloadAsTxt: TextFile };
 }
