@@ -1,12 +1,12 @@
 "use client";
+import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+import { Fragment } from "react";
+import { IoCopyOutline } from "react-icons/io5";
 import { SlExclamation } from "react-icons/sl";
 import Markdown from "react-markdown";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { IoCopyOutline } from "react-icons/io5";
-import toast from "react-hot-toast";
-import { Fragment } from "react";
 
 function ShowDetailsBtn({ id, items }) {
+	const { copy } = useCopyToClipboard();
 	return (
 		<>
 			<button
@@ -44,29 +44,15 @@ function ShowDetailsBtn({ id, items }) {
 															className="space-x-1"
 														>
 															<span>{data}</span>
-															<CopyToClipboard
-																text={`Nice`}
-																options={{
-																	message:
-																		"Copied to clipboard",
-																}}
-																onCopy={(
-																	text,
-																	result
-																) => {
-																	if (
-																		result
-																	) {
-																		return toast(
-																			"copied"
-																		);
-																	}
-																}}
+
+															<button
+																onClick={() =>
+																	copy(data)
+																}
+																className="btn btn-xs btn-square"
 															>
-																<button className="btn btn-xs btn-square">
-																	<IoCopyOutline />
-																</button>
-															</CopyToClipboard>
+																<IoCopyOutline />
+															</button>
 														</p>
 													);
 											})}
