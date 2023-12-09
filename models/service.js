@@ -8,6 +8,7 @@ const serviceSchema = new mongoose.Schema({
 	categoryId: { type: mongoose.Schema.Types.ObjectId, ref: CategoryModel },
 	price: Number,
 	country: String,
+	details: String,
 	quantity: { type: Number, default: 0, min: 0 },
 	createdAt: { type: Date, default: Date.now },
 });

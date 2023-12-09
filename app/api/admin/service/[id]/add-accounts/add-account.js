@@ -15,9 +15,6 @@ async function addAccountToService(request, { params: { id } }) {
 
 		const { accounts, instruction } = await request.json();
 
-		//
-		//
-
 		const regex = /\([0-9]+\.\)/g;
 		const entries = accounts.split(regex);
 
@@ -35,7 +32,7 @@ async function addAccountToService(request, { params: { id } }) {
 		const data = [];
 
 		entries.map((item) => {
-			if (item !== "") {
+			if (item) {
 				data.push({
 					serviceId: id,
 					instruction,

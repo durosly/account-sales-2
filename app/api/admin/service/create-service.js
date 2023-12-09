@@ -23,6 +23,7 @@ async function createService(request) {
 			categoryId: valid.data.category,
 			price: valid.data.price,
 			country: valid.data.country,
+			details: valid.data.details,
 		});
 
 		return NextResponse.json({

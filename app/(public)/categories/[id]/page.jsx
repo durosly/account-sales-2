@@ -24,7 +24,10 @@ async function page({ params: { id } }) {
 				</div>
 				<h2 className="text-2xl font-bold">{category.name}</h2>
 			</div>
-			<DisplayServices id={id} />
+			<DisplayServices
+				id={id}
+				categoryCover={category.cover}
+			/>
 		</>
 	);
 }

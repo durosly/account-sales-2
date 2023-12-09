@@ -12,6 +12,7 @@ function AddServices({ countries }) {
 		name: "",
 		price: "",
 		country: "",
+		details: "",
 	});
 	const {
 		isPending: isCategoryPending,
@@ -46,6 +47,8 @@ function AddServices({ countries }) {
 				category: "",
 				name: "",
 				price: "",
+				country: "",
+				details: "",
 			});
 			toast.success("Service created", { id: toastId.current });
 			document.getElementById("create-service-modal").close();
@@ -144,6 +147,27 @@ function AddServices({ countries }) {
 								id="service"
 								className="input input-bordered"
 								value={newService.name}
+								onChange={(e) =>
+									setNewService({
+										...newService,
+										[e.target.name]: e.target.value,
+									})
+								}
+							/>
+						</div>
+						<div className="form-control">
+							<label
+								htmlFor="service"
+								className="label"
+							>
+								Details
+							</label>
+							<input
+								type="text"
+								name="details"
+								id="details"
+								className="input input-bordered"
+								value={newService.details}
 								onChange={(e) =>
 									setNewService({
 										...newService,
