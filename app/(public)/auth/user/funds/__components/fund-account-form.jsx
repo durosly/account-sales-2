@@ -69,7 +69,9 @@ function FundAccountForm({ user }) {
 
 		handleFlutterPayment({
 			callback: (response) => {
-				closePaymentModal(); // this will close the modal programmatically
+				setTimeout(() => {
+					closePaymentModal(); // this will close the modal programmatically
+				}, 7000);
 				onSuccess(response);
 			},
 			onClose: () => {},
