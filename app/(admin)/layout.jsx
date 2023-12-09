@@ -86,7 +86,7 @@ function AdminLayout({ children }) {
 							</Link>
 						</li>
 						<li>
-							<Link href="/admin/orders">
+							<Link href="/admin/orders?q=all">
 								<SlLayers className="w-5 h-5" />
 								<span>Orders</span>
 							</Link>

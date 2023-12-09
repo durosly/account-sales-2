@@ -1,4 +1,4 @@
-import Link from "next/link";
+import NavLink from "@/app/components/active-links";
 import DisplayOrders from "./__components/display-orders";
 
 function OrdersPage() {
@@ -8,31 +8,35 @@ function OrdersPage() {
 				<h1 className="text-4xl font-bold">Orders Page</h1>
 			</div>
 
-			<div className="px-10 flex flex-wrap gap-5 mb-20">
-				<Link
-					className="border p-5 rounded-2xl"
-					href="/auth/user/orders?q=all"
+			<div className="px-10 flex flex-wrap gap-5 mb-10">
+				<NavLink
+					path="/auth/user/orders?q=all"
+					className={"border p-3 rounded-xl"}
+					activeClassName={"bg-primary/25"}
 				>
 					All
-				</Link>
-				<Link
-					className="border p-5 rounded-2xl"
-					href="/auth/user/orders?q=success"
+				</NavLink>
+				<NavLink
+					className="border p-3 rounded-xl"
+					path="/auth/user/orders?q=success"
+					activeClassName={"bg-primary/25"}
 				>
 					Completed
-				</Link>
-				<Link
-					className="border p-5 rounded-2xl"
-					href="/auth/user/orders?q=pending"
+				</NavLink>
+				<NavLink
+					className="border p-3 rounded-xl"
+					path="/auth/user/orders?q=pending"
+					activeClassName={"bg-primary/25"}
 				>
 					Pending
-				</Link>
-				<Link
-					className="border p-5 rounded-2xl"
-					href="/auth/user/orders?q=cancel"
+				</NavLink>
+				<NavLink
+					className="border p-3 rounded-xl"
+					path="/auth/user/orders?q=cancel"
+					activeClassName={"bg-primary/25"}
 				>
 					Cancelled
-				</Link>
+				</NavLink>
 			</div>
 
 			<DisplayOrders />

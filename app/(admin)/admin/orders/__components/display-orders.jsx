@@ -10,16 +10,20 @@ import OrderRow from "./order-row";
 
 function DisplayOrders() {
 	const searchParams = useSearchParams();
-
+	const [query, setQuery] = useState("");
 	const search = searchParams.get("q");
 
 	const [page, setPage] = useState(1);
 
 	const { isPending, isError, data, error, isFetching, isPlaceholderData } =
 		useQuery({
-			queryKey: ["orders", page, search],
+			queryKey: ["orders", page, query, search],
 			queryFn: () =>
-				axios(`/api/admin/order?page=${page}&q=${search ?? "all"}`),
+				axios(
+					`/api/admin/order?page=${page}&q=${
+						search ?? "all"
+					}&id=${query}`
+				),
 			placeholderData: (previousData) => previousData,
 		});
 
@@ -28,6 +32,22 @@ function DisplayOrders() {
 
 	return (
 		<>
+			<form
+				action=""
+				className="px-5 mb-5 mt-5"
+			>
+				<div className="join">
+					<input
+						type="text"
+						className="input input-bordered join-item"
+						placeholder="Transaction ID..."
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+					/>
+					<button className="btn join-item ">Search</button>
+				</div>
+			</form>
+
 			<div className="text-right flex font-bold">
 				<div className="w-72 ml-auto pr-5">
 					{isPending ? (
@@ -49,6 +69,7 @@ function DisplayOrders() {
 						<thead>
 							<tr>
 								<th></th>
+								<th>Transaction ID</th>
 								<th>Date/Time</th>
 								<th>Service/Category</th>
 								<th>Quality</th>
@@ -90,14 +111,16 @@ function DisplayOrders() {
 										))
 									) : (
 										<tr>
-											<td>No category found</td>
+											<td colSpan={7}>
+												No category found
+											</td>
 										</tr>
 									)}
 								</>
 							)}
 							{isFetching ? (
 								<tr>
-									<td colSpan={6}>
+									<td colSpan={7}>
 										<span className="loading loading-spinner"></span>
 										<span> Loading...</span>
 									</td>

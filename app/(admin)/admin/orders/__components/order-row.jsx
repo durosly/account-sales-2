@@ -9,6 +9,7 @@ function OrderRow({ item, count }) {
 		_id,
 		categoryId,
 		serviceId,
+		serviceItemIds,
 		quantity,
 		charge,
 		status,
@@ -18,6 +19,7 @@ function OrderRow({ item, count }) {
 		<>
 			<tr>
 				<th>{count}</th>
+				<td>{_id}</td>
 				<td>
 					{DateTime.fromISO(createdAt).toLocaleString(
 						DateTime.DATETIME_SHORT
@@ -28,7 +30,7 @@ function OrderRow({ item, count }) {
 					<ShowDetailsBtn
 						id={_id}
 						details={info}
-						status={status}
+						items={serviceItemIds}
 					/>
 				</td>
 				<td>{commaNumber(quantity)}</td>

@@ -23,7 +23,7 @@ async function NavLinks() {
 						</Link>
 					</li>
 					<li>
-						<Link href="/auth/user/orders">
+						<Link href="/auth/user/orders?q=all">
 							<SlBasket className="w-5 h-5 lg:hidden" />
 							<span>Orders</span>
 						</Link>

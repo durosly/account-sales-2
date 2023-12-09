@@ -17,6 +17,7 @@ async function getOrders(request) {
 		}
 
 		const q = searchParams.get("q");
+		const id = searchParams.get("id");
 
 		const query = {};
 
@@ -24,12 +25,16 @@ async function getOrders(request) {
 			query.status = q;
 		}
 
+		if (id) {
+			query._id = id;
+		}
+
 		await connectMongo();
 
 		const orders = await OrderModel.paginate(query, {
 			page,
 			sort: { createdAt: -1 },
-			populate: ["categoryId", "serviceId"],
+			populate: ["categoryId", "serviceId", "serviceItemIds"],
 		});
 
 		return NextResponse.json({
