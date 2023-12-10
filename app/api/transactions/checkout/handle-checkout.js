@@ -1,18 +1,16 @@
-import { options } from "@/auth/options";
 import connectMongo from "@/lib/connectDB";
+import TransactionModel from "@/models/transactions";
 import UserModel from "@/models/user";
 import addNotification from "@/utils/backend/add-notification";
 import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
 import commaNumber from "comma-number";
 import { DateTime } from "luxon";
-import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import TransactionModel from "@/models/transactions";
+import { NextResponse } from "next/server";
 
 async function handleCheckout(request) {
 	try {
-		const secretHash = "nice";
+		const secretHash = process.env.FLUTTERWAVE_HASH;
 		const headersList = headers();
 		const hash = headersList.get("verif-hash");
 
@@ -44,6 +42,8 @@ async function handleCheckout(request) {
 			amount,
 			txRef,
 		} = body;
+
+		await connectMongo();
 
 		const exist = await TransactionModel.findOne({
 			userEmail: email,
