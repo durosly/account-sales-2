@@ -8,6 +8,8 @@ import { DateTime } from "luxon";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 async function handleCheckout(request) {
 	try {
 		const secretHash = process.env.FLUTTERWAVE_HASH;
@@ -89,10 +91,13 @@ async function handleCheckout(request) {
 			message: "success",
 		});
 	} catch (error) {
-		return NextResponse.json({
-			status: false,
-			message: `An error occured: ${error.message}`,
-		});
+		return NextResponse.json(
+			{
+				status: false,
+				message: `An error occured: ${error.message}`,
+			},
+			{ status: 500 }
+		);
 	}
 }
 

@@ -21,7 +21,6 @@ function FundAccountForm({ user }) {
 		// so that the mutation stays in `pending` state until the refetch is finished
 
 		onSuccess: () => {
-			setAmt("");
 			toast.success("Request created", { id: toastId.current });
 		},
 		onError: (error) => {
@@ -67,9 +66,7 @@ function FundAccountForm({ user }) {
 					closePaymentModal(); // this will close the modal programmatically
 				}, 7000);
 			},
-			onClose: () => {
-				setAmt("");
-			},
+			onClose: () => {},
 		});
 	}
 
