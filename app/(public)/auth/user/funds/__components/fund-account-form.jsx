@@ -52,12 +52,6 @@ function FundAccountForm({ user }) {
 
 	const handleFlutterPayment = useFlutterwave(config);
 
-	function onSuccess(reference) {
-		if (reference.status === "successful") {
-			mutate(reference.transaction_id, amt);
-		}
-	}
-
 	function initPayment(e) {
 		e.preventDefault();
 		if (!amt) {
@@ -68,13 +62,14 @@ function FundAccountForm({ user }) {
 		if (isPending) return;
 
 		handleFlutterPayment({
-			callback: (response) => {
+			callback: () => {
 				setTimeout(() => {
 					closePaymentModal(); // this will close the modal programmatically
 				}, 7000);
-				onSuccess(response);
 			},
-			onClose: () => {},
+			onClose: () => {
+				setAmt("");
+			},
 		});
 	}
 
