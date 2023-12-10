@@ -28,7 +28,7 @@ function OrderRow({ item, count }) {
 				<td>
 					{serviceId.name}/{categoryId.name}
 				</td>
-				<td className="whitespace-nowrap">
+				<td className="flex flex-wrap gap-2">
 					<ShowDetailsBtn
 						id={_id}
 						details={info}

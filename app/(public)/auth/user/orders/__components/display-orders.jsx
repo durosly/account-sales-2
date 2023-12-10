@@ -52,7 +52,7 @@ function DisplayOrders() {
 								<th>Transaction ID</th>
 								<th>Date/Time</th>
 								<th>Service/Category</th>
-								<th></th>
+								<th>Actions</th>
 								<th>Quality</th>
 								<th>Charge</th>
 								<th>Status</th>

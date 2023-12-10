@@ -57,38 +57,43 @@ function ShowDetailsBtn({ id, items }) {
 								<div className="">
 									{/* <pre>{item.info}</pre> */}
 									<div className="space-y-2">
-										{item.info.split(",").map((data, i) => {
-											if (data) {
-												const items = data.split(":");
-												return (
-													<p
-														key={i}
-														className="space-x-1"
-													>
-														<span className="uppercase font-bold">
-															{items[0]}:
-														</span>
-														<span>
-															{items[1].trim()}
-														</span>
+										{item.info
+											.replace(/\s+/g, "")
+											.split(",")
+											.map((data, i) => {
+												if (data) {
+													const items =
+														data.split(":");
 
-														<button
-															onClick={() =>
-																copy(
-																	items[1].replace(
-																		/\s+/g,
-																		""
-																	)
-																)
-															}
-															className="btn btn-xs btn-square"
+													return (
+														<p
+															key={i}
+															className="space-x-1"
 														>
-															<IoCopyOutline />
-														</button>
-													</p>
-												);
-											}
-										})}
+															<span className="uppercase font-bold">
+																{items[0]}:
+															</span>
+															<span>
+																{items[1]}
+															</span>
+
+															<button
+																onClick={() =>
+																	copy(
+																		items[1].replace(
+																			/\s+/g,
+																			""
+																		)
+																	)
+																}
+																className="btn btn-xs btn-square"
+															>
+																<IoCopyOutline />
+															</button>
+														</p>
+													);
+												}
+											})}
 									</div>
 									<p className="font-bold my-5 flex gap-2 items-center">
 										<SlPaperClip className="w-4 h-4" />
