@@ -1,17 +1,33 @@
 "use client";
 import { handleClientError } from "@/lib/utils";
+import { Combobox, Transition } from "@headlessui/react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
+import { BsChevronExpand } from "react-icons/bs";
 import toast from "react-hot-toast";
+import { MdCheckCircleOutline } from "react-icons/md";
 
 function AddServices({ countries }) {
+	const [selected, setSelected] = useState(null);
+	const [query, setQuery] = useState("");
+	const [global, setGlobal] = useState(false);
+
+	const filteredCountries =
+		query === ""
+			? countries
+			: countries.filter((country) =>
+					country.name
+						.toLowerCase()
+						.replace(/\s+/g, "")
+						.includes(query.toLowerCase().replace(/\s+/g, ""))
+			  );
+
 	const [newService, setNewService] = useState({
 		category: "",
 		name: "",
 		price: "",
-		country: "",
 		details: "",
 	});
 	const {
@@ -61,7 +77,8 @@ function AddServices({ countries }) {
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		mutate(newService);
+
+		mutate({ ...newService, country: global ? "global" : selected.code });
 	}
 
 	return (
@@ -176,40 +193,115 @@ function AddServices({ countries }) {
 								}
 							/>
 						</div>
+
 						<div className="form-control">
-							<label
-								htmlFor="country"
-								className="label"
+							<Combobox
+								value={selected}
+								onChange={setSelected}
 							>
-								Country
-							</label>
-							<select
-								name="country"
-								id="country"
-								className="select select-bordered"
-								value={newService.country}
-								onChange={(e) =>
-									setNewService({
-										...newService,
-										[e.target.name]: e.target.value,
-									})
-								}
-							>
-								<option
-									disabled
-									value={""}
-								>
-									-- select country --
-								</option>
-								{countries.map((c) => (
-									<option
-										value={c.code}
-										key={c.name}
+								<Combobox.Label className="label">
+									Country
+								</Combobox.Label>
+								<div className="relative mt-1">
+									<div className="relative w-full">
+										<Combobox.Input
+											className="input input-bordered w-full"
+											displayValue={(country) =>
+												country ? country.name : ""
+											}
+											onChange={(event) =>
+												setQuery(event.target.value)
+											}
+											disabled={global}
+										/>
+										<Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+											<BsChevronExpand
+												className="h-5 w-5 text-gray-400"
+												aria-hidden="true"
+											/>
+										</Combobox.Button>
+									</div>
+									<Transition
+										as={Fragment}
+										leave="transition ease-in duration-100"
+										leaveFrom="opacity-100"
+										leaveTo="opacity-0"
+										afterLeave={() => setQuery("")}
 									>
-										{c.name}
-									</option>
-								))}
-							</select>
+										<Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+											{filteredCountries.length === 0 &&
+											query !== "" ? (
+												<div className="relative cursor-default select-none px-4 py-2 text-gray-700">
+													Nothing found.
+												</div>
+											) : (
+												filteredCountries.map(
+													(country) => (
+														<Combobox.Option
+															key={country.code}
+															className={({
+																active,
+															}) =>
+																`relative cursor-default select-none py-2 pl-10 pr-4 ${
+																	active
+																		? "bg-primary text-white"
+																		: "text-gray-900"
+																}`
+															}
+															value={country}
+															disabled={global}
+														>
+															{({
+																selected,
+																active,
+															}) => (
+																<>
+																	<span
+																		className={`block truncate ${
+																			selected
+																				? "font-medium"
+																				: "font-normal"
+																		}`}
+																	>
+																		{
+																			country.name
+																		}
+																	</span>
+																	{selected ? (
+																		<span
+																			className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+																				active
+																					? "text-white"
+																					: "text-teal-600"
+																			}`}
+																		>
+																			<MdCheckCircleOutline
+																				className="h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		</span>
+																	) : null}
+																</>
+															)}
+														</Combobox.Option>
+													)
+												)
+											)}
+										</Combobox.Options>
+									</Transition>
+								</div>
+							</Combobox>
+						</div>
+						<div className="form-control">
+							<label htmlFor="random">Use Global</label>
+							<input
+								className="checkbox"
+								type="checkbox"
+								name="random"
+								id="random"
+								checked={global}
+								onChange={() => setGlobal((prev) => !prev)}
+							/>
 						</div>
 						<div className="form-control mb-5">
 							<label
