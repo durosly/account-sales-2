@@ -32,7 +32,7 @@ function ShowDetailsBtn({ id, items }) {
 				onClick={() =>
 					downloadFile(
 						items
-							.map((item) => item.info.trim())
+							.map((item) => item.info.replace(/,/g, "").trim())
 							.join("\n\n**********\n\n")
 					)
 				}

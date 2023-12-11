@@ -19,6 +19,13 @@ function OrderRow({ item, count }) {
 		<>
 			<tr>
 				<th>{count}</th>
+				<td className="flex flex-wrap gap-2">
+					<ShowDetailsBtn
+						id={_id}
+						details={info}
+						items={serviceItemIds}
+					/>
+				</td>
 				<td className="italic">{_id}</td>
 				<td>
 					{DateTime.fromISO(createdAt).toLocaleString(
@@ -28,13 +35,7 @@ function OrderRow({ item, count }) {
 				<td>
 					{serviceId.name}/{categoryId.name}
 				</td>
-				<td className="flex flex-wrap gap-2">
-					<ShowDetailsBtn
-						id={_id}
-						details={info}
-						items={serviceItemIds}
-					/>
-				</td>
+
 				<td>{commaNumber(quantity)}</td>
 				<td>{commaNumber(charge)}</td>
 				<td>{status}</td>
