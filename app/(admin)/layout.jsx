@@ -3,6 +3,7 @@ import { SlGrid, SlLayers, SlDrawer, SlLogout } from "react-icons/sl";
 import LogoutBtn from "../components/logout-btn";
 import "easymde/dist/easymde.min.css";
 import { NavigationEvents } from "../components/navigation-event";
+import { FaTimes } from "react-icons/fa";
 import HandleNotificationTopic from "../components/handle-notification-topic";
 
 export const dynamic = "force-dynamic";
@@ -75,7 +76,14 @@ function AdminLayout({ children }) {
 					aria-label="close sidebar"
 					className="drawer-overlay"
 				></label>
-				<div className="menu w-80 max-lg:bg-base-100 min-h-full border-r">
+				<div className="menu w-80 max-lg:bg-base-100 min-h-full border-r relative">
+					<label
+						htmlFor="my-drawer-3"
+						aria-label="close sidebar"
+						className="btn btn-xs btn-ghost absolute right-5 top-5 lg:hidden"
+					>
+						<FaTimes />
+					</label>
 					<h1 className="text-xl font-bold p-4">Admin dashboard</h1>
 					<ul>
 						{/* Sidebar content here */}

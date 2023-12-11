@@ -6,6 +6,7 @@ import HandleNotificationTopic from "../components/handle-notification-topic";
 import LogoutBtn from "../components/logout-btn";
 import { NavigationEvents } from "../components/navigation-event";
 import NavLinks from "./__components/nav-links";
+import { FaTimes } from "react-icons/fa";
 import ShowNotificationStatus from "./__components/show-notification-status";
 
 export const dynamic = "force-dynamic";
@@ -207,7 +208,14 @@ async function PublicLayout({ children }) {
 					aria-label="close sidebar"
 					className="drawer-overlay"
 				></label>
-				<div className="menu p-4 w-80 min-h-full bg-base-200">
+				<div className="menu p-4 w-80 min-h-full bg-base-200 relative">
+					<label
+						htmlFor="my-drawer-3"
+						aria-label="close sidebar"
+						className="btn btn-xs btn-ghost absolute right-5 top-5 lg:hidden"
+					>
+						<FaTimes />
+					</label>
 					<h2 className="text-xl font-bold text-center">AccHub</h2>
 					<ul>
 						{/* Sidebar content here */}
