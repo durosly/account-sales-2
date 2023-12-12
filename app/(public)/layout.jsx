@@ -116,45 +116,46 @@ async function PublicLayout({ children }) {
 				{/* Page content here */}
 				<main>{children}</main>
 
-				<footer className="footer p-10 bg-base-200 text-base-content">
-					<aside>
-						<h2 className="text-4xl font-bold">AccHub</h2>
-						<p>
-							AccHub Ltd.
-							<br />
-							<span className="text-xs italic">
-								Buy Verified Social Media Accounts
-							</span>
-						</p>
-					</aside>
-					<nav>
-						<header className="footer-title">Services</header>
-						<Link
-							href="/services"
-							className="link link-hover"
-						>
-							Facebook
-						</Link>
-						<Link
-							href="/services"
-							className="link link-hover"
-						>
-							Tiktok
-						</Link>
-						<Link
-							href="/services"
-							className="link link-hover"
-						>
-							Telegram
-						</Link>
-						<Link
-							href="/services"
-							className="link link-hover"
-						>
-							And many more...
-						</Link>
-					</nav>
-					{/* <nav>
+				{session?.user ? null : (
+					<footer className="footer p-10 bg-base-200 text-base-content">
+						<aside>
+							<h2 className="text-4xl font-bold">AccHub</h2>
+							<p>
+								AccHub Ltd.
+								<br />
+								<span className="text-xs italic">
+									Buy Verified Social Media Accounts
+								</span>
+							</p>
+						</aside>
+						<nav>
+							<header className="footer-title">Services</header>
+							<Link
+								href="/services"
+								className="link link-hover"
+							>
+								Facebook
+							</Link>
+							<Link
+								href="/services"
+								className="link link-hover"
+							>
+								Tiktok
+							</Link>
+							<Link
+								href="/services"
+								className="link link-hover"
+							>
+								Telegram
+							</Link>
+							<Link
+								href="/services"
+								className="link link-hover"
+							>
+								And many more...
+							</Link>
+						</nav>
+						{/* <nav>
 						<header className="footer-title">Company</header>
 						<Link
 							href="/nice"
@@ -170,15 +171,15 @@ async function PublicLayout({ children }) {
 						</Link>
 						
 					</nav> */}
-					<nav>
-						<header className="footer-title">Legal</header>
-						<Link
-							href="/terms"
-							className="link link-hover"
-						>
-							Terms of use
-						</Link>
-						{/* <Link
+						<nav>
+							<header className="footer-title">Legal</header>
+							<Link
+								href="/terms"
+								className="link link-hover"
+							>
+								Terms of use
+							</Link>
+							{/* <Link
 							href="/nice"
 							className="link link-hover"
 						>
@@ -190,17 +191,18 @@ async function PublicLayout({ children }) {
 						>
 							Cookie policy
 						</Link> */}
-					</nav>
-					<nav>
-						<header className="footer-title">Contacts</header>
-						<div className="flex flex-wrap gap-2">
-							<SlEnvolope className="w-5 h-5" />
-							<a href="mailto:support@acchub.net">
-								support@acchub.net
-							</a>
-						</div>
-					</nav>
-				</footer>
+						</nav>
+						<nav>
+							<header className="footer-title">Contacts</header>
+							<div className="flex flex-wrap gap-2">
+								<SlEnvolope className="w-5 h-5" />
+								<a href="mailto:support@acchub.net">
+									support@acchub.net
+								</a>
+							</div>
+						</nav>
+					</footer>
+				)}
 			</div>
 			<div className="drawer-side">
 				<label
