@@ -1,4 +1,5 @@
 "use client";
+import global from "@/images/global.png";
 import { handleClientError } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -63,9 +64,18 @@ function DisplayServices({ id, categoryCover }) {
 								</div>
 								<div className="flex gap-1 items-center p-2 rounded-md text-yellow-500 border border-yellow-500">
 									<span>Country:</span>
-									<span
-										className={`fi fi-${s.country.toLowerCase()}`}
-									></span>
+									{s.country === "global" ? (
+										<Image
+											src={global}
+											width={20}
+											height={20}
+											className="inline-block"
+										/>
+									) : (
+										<span
+											className={`fi fi-${s.country.toLowerCase()}`}
+										></span>
+									)}
 								</div>
 							</div>
 

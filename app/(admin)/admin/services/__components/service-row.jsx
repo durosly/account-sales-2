@@ -4,6 +4,8 @@ import ServiceDeleteBtn from "./service-delete-btn";
 import ServiceUpdateBtn from "./service-update-btn";
 import commaNumber from "comma-number";
 import ServiceQuantity from "./service-quantity";
+import Image from "next/image";
+import global from "@/images/global.png";
 
 function ServiceRow({ item }) {
 	const { createdAt, name, _id, categoryId, price, country } = item;
@@ -15,8 +17,17 @@ function ServiceRow({ item }) {
 			<td>
 				{_id.substring(0, 2) + "..." + _id.substring(_id.length - 2)}
 			</td>
-			<td>
-				<span className={`fi fi-${country.toLowerCase()}`}></span>
+			<td className="">
+				{country === "global" ? (
+					<Image
+						src={global}
+						width={20}
+						height={20}
+						className="inline-block"
+					/>
+				) : (
+					<span className={`fi fi-${country.toLowerCase()}`}></span>
+				)}
 				<span className="ml-1">{name}</span>
 			</td>
 			<td>
