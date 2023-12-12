@@ -18,4 +18,6 @@ export default withAuth(middleware, {
 	callbacks: { authorized: ({ token }) => !!token },
 });
 
-export const config = { matcher: ["/auth/user/:path*", "/admin/:path*"] };
+export const config = {
+	matcher: ["/auth/user/:path*", "/admin/:path*"],
+};
