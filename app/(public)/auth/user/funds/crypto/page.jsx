@@ -1,6 +1,7 @@
 import CurrencyRateModel from "@/models/rate";
 import FundWithCryptoForm from "./__components/fund-with-crypto-form";
 import axios from "axios";
+import connectMongo from "@/lib/connectDB";
 
 async function AddFundsWithCrypto() {
 	const data = await axios("https://plisio.net/api/v1/currencies", {
@@ -14,6 +15,8 @@ async function AddFundsWithCrypto() {
 	if (data.statusText !== "OK") {
 		throw new Error(`Failed to fetch currencies list: ${data.status}`);
 	}
+
+	await connectMongo();
 
 	const rate = await CurrencyRateModel.findOne({ currency: "USD" });
 
