@@ -50,6 +50,8 @@ async function handleCheckout(request) {
 		const exist = await TransactionModel.findOne({
 			userEmail: email,
 			transactionId: txRef,
+			status: "completed",
+			amount,
 		});
 
 		if (exist) {
