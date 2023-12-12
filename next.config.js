@@ -8,6 +8,12 @@ const nextConfig = {
 				port: "",
 				pathname: "/photos/**",
 			},
+			{
+				protocol: "https",
+				hostname: "plisio.net",
+				port: "",
+				pathname: "/img/**",
+			},
 		],
 	},
 };
