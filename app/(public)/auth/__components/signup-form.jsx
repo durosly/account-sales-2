@@ -62,7 +62,7 @@ function SignupForm() {
 					htmlFor="name"
 					className="label"
 				>
-					Fullname
+					<span className="label-text">Fullname</span>
 				</label>
 				<div className="relative">
 					<SlUser className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
@@ -87,7 +87,7 @@ function SignupForm() {
 					htmlFor="s-email"
 					className="label"
 				>
-					E-mail
+					<span className="label-text">E-mail</span>
 				</label>
 				<div className="relative">
 					<SlEnvolope className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
@@ -112,7 +112,7 @@ function SignupForm() {
 					htmlFor="s-password"
 					className="label"
 				>
-					Password
+					<span className="label-text">Password</span>
 				</label>
 				<div className="relative">
 					<SlLock className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />

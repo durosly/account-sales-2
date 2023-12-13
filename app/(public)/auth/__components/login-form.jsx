@@ -54,7 +54,12 @@ function LoginForm() {
 		>
 			<h2 className="text-2xl font-bold mb-5 text-center">Login</h2>
 			<div className="form-control">
-				<label htmlFor="email">E-mail</label>
+				<label
+					htmlFor="email"
+					className="label"
+				>
+					<span className="label-text text-white">E-mail</span>
+				</label>
 				<div className="relative">
 					<SlEnvolope className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
 					<input
@@ -78,7 +83,7 @@ function LoginForm() {
 					htmlFor="password"
 					className="label"
 				>
-					Password
+					<span className="label-text text-white">Password</span>
 				</label>
 				<div className="relative">
 					<SlLock className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
@@ -86,7 +91,7 @@ function LoginForm() {
 						type={show ? "text" : "password"}
 						name="password"
 						id="password"
-						className="input input-bordered w-full text-black font-bold pl-11"
+						className="input input-bordered w-full text-black font-bold pl-11 pr-11"
 						placeholder="Passowrd..."
 						value={info.password}
 						onChange={(e) =>
@@ -96,18 +101,17 @@ function LoginForm() {
 							})
 						}
 					/>
+
+					<button
+						onClick={() => setShow((prev) => !prev)}
+						className="absolute right-4 top-1/2 -translate-y-1/2 text-black"
+						type="button"
+					>
+						{show ? <BsEyeSlash /> : <BsEye />}
+					</button>
 				</div>
 			</div>
-			<div className="text-right">
-				<button
-					onClick={() => setShow((prev) => !prev)}
-					className="btn btn-xs"
-					type="button"
-				>
-					{show ? <BsEyeSlash /> : <BsEye />}
-				</button>
-			</div>
-			<div className="text-center">
+			<div className="text-center mb-5">
 				<button
 					disabled={isLoading}
 					className="btn btn-neutral btn-wide !rounded-xl"
