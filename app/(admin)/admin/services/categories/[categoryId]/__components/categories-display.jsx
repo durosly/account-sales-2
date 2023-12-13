@@ -6,14 +6,16 @@ import { useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Skeleton from "react-loading-skeleton";
 import CategoryRow from "./category-row";
+import { handleClientError } from "@/lib/utils";
 
-function CategoriesDisplay() {
+function CategoriesDisplay({ id }) {
 	const [page, setPage] = useState(1);
 	const [query, setQuery] = useState("");
 	const { isPending, isError, data, error, isFetching, isPlaceholderData } =
 		useQuery({
-			queryKey: ["categories", page, query],
-			queryFn: () => axios(`/api/admin/category?page=${page}&q=${query}`),
+			queryKey: ["sub-categories", page, query],
+			queryFn: () =>
+				axios(`/api/admin/category/${id}/sub?page=${page}&q=${query}`),
 			placeholderData: (previousData) => previousData,
 		});
 
@@ -30,7 +32,7 @@ function CategoriesDisplay() {
 					<input
 						type="text"
 						className="input input-bordered join-item"
-						placeholder="Category name"
+						placeholder="Sub category name"
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
 					/>
@@ -58,7 +60,7 @@ function CategoriesDisplay() {
 						<tr>
 							<th></th>
 							<th>Name</th>
-							<th></th>
+
 							<th>Created At</th>
 							<th>Action</th>
 						</tr>
@@ -70,7 +72,7 @@ function CategoriesDisplay() {
 								.fill(3)
 								.map((_, i) => (
 									<tr key={i}>
-										<td colSpan={5}>
+										<td colSpan={4}>
 											<Skeleton />
 										</td>
 									</tr>
@@ -78,10 +80,10 @@ function CategoriesDisplay() {
 						) : isError ? (
 							<tr>
 								<td
-									colSpan={5}
+									colSpan={4}
 									className="text-error font-bold"
 								>
-									{error}
+									{handleClientError(error)}
 								</td>
 							</tr>
 						) : (
@@ -91,6 +93,7 @@ function CategoriesDisplay() {
 										<CategoryRow
 											item={item}
 											key={item._id}
+											cId={id}
 										/>
 									))
 								) : (
@@ -102,7 +105,7 @@ function CategoriesDisplay() {
 						)}
 						{isFetching ? (
 							<tr>
-								<td colSpan={5}>
+								<td colSpan={4}>
 									<span className="loading loading-spinner"></span>
 									<span> Loading...</span>
 								</td>
