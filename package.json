@@ -16,6 +16,8 @@
 		"@react-email/html": "0.0.6",
 		"@react-email/render": "^0.0.9",
 		"@tanstack/react-query": "^5.8.4",
+		"@vercel/analytics": "^1.1.1",
+		"@vercel/speed-insights": "^1.0.1",
 		"axios": "^1.6.1",
 		"bcryptjs": "^2.4.3",
 		"comma-number": "^2.1.0",
