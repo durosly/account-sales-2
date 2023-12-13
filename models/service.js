@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
 import paginate from "mongoose-paginate-v2";
 import CategoryModel from "./category";
+import SubCategoryModel from "./sub-category";
 // import referralCodeGenerator from 'referral-code-generator';
 
 const serviceSchema = new mongoose.Schema({
 	name: String,
 	categoryId: { type: mongoose.Schema.Types.ObjectId, ref: CategoryModel },
+	subCategoryId: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: SubCategoryModel,
+	},
 	price: Number,
 	country: String,
 	details: String,

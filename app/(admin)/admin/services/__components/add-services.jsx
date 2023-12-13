@@ -26,10 +26,12 @@ function AddServices({ countries }) {
 
 	const [newService, setNewService] = useState({
 		category: "",
+		subCategory: "",
 		name: "",
 		price: "",
 		details: "",
 	});
+
 	const {
 		isPending: isCategoryPending,
 		isError,
@@ -41,6 +43,22 @@ function AddServices({ countries }) {
 	});
 
 	const queryResponse = data?.data?.data || [];
+
+	const {
+		isPending: isSubCategoryPending,
+		isError: isSubCategoryError,
+		data: sub,
+		error: subError,
+	} = useQuery({
+		queryKey: ["sub-categories", "all", newService.category],
+		queryFn: () =>
+			axios(`/api/admin/category/${newService.category}/sub?page=all`),
+		enabled: !!newService.category,
+	});
+
+	const subQueryResponse = sub?.data?.data || [];
+
+	console.log(subQueryResponse);
 
 	const queryClient = useQueryClient();
 
@@ -61,6 +79,7 @@ function AddServices({ countries }) {
 		onSuccess: () => {
 			setNewService({
 				category: "",
+				subCategory: "",
 				name: "",
 				price: "",
 				country: "",
@@ -141,6 +160,49 @@ function AddServices({ countries }) {
 									queryResponse &&
 									queryResponse.length &&
 									queryResponse.map((item) => (
+										<option
+											value={item._id}
+											key={item._id}
+										>
+											{item.name}
+										</option>
+									))
+								)}
+							</select>
+						</div>
+						<div className="form-control">
+							<label
+								htmlFor="category"
+								className="label"
+							>
+								Sub Category
+							</label>
+							<select
+								name="subCategory"
+								id="subCategory"
+								className="select select-bordered"
+								value={newService.subCategory}
+								onChange={(e) =>
+									setNewService({
+										...newService,
+										[e.target.name]: e.target.value,
+									})
+								}
+							>
+								<option
+									disabled
+									value={""}
+								>
+									-- select sub category --
+								</option>
+								{isSubCategoryPending ? (
+									<option>Loading...</option>
+								) : isSubCategoryError ? (
+									<option>{subError.message}</option>
+								) : (
+									subQueryResponse &&
+									subQueryResponse.length &&
+									subQueryResponse.map((item) => (
 										<option
 											value={item._id}
 											key={item._id}

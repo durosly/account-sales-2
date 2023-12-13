@@ -29,12 +29,15 @@ async function getServices(request) {
 		let services = [];
 
 		if (page === "all") {
-			services = await ServiceModel.find({}).populate("categoryId");
+			services = await ServiceModel.find({}).populate(
+				"categoryId",
+				"subCategoryId"
+			);
 		} else {
 			services = await ServiceModel.paginate(query, {
 				page,
 				sort: { createdAt: -1 },
-				populate: "categoryId",
+				populate: ["categoryId", "subCategoryId"],
 			});
 		}
 

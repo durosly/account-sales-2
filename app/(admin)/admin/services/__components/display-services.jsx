@@ -61,6 +61,7 @@ function DisplayServices() {
 							<th>Service</th>
 							<th>Quantity</th>
 							<th>Category</th>
+							<th>Sub category</th>
 							<th>Price (N)</th>
 							<th>Created at</th>
 							<th>Action</th>
@@ -81,7 +82,7 @@ function DisplayServices() {
 						) : isError ? (
 							<tr>
 								<td
-									colSpan={6}
+									colSpan={7}
 									className="text-error font-bold"
 								>
 									{error.message}
@@ -105,7 +106,7 @@ function DisplayServices() {
 						)}
 						{isFetching ? (
 							<tr>
-								<td colSpan={6}>
+								<td colSpan={7}>
 									<span className="loading loading-spinner"></span>
 									<span> Loading...</span>
 								</td>

@@ -1,10 +1,10 @@
 import CategoryModel from "@/models/category";
 import { notFound } from "next/navigation";
-import DisplaySubCategories from "./__components/display-services";
+import DisplayServices from "./__components/display-services";
 import Image from "next/image";
 import connectMongo from "@/lib/connectDB";
 
-async function page({ params: { id } }) {
+async function servicesPage({ params: { id, subId } }) {
 	await connectMongo();
 	const category = await CategoryModel.findById(id);
 
@@ -24,9 +24,13 @@ async function page({ params: { id } }) {
 				</div>
 				<h2 className="text-2xl font-bold">{category.name}</h2>
 			</div>
-			<DisplaySubCategories id={id} />
+			<DisplayServices
+				id={id}
+				subId={subId}
+				categoryCover={category.cover}
+			/>
 		</>
 	);
 }
 
-export default page;
+export default servicesPage;

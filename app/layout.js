@@ -10,7 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { metaInfo } from "./meta";
 import HandleNotification from "./components/handle-notification";
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const viewport = {
 	themeColor: "#4A00FF",

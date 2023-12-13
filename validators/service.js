@@ -12,4 +12,7 @@ export const CreateServiceSchema = z.object({
 	category: z.custom((id) => {
 		return isValidObjectId(id);
 	}),
+	subCategory: z.custom((id) => {
+		return isValidObjectId(id);
+	}),
 });

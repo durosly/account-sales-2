@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import ShowDetailsBtn from "./show-details-btn";
 
 function OrderRow({ item, count }) {
+	console.log(item);
 	const {
 		createdAt,
 		_id,
@@ -33,7 +34,7 @@ function OrderRow({ item, count }) {
 					)}
 				</td>
 				<td>
-					{serviceId.name}/{categoryId.name}
+					{serviceId?.name}/{categoryId?.name}
 				</td>
 
 				<td>{commaNumber(quantity)}</td>

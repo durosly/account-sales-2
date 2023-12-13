@@ -6,17 +6,15 @@ import commaNumber from "comma-number";
 import ServiceQuantity from "./service-quantity";
 import Image from "next/image";
 import global from "@/images/global.png";
+import truncateString from "@/utils/shared/trunc";
 
 function ServiceRow({ item }) {
-	const { createdAt, name, _id, categoryId, price, country } = item;
-
-	console.log(country);
+	const { createdAt, name, _id, categoryId, price, country, subCategoryId } =
+		item;
 
 	return (
 		<tr>
-			<td>
-				{_id.substring(0, 2) + "..." + _id.substring(_id.length - 2)}
-			</td>
+			<td>{truncateString(_id, 8, "middle")}</td>
 			<td className="">
 				{country === "global" ? (
 					<Image
@@ -34,6 +32,7 @@ function ServiceRow({ item }) {
 				<ServiceQuantity id={_id} />
 			</td>
 			<td>{categoryId?.name || "nil"}</td>
+			<td>{subCategoryId?.name || "nil"}</td>
 			<td>{commaNumber(price)}</td>
 			<td>
 				{DateTime.fromISO(createdAt).toLocaleString(

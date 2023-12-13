@@ -21,6 +21,7 @@ async function createService(request) {
 		const service = await ServiceModel.create({
 			name: valid.data.name,
 			categoryId: valid.data.category,
+			subCategoryId: valid.data.subCategory,
 			price: valid.data.price,
 			country: valid.data.country,
 			details: valid.data.details,

@@ -19,6 +19,7 @@ async function getServices(request) {
 
 		const q = searchParams.get("q");
 		const c = searchParams.get("c");
+		const s = searchParams.get("s");
 
 		if (!isValidObjectId(c)) {
 			return NextResponse.json(
@@ -34,7 +35,10 @@ async function getServices(request) {
 		}
 
 		if (!!c) {
-			query.categoryId = { $eq: c };
+			query.categoryId = c;
+		}
+		if (!!s) {
+			query.subCategoryId = s;
 		}
 
 		await connectMongo();
@@ -42,14 +46,22 @@ async function getServices(request) {
 		let services = [];
 
 		if (page === "all") {
-			services = await ServiceModel.find({ categoryId: c }).populate(
-				"categoryId"
+			const q = {};
+			if (!!c) {
+				q.categoryId = c;
+			}
+			if (!!s) {
+				q.subCategoryId = s;
+			}
+			services = await ServiceModel.find(q).populate(
+				"categoryId",
+				"subCategoryId"
 			);
 		} else {
 			services = await ServiceModel.paginate(query, {
 				page,
 				sort: { name: -1 },
-				populate: "categoryId",
+				populate: ["categoryId", "subCategoryId"],
 			});
 		}
 

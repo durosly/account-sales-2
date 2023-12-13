@@ -1,6 +1,6 @@
 "use client";
 import { handleClientError } from "@/lib/utils";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import commaNumber from "comma-number";
 import { useEffect, useRef, useState } from "react";
@@ -24,6 +24,18 @@ function OrderForm({ cId, sId, price }) {
 			setCharge(0);
 		}
 	}, [entry.quantity]);
+
+	// Load currency rate
+	const {
+		isPending: isPendingRate,
+
+		data: rate,
+	} = useQuery({
+		queryKey: ["rate"],
+		queryFn: () => axios(`/api/rates`),
+	});
+
+	const rateResponse = rate?.data?.data || {};
 
 	// place order
 	const queryClient = useQueryClient();
@@ -184,6 +196,14 @@ function OrderForm({ cId, sId, price }) {
 					<span>Charge:</span>
 					<span className="font-bold">
 						&#8358; {commaNumber(charge)}
+					</span>
+					<span className="font-bold">
+						${" "}
+						{commaNumber(
+							Number(
+								charge / (rateResponse?.amount || 1)
+							).toFixed(2)
+						)}
 					</span>
 				</p>
 			</div>
