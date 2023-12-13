@@ -4,6 +4,7 @@ import LogoutBtn from "../components/logout-btn";
 import "easymde/dist/easymde.min.css";
 import { NavigationEvents } from "../components/navigation-event";
 import { FaTimes } from "react-icons/fa";
+import { BsCurrencyDollar } from "react-icons/bs";
 import HandleNotificationTopic from "../components/handle-notification-topic";
 
 export const dynamic = "force-dynamic";
@@ -103,6 +104,12 @@ function AdminLayout({ children }) {
 							<Link href="/admin/services">
 								<SlDrawer className="w-5 h-5" />
 								<span>Services</span>
+							</Link>
+						</li>
+						<li>
+							<Link href="/admin/currencies">
+								<BsCurrencyDollar className="w-5 h-5" />
+								<span>Currencies</span>
 							</Link>
 						</li>
 						<li>

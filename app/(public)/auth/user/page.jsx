@@ -20,8 +20,8 @@ async function UserDashboardPage() {
 				<div className="flex-1 flex items-center gap-5 p-5 rounded-xl border">
 					<SlWallet className="w-8 h-8" />
 					<div>
-						<UserBalance />
 						<p className="text-sm uppercase">Account balance</p>
+						<UserBalance />
 					</div>
 				</div>
 			</div>
