@@ -19,7 +19,7 @@ export const viewport = {
 export const metadata = {
 	title: {
 		default: metaInfo.title, // a default is required when creating a template
-		template: "%s | Social Media Accounts at AccHub",
+		template: "%s | Social Media Accounts at SMvaults",
 	},
 	category: [...categoryList.categories],
 	keywords: [...keywordsList.keywords],
@@ -29,7 +29,7 @@ export const metadata = {
 		description: metaInfo.description,
 
 		url: process.env.NEXT_PUBLIC_URL,
-		siteName: "AccHub account sales and management",
+		siteName: "SMvaults account sales and management",
 		images: [
 			{
 				url: `/images/main.png`,

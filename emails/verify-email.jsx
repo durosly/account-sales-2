@@ -22,7 +22,7 @@ export const VerifyEmail = ({ email, validationCode = "tt226-5398x" }) => (
 		<Preview>Your E-mail verification code</Preview>
 		<Body style={main}>
 			<Container style={container}>
-				<Heading style={title}>AccHub.net</Heading>
+				<Heading style={title}>smvaults.com</Heading>
 				<Heading style={heading}>Your E-mail verification code</Heading>
 				<Section style={buttonContainer}>
 					<Button
@@ -40,10 +40,10 @@ export const VerifyEmail = ({ email, validationCode = "tt226-5398x" }) => (
 				<code style={code}>{validationCode}</code>
 				<Hr style={hr} />
 				<Link
-					href="https://acchub.net"
+					href="https://smvaults.com"
 					style={reportLink}
 				>
-					Acchub.net
+					smvaults.com
 				</Link>
 			</Container>
 		</Body>

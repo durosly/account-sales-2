@@ -20,7 +20,7 @@ export const passwordResetEmail = ({ email, token = "tt226-5398x" }) => (
 		<Preview>Password reset</Preview>
 		<Body style={main}>
 			<Container style={container}>
-				<Heading style={title}>AccHub.net</Heading>
+				<Heading style={title}>smvaults.com</Heading>
 				<Heading style={heading}>Password Reset</Heading>
 				<Section style={buttonContainer}>
 					<Button

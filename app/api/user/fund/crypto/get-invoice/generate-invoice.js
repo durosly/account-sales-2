@@ -55,7 +55,7 @@ async function generateInvoice(request) {
 		const date = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
 		let message = `You are attempting to deposit ${commaNumber(
 			amt
-		)} naira on ${date} to your AccHub balance`;
+		)} naira on ${date} to your SMvaults balance`;
 		const title = `Deposit (${commaNumber(amt)} ${date})`;
 
 		// const amount = amt / rate.amount;
@@ -72,9 +72,9 @@ async function generateInvoice(request) {
 				description: message,
 				api_key: process.env.PLISIO_KEY,
 				callback_url:
-					"https://www.acchub.net/api/transactions/checkout/crypto?json=true",
+					"https://www.smvaults.com/api/transactions/checkout/crypto?json=true",
 				success_callback_url:
-					"https://www.acchub.net/auth/user/funds/crypto/success?",
+					"https://www.smvaults.com/auth/user/funds/crypto/success?",
 			},
 		});
 

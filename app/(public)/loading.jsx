@@ -4,7 +4,7 @@ function loading() {
 	return (
 		<div className="flex min-h-[500px] justify-center items-center">
 			<div className="text-center">
-				<h3 className="text-xl font-bold">AccHub</h3>
+				<h3 className="text-xl font-bold">SMvaults</h3>
 				<span className="loading loading-dots"></span>
 			</div>
 		</div>

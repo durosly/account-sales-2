@@ -42,7 +42,7 @@ function FundAccountForm({ user }) {
 		customizations: {
 			title: "Fund account",
 			description: "Payment for funding of user account",
-			logo: "https://www.acchub.net/favicon.ico",
+			logo: "https://www.smvaults.com/favicon.ico",
 		},
 		meta: {
 			customer_id: user?.id || null,

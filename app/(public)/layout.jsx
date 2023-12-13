@@ -47,7 +47,7 @@ async function PublicLayout({ children }) {
 								href={session?.user ? "/auth/user" : "/"}
 								className="font-bold"
 							>
-								AccHub
+								SMvaults
 							</Link>
 						</div>
 						<div className="flex-none hidden lg:block">
@@ -121,9 +121,9 @@ async function PublicLayout({ children }) {
 				{session?.user ? null : (
 					<footer className="footer p-10 bg-base-200 text-base-content">
 						<aside>
-							<h2 className="text-4xl font-bold">AccHub</h2>
+							<h2 className="text-4xl font-bold">SMvaults</h2>
 							<p>
-								AccHub Ltd.
+								SMvaults Ltd.
 								<br />
 								<span className="text-xs italic">
 									Buy Verified Social Media Accounts
@@ -198,8 +198,8 @@ async function PublicLayout({ children }) {
 							<header className="footer-title">Contacts</header>
 							<div className="flex flex-wrap gap-2 mb-5">
 								<SlEnvolope className="w-5 h-5" />
-								<a href="mailto:support@acchub.net">
-									support@acchub.net
+								<a href="mailto:support@smvaults.com">
+									support@smvaults.com
 								</a>
 							</div>
 							<header className="footer-title">Socials</header>
@@ -229,7 +229,7 @@ async function PublicLayout({ children }) {
 					>
 						<FaTimes />
 					</label>
-					<h2 className="text-xl font-bold text-center">AccHub</h2>
+					<h2 className="text-xl font-bold text-center">smvaults</h2>
 					<ul>
 						{/* Sidebar content here */}
 						<NavLinks />
