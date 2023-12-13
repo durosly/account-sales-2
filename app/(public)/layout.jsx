@@ -7,6 +7,8 @@ import LogoutBtn from "../components/logout-btn";
 import { NavigationEvents } from "../components/navigation-event";
 import NavLinks from "./__components/nav-links";
 import { FaTimes } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaTelegram } from "react-icons/fa";
 import ShowNotificationStatus from "./__components/show-notification-status";
 
 export const dynamic = "force-dynamic";
@@ -194,10 +196,19 @@ async function PublicLayout({ children }) {
 						</nav>
 						<nav>
 							<header className="footer-title">Contacts</header>
-							<div className="flex flex-wrap gap-2">
+							<div className="flex flex-wrap gap-2 mb-5">
 								<SlEnvolope className="w-5 h-5" />
 								<a href="mailto:support@acchub.net">
 									support@acchub.net
+								</a>
+							</div>
+							<header className="footer-title">Socials</header>
+							<div className="flex flex-wrap gap-2">
+								<a href="https://wa.link/bg6hpy">
+									<FaWhatsapp className="w-5 h-5" />
+								</a>
+								<a href="https://t.me/Smvaults">
+									<FaTelegram className="w-5 h-5" />
 								</a>
 							</div>
 						</nav>
