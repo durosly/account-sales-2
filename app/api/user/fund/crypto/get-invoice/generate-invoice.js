@@ -71,6 +71,10 @@ async function generateInvoice(request) {
 				order_name: title,
 				description: message,
 				api_key: process.env.PLISIO_KEY,
+				callback_url:
+					"https://www.acchub.net/api/transactions/checkout/crypto?json=true",
+				success_callback_url:
+					"https://www.acchub.net/auth/user/funds/crypto/success?",
 			},
 		});
 
