@@ -1,6 +1,10 @@
 import { options } from "@/auth/options";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { TbSocial } from "react-icons/tb";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaTelegram } from "react-icons/fa";
+import { FiLink } from "react-icons/fi";
 import {
 	SlDrawer,
 	SlQuestion,
@@ -38,19 +42,6 @@ async function NavLinks() {
 			) : (
 				<>
 					<li>
-						<Link href="/services">
-							<SlDrawer className="w-5 h-5 lg:hidden" />
-							<span>Services</span>
-						</Link>
-					</li>
-
-					<li>
-						<Link href="/terms">
-							<SlQuestion className="w-5 h-5 lg:hidden" />
-							<span>Terms</span>
-						</Link>
-					</li>
-					<li>
 						<Link href="/auth?action=login">
 							<SlLogin className="w-5 h-5 lg:hidden" />
 							<span>Login</span>
@@ -64,6 +55,51 @@ async function NavLinks() {
 					</li>
 				</>
 			)}
+
+			{session?.user && (
+				<li className="lg:hidden">
+					<h2 class="menu-title flex items-center gap-4 px-1.5">
+						<span class="text-base-content">
+							<FiLink className="w-5 h-5 text-blue-500" />
+						</span>{" "}
+						Info
+					</h2>
+				</li>
+			)}
+
+			<li>
+				<Link href="/services">
+					<SlDrawer className="w-5 h-5 lg:hidden" />
+					<span>Services</span>
+				</Link>
+			</li>
+
+			<li>
+				<Link href="/terms">
+					<SlQuestion className="w-5 h-5 lg:hidden" />
+					<span>Terms</span>
+				</Link>
+			</li>
+			<li className="lg:hidden">
+				<h2 class="menu-title flex items-center gap-4 px-1.5">
+					<span class="text-base-content">
+						<TbSocial className="w-5 h-5 text-green-500" />
+					</span>{" "}
+					Socials
+				</h2>
+			</li>
+			<li className="lg:hidden">
+				<Link href="https://wa.link/bg6hpy">
+					<FaWhatsapp className="w-5 h-5" />
+					<span>WhatsApp</span>
+				</Link>
+			</li>
+			<li className="lg:hidden">
+				<Link href="https://t.me/Smvaults">
+					<FaTelegram className="w-5 h-5" />
+					<span>Telegram</span>
+				</Link>
+			</li>
 		</>
 	);
 }
