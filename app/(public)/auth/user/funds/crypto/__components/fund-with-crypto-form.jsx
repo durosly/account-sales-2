@@ -1,18 +1,18 @@
 "use client";
+import { handleClientError } from "@/lib/utils";
 import { Listbox, Transition } from "@headlessui/react";
-import { Fragment, useRef, useState } from "react";
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { LuChevronsUpDown } from "react-icons/lu";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import Image from "next/image";
-import commaNumber from "comma-number";
+import { useRouter } from "next/navigation";
+import { Fragment, useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
-import { handleClientError } from "@/lib/utils";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { LuChevronsUpDown } from "react-icons/lu";
+import Skeleton from "react-loading-skeleton";
 
-function FundWithCryptoForm({ tokens, rate }) {
+function FundWithCryptoForm({ rate, crypto }) {
 	const router = useRouter();
 	const [amt, setAmt] = useState("");
 	const [selected, setSelected] = useState(null);
@@ -28,7 +28,6 @@ function FundWithCryptoForm({ tokens, rate }) {
 		// so that the mutation stays in `pending` state until the refetch is finished
 
 		onSuccess: (data) => {
-			// console.log(data, "nice");
 			router.push(data.data.invoice.invoice_url);
 			toast.success("Request created", { id: toastId.current });
 		},
@@ -38,9 +37,24 @@ function FundWithCryptoForm({ tokens, rate }) {
 		},
 	});
 
+	const {
+		isPending: isMinPayoutPending,
+		isError,
+		data,
+	} = useQuery({
+		queryKey: ["min-price", { selected }],
+		queryFn: () =>
+			axios(
+				`/api/user/fund/crypto/get-min-payment?currency=${selected.code}`
+			),
+		enabled: !!selected,
+	});
+
+	const queryResponse = data?.data || {};
+
 	function handleSubmit(e) {
 		e.preventDefault();
-		mutate({ amt, currency: selected.currency });
+		mutate({ amt, currency: selected.code });
 	}
 
 	return (
@@ -60,14 +74,14 @@ function FundWithCryptoForm({ tokens, rate }) {
 								{selected ? (
 									<>
 										<Image
-											src={selected.icon}
+											src={`https://nowpayments.io/${selected.logo_url}`}
 											width={20}
 											height={20}
 											className="object-contain"
+											alt={selected.name}
 										/>
 										<span className="block truncate">
-											{selected.name} ({selected.currency}
-											)
+											{selected.name}
 										</span>
 									</>
 								) : (
@@ -87,7 +101,7 @@ function FundWithCryptoForm({ tokens, rate }) {
 								leaveTo="opacity-0"
 							>
 								<Listbox.Options className="absolute mt-1 z-50 max-h-60 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-									{tokens.map((token, tokenIdx) => (
+									{crypto.map((token, tokenIdx) => (
 										<Listbox.Option
 											key={tokenIdx}
 											className={({ active }) =>
@@ -102,9 +116,10 @@ function FundWithCryptoForm({ tokens, rate }) {
 											{({ selected }) => (
 												<>
 													<Image
-														src={token.icon}
+														src={`https://nowpayments.io/${token.logo_url}`}
 														width={20}
 														height={20}
+														alt={token.name}
 													/>
 													<span
 														className={`block truncate ${
@@ -113,8 +128,7 @@ function FundWithCryptoForm({ tokens, rate }) {
 																: "font-normal"
 														}`}
 													>
-														{token.name} (
-														{token.currency})
+														{token.name}
 													</span>
 													{selected ? (
 														<span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -133,27 +147,7 @@ function FundWithCryptoForm({ tokens, rate }) {
 						</div>
 					</Listbox>
 				</div>
-				{selected && (
-					<div className="form-control text-xs mt-5 px-5 bg-base-200 p-5 rounded-md">
-						<p className="font-bold mb-2">
-							Price / {selected.currency}
-						</p>
-						<div className="flex flex-wrap gap-5">
-							<p className="flex gap-1">
-								<span>$</span>
-								<span>{commaNumber(selected.price_usd)}</span>
-							</p>
-							<p className="flex gap-1">
-								<span>&#8358;</span>
-								<span>
-									{commaNumber(
-										selected.price_usd * rate.amount
-									)}
-								</span>
-							</p>
-						</div>
-					</div>
-				)}
+
 				<div className="form-control">
 					<label
 						className="label"
@@ -173,32 +167,44 @@ function FundWithCryptoForm({ tokens, rate }) {
 						onValueChange={(value) => setAmt(value)}
 					/>
 				</div>
-				{selected && amt && (
+				{selected && amt && !isMinPayoutPending && (
 					<div className="form-control my-5 bg-base-200 rounded-xl p-5">
-						<div className="flex gap-2 ">
+						<div className="flex gap-2 bg-primary/10 p-3 w-10 rounded-full">
 							<Image
-								src={selected.icon}
+								src={`https://nowpayments.io/${selected.logo_url}`}
 								width={20}
 								height={20}
 								className="object-contain"
+								alt={selected.name}
 							/>
-							<span className="text-sm">
-								{commaNumber(selected.rate_usd * amt)}
-							</span>
 						</div>
-						{selected.rate_usd * amt < selected.min_sum_in && (
+						{isError ? (
 							<p className="text-error">
-								Minimum is {selected.min_sum_in}
+								Error loading minimum payment
+							</p>
+						) : (
+							<p>
+								Minimum payment is ${" "}
+								{Math.max(queryResponse.fiat_equivalent, 10)}
 							</p>
 						)}
+						{amt < Math.max(queryResponse.fiat_equivalent, 10) && (
+							<p className="text-error">Amount is too low</p>
+						)}
 					</div>
+				)}
+				{selected && amt && isMinPayoutPending && (
+					<p className="mt-5">
+						<Skeleton className="h-10" />
+					</p>
 				)}
 
 				<button
 					disabled={
 						!amt ||
 						isPending ||
-						selected.rate_usd * amt < selected.min_sum_in
+						isMinPayoutPending ||
+						amt < Math.max(queryResponse.fiat_equivalent, 10)
 					}
 					className="btn btn-primary btn-block mt-5"
 				>

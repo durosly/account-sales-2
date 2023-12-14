@@ -41,42 +41,48 @@ async function generateInvoice(request) {
 		const session = await getServerSession(options);
 
 		await connectMongo();
+
 		const rate = await CurrencyRateModel.findOne({ currency: "USD" });
 
-		if (!rate)
+		if (!rate) {
 			return NextResponse.json(
 				{
 					status: false,
-					message: "No rate defined. Please, contact admin",
+					message: "No rate specified yet. Please, contact admin",
 				},
-				{ status: 400 }
+				{ status: 500 }
 			);
+		}
 
 		const date = DateTime.now().toLocaleString(DateTime.DATETIME_SHORT);
-		let message = `You are attempting to deposit ${commaNumber(
-			amt
-		)} naira on ${date} to your SMvaults balance`;
-		const title = `Deposit (${commaNumber(amt)} ${date})`;
 
-		// const amount = amt / rate.amount;
-		const order_number = Date.now();
+		const title = `Deposit (${commaNumber(amt)}USD ${date})`;
 
-		const data = await axios.get("https://plisio.net/api/v1/invoices/new", {
-			params: {
-				source_currency: "USD",
-				source_amount: amt,
-				order_number,
-				currency,
-				email: session.user.email,
-				order_name: title,
-				description: message,
-				api_key: process.env.PLISIO_KEY,
-				callback_url:
-					"https://www.smvaults.com/api/transactions/checkout/crypto?json=true",
-				success_callback_url:
-					"https://www.smvaults.com/auth/user/funds/crypto/success?",
-			},
+		const transaction = await TransactionModel.create({
+			userEmail: session.user.email,
+			type: "crypto",
+			amount: amt * rate.amount,
 		});
+
+		const data = await axios.post(
+			"https://api.nowpayments.io/v1/invoice",
+			{
+				order_id: transaction.ownRef,
+				price_amount: amt,
+				price_currency: "usd",
+				order_description: title,
+				ipn_callback_url:
+					"https://www.smvaults.com/api/transactions/checkout/crypto",
+				success_url:
+					"https://www.smvaults.com/auth/user/funds/crypto/success",
+				cancel_url: "https://www.smvaults.com/auth/user/funds",
+			},
+			{
+				headers: {
+					"x-api-key": process.env.NOWPAYMENTS_API_KEY,
+				},
+			}
+		);
 
 		if (data.statusText !== "OK") {
 			return NextResponse.json(
@@ -85,17 +91,10 @@ async function generateInvoice(request) {
 			);
 		}
 
-		await TransactionModel.create({
-			userEmail: session.user.email,
-			ownRef: order_number,
-			type: "crypto",
-			amount: amt * rate.amount,
-		});
-
 		return NextResponse.json({
 			status: true,
 			message: "success",
-			invoice: data.data.data,
+			invoice: data.data,
 		});
 	} catch (error) {
 		return NextResponse.json(

@@ -7,16 +7,20 @@ import validateRequest from "@/utils/backend/verify-hash";
 import commaNumber from "comma-number";
 import { DateTime } from "luxon";
 import { NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
 async function handleCryptoCheckout(request) {
 	try {
 		const body = await request.json();
-		const isValid = validateRequest(body);
+		const headersList = headers();
+		const signature = headersList.get("x-nowpayments-sig");
+
+		const isValid = validateRequest(body, signature);
 
 		if (!isValid) {
-			// This response is not from Flutterwave; discard
+			// This response is not from NOWPayments; discard
 			return NextResponse.json(
 				{
 					status: false,
@@ -26,7 +30,7 @@ async function handleCryptoCheckout(request) {
 			);
 		}
 
-		if (body.status !== "completed") {
+		if (body.payment_status !== "finished") {
 			return NextResponse.json(
 				{
 					status: false,
@@ -36,12 +40,12 @@ async function handleCryptoCheckout(request) {
 			);
 		}
 
-		const { txn_id, order_number } = body;
+		const { invoice_id, order_id } = body;
 
 		await connectMongo();
 
 		const exist = await TransactionModel.findOne({
-			ownRef: order_number,
+			ownRef: order_id,
 		});
 
 		if (!exist) {
@@ -61,7 +65,7 @@ async function handleCryptoCheckout(request) {
 			});
 		}
 
-		exist.transactionId = txn_id;
+		exist.transactionId = invoice_id;
 		exist.status = "completed";
 		const amount = exist.amount;
 

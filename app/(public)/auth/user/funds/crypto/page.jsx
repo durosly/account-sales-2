@@ -4,17 +4,34 @@ import axios from "axios";
 import connectMongo from "@/lib/connectDB";
 
 async function AddFundsWithCrypto() {
-	const data = await axios("https://plisio.net/api/v1/currencies", {
-		params: {
-			api_key: process.env.PLISIO_KEY,
-			fiat: "NGN",
-			source_currency: "NGN",
-		},
-	});
+	const statusRequest = await axios("https://api.nowpayments.io/v1/status");
 
-	if (data.statusText !== "OK") {
-		throw new Error(`Failed to fetch currencies list: ${data.status}`);
+	if (statusRequest?.data?.message !== "OK") {
+		throw new Error(`Crypto payment is not possible at this time`);
 	}
+
+	const currencies = await axios(
+		`https://api.nowpayments.io/v1/full-currencies`,
+		{
+			headers: {
+				"x-api-key": process.env.NOWPAYMENTS_API_KEY,
+			},
+		}
+	);
+	const merchantCurrencies = await axios(
+		`https://api.nowpayments.io/v1/merchant/coins`,
+		{
+			headers: {
+				"x-api-key": process.env.NOWPAYMENTS_API_KEY,
+			},
+		}
+	);
+
+	const available = currencies.data.currencies.filter((c) =>
+		merchantCurrencies.data.selectedCurrencies.includes(c.code)
+	);
+
+	console.log(available);
 
 	await connectMongo();
 
@@ -26,7 +43,7 @@ async function AddFundsWithCrypto() {
 				Fund with crypto
 			</h2>
 			<FundWithCryptoForm
-				tokens={data.data.data.filter((item) => item.hidden === 0)}
+				crypto={available}
 				rate={JSON.parse(JSON.stringify(rate))}
 			/>
 		</div>
