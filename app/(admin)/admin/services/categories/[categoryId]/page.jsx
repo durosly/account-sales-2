@@ -3,8 +3,10 @@ import CategoriesDisplay from "./__components/categories-display";
 import CreateCategoryForm from "./__components/create-cateogory-form";
 import { notFound } from "next/navigation";
 import truncateString from "@/utils/shared/trunc";
+import connectMongo from "@/lib/connectDB";
 
 async function AdminSubCategoryPage({ params: { categoryId } }) {
+	await connectMongo();
 	const category = await CategoryModel.findById(categoryId);
 
 	if (!category) {
