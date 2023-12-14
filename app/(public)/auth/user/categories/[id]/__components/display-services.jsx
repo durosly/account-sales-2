@@ -2,11 +2,11 @@
 import { handleClientError } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { IoEarth } from "react-icons/io5";
-import Skeleton from "react-loading-skeleton";
+import Image from "next/image";
 import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
 
-function DisplaySubCategories({ id }) {
+function DisplaySubCategories({ id, categoryCover }) {
 	// Load subcategory
 	const { isPending, isError, data, error } = useQuery({
 		queryKey: ["sub-categories", id, "all"],
@@ -27,13 +27,21 @@ function DisplaySubCategories({ id }) {
 					{serviceResponse.map((s) => (
 						<li
 							key={s._id}
-							className="border rounded-2xl p-5"
+							className="border rounded-xl p-5 flex gap-2 items-center"
 						>
+							<div className="relative w-6 h-6">
+								<Image
+									src={`/images/${
+										categoryCover || "like-icon.png"
+									}`}
+									fill
+									className="object-contain"
+								/>
+							</div>
 							<Link
 								href={`/auth/user/categories/${id}/${s._id}`}
 								className="flex items-center gap-2"
 							>
-								<IoEarth className="w-5 h-5" />
 								<p className="uppercase font-bold">{s.name}</p>
 							</Link>
 						</li>
