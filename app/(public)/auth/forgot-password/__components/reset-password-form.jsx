@@ -5,8 +5,10 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 function ResetPasswordForm() {
+	const router = useRouter();
 	const [email, setEmail] = useState("");
 
 	// place order
@@ -23,6 +25,7 @@ function ResetPasswordForm() {
 
 		onSuccess: () => {
 			setEmail("");
+			router.push("/auth/forgot-password/sent");
 			toast.success("Reset email sent", { id: toastId.current });
 		},
 		onError: (error) => {
