@@ -58,8 +58,8 @@ async function NavLinks() {
 
 			{session?.user && (
 				<li className="lg:hidden">
-					<h2 class="menu-title flex items-center gap-4 px-1.5">
-						<span class="text-base-content">
+					<h2 className="menu-title flex items-center gap-4 px-1.5">
+						<span className="text-base-content">
 							<FiLink className="w-5 h-5 text-blue-500" />
 						</span>{" "}
 						Info
@@ -81,8 +81,8 @@ async function NavLinks() {
 				</Link>
 			</li>
 			<li className="lg:hidden">
-				<h2 class="menu-title flex items-center gap-4 px-1.5">
-					<span class="text-base-content">
+				<h2 className="menu-title flex items-center gap-4 px-1.5">
+					<span className="text-base-content">
 						<TbSocial className="w-5 h-5 text-green-500" />
 					</span>{" "}
 					Socials
