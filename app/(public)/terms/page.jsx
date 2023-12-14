@@ -6,12 +6,12 @@ function TermsPage() {
 			<div className="px-10 space-y-3 mb-20">
 				<h1 className="text-4xl font-bold">Terms of Service</h1>
 				<p>
-					The use of services provided by [website name] establishes
-					an agreement to these terms. By registering or using our
+					The use of services provided by SMVaults establishes an
+					agreement to these terms. By registering or using our
 					services you agree that you have read and fully understood
-					the following terms of Service and [website name] will not
-					be held liable for loss in any way for users who have not
-					read the below terms of service.
+					the following terms of Service and SMVaults will not be held
+					liable for loss in any way for users who have not read the
+					below terms of service.
 				</p>
 				<p className="uppercase font-bold text-xl">
 					PLEASE READ THESE TERMS OF SERVICE CAREFULLY BEFORE USING
@@ -23,45 +23,45 @@ function TermsPage() {
 			<div className="px-10 space-y-3 mb-20">
 				<h2 className="text-secondary uppercase">GENERAL</h2>
 				<p>
-					By placing an order with The-Owlet, you automatically accept
+					By placing an order with SMVaults, you automatically accept
 					all the below-listed terms of service whether you read them
 					or not. We reserve the right to change these terms of
 					service without notice. You are expected to read all terms
 					of service before placing an order to ensure you are up to
 					date with any changes or any future changes. You will only
-					use the The-owlet website in a manner which follows all
+					use the SMVaults website in a manner which follows all
 					agreements made with
 					Instagram/Facebook/Twitter/Youtube/Other social media site
-					on their individual Terms of Service page. The-Owlet rates
+					on their individual Terms of Service page. SMVaults rates
 					are subject to change at any time without notice. The
 					payment/refund policy stays in effect in the case of rate
-					changes. The-Owlet does not guarantee a delivery time for
-					any services. We offer our best estimation for when the
-					order will be delivered. The-Owlet tries hard to deliver
-					exactly what is expected from us by our re-sellers. In this
-					case, we reserve the right to change a service type if we
-					deem it necessary to complete an order.
+					changes. SMVaults does not guarantee a delivery time for any
+					services. We offer our best estimation for when the order
+					will be delivered. SMVaults tries hard to deliver exactly
+					what is expected from us by our re-sellers. In this case, we
+					reserve the right to change a service type if we deem it
+					necessary to complete an order.
 				</p>
 				<h2 className="text-secondary uppercase">AIM</h2>
 				<p>
-					The-Owlet is created to help social media influencers boost
+					SMVaults is created to help social media influencers boost
 					their profile online and also to increase the social media
 					activities of business owners for sales effectiveness.
 				</p>
 				<h2 className="text-secondary uppercase">DISCLAIMER</h2>
 				<p>
-					The-Owlet will not be responsible for any damages you or
-					your business may suffer.
+					SMVaults will not be responsible for any damages you or your
+					business may suffer.
 				</p>
 				<h2 className="text-secondary uppercase">LIABILITIES</h2>
 				<p>
-					The-Owlet is in no way liable for any account suspension or
+					SMVaults is in no way liable for any account suspension or
 					picture deletion done by Instagram or Twitter or Facebook or
 					YouTube or Other Social Media.
 				</p>
 				<h2 className="text-secondary uppercase">SERVICES</h2>
 				<p>
-					The-Owlet will only be used to promote your
+					SMVaults will only be used to promote your
 					Instagram/Twitter/Facebook or Social account and help boost
 					your &quot;Appearance&quot; and &quot;Activity&quot;
 					depending on the service you paid for. We DO NOT guarantee
@@ -70,7 +70,7 @@ function TermsPage() {
 					guarantee 100% of our accounts will have a profile picture,
 					full bio and uploaded pictures, although we strive to make
 					this the reality for all accounts. You will not upload
-					anything into the The-Owlet site including nudity or any
+					anything into the SMVaults site including nudity or any
 					material that is not accepted or suitable for the
 					Instagram/Twitter/Facebook or Social Media community.
 					Private accounts would not get a refund! Please ensure that
@@ -78,13 +78,13 @@ function TermsPage() {
 				</p>
 				<h2 className="text-secondary uppercase">REFUND POLICY</h2>
 				<p>
-					Refunds will be made to your OWLET wallet so you can use
+					Refunds will be made to your SMVaults wallet so you can use
 					your refund to replace your order or a new order if in any
 					case the service you paid for is not delivered. You agree
 					that once you complete a payment and your wallet has been
 					credited, you will not file a dispute or a chargeback
 					against us for any reason. However, if your payment is not
-					added to your wallet, kindly contact the OWLET support team,
+					added to your wallet, kindly contact SMVaults support team,
 					we will resolve your issue within 24hours. If you file a
 					dispute or charge-back against us after a deposit has been
 					completed or added to your wallet, we reserve the right to
@@ -125,7 +125,7 @@ function TermsPage() {
 					HOW YOUR PERSONAL INFORMATION MAY BE USED
 				</h2>
 				<p>
-					THE OWLET, and our subsidiaries and affiliates (the “Related
+					SMVaults, and our subsidiaries and affiliates (the “Related
 					Companies”), may use your personal information in the
 					following ways:
 				</p>
@@ -150,8 +150,8 @@ function TermsPage() {
 					<li>To provide you with user support;</li>
 					<li>To track and measure website performance;</li>
 					<li>
-						To process payment for purchases you make through THE
-						OWLET;
+						To process payment for purchases you make through
+						SMVaults;
 					</li>
 					<li>
 						To protect, investigate, and deter against unauthorised
@@ -168,11 +168,11 @@ function TermsPage() {
 					<li>To send promotional materials.</li>
 				</ul>
 				<h2 className="uppercase font-semibold">
-					DOES THE-OWLET SHARE MY INFORMATION?
+					DOES SMVAULTS SHARE MY INFORMATION?
 				</h2>
 				<div className="space-y-3">
 					<p>
-						THE-OWLET will not share, rent, or sell your personally
+						SMVaults will not share, rent, or sell your personally
 						identifiable information with third-parties. We may,
 						however, share your information with third-parties when
 						we are authorised to share such information.
@@ -195,8 +195,8 @@ function TermsPage() {
 						send your information.
 					</p>
 					<p>
-						Agents, Consultants, and Related Third Parties: THE
-						OWLET, like many businesses, sometimes hires other
+						Agents, Consultants, and Related Third Parties:
+						SMVaults, like many businesses, sometimes hires other
 						companies to perform certain business-related functions.
 						Examples of such functions include mailing information,
 						maintaining databases and processing payments. When we
@@ -205,7 +205,7 @@ function TermsPage() {
 						they need to perform their specific function.
 					</p>
 					<p>
-						Legal Requirements: THE-OWLET may disclose your Personal
+						Legal Requirements: SMVaults may disclose your Personal
 						Data if required to do so by law or in the good faith
 						belief that such action is necessary to (i) comply with
 						a legal obligation or to respond to requests from law
@@ -215,7 +215,7 @@ function TermsPage() {
 						actual illegal activity, in which case we may (and you
 						hereby authorise us to) disclose information without
 						subpoenas or warrants served on us, (ii) protect and
-						defend the rights or property of THE-OWLET, (iii) act in
+						defend the rights or property of SMVaults, (iii) act in
 						urgent circumstances to protect the personal safety of
 						users of the Website or the public, (iv) protect against
 						legal liability including to resolve disputes,
@@ -242,7 +242,7 @@ function TermsPage() {
 				<ul className="list-disc">
 					<li>
 						Use the Services for any illegal purposes, beyond the
-						scope of the AIM of THE-OWLET as stated in this terms ;
+						scope of the AIM of SMVaults as stated in this terms ;
 					</li>
 					<li>
 						Publish content which is unlawful, offensive,
@@ -264,7 +264,7 @@ function TermsPage() {
 						time.
 					</li>
 					<li>
-						Any kind of verbal or written insult of THE-OWLET
+						Any kind of verbal or written insult of SMVaults
 						member/employee will result in immediate account
 						termination.
 					</li>
@@ -285,14 +285,14 @@ function TermsPage() {
 					our Service.
 				</p>
 				<h2 className="uppercase font-semibold text-secondary">
-					How do I contact OWLET customer support ?
+					How do I contact SMVaults customer support ?
 				</h2>
 				<p>
 					Kindly click on the CUSTOMER CARE CONTACT on the left side
-					of your owlet dashboard.
+					of your smvaults dashboard.
 				</p>
 				<ul>
-					<li>Support - support@theowlette.com</li>
+					<li>Support - support@smvaults.com</li>
 					<li>
 						Response time is 9:00am - 4:00pm everyday except for
 						Sundays.
