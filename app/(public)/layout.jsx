@@ -12,11 +12,14 @@ import { FaTelegram } from "react-icons/fa";
 import ShowNotificationStatus from "./__components/show-notification-status";
 import AdminNoticeModel from "@/models/admin-notice";
 import NoticeModal from "./__components/notice";
+import connectMongo from "@/lib/connectDB";
 
 export const dynamic = "force-dynamic";
 
 async function PublicLayout({ children }) {
 	const session = await getServerSession(options);
+
+	await connectMongo();
 
 	const notice = await AdminNoticeModel.findOne({ status: "active" });
 
