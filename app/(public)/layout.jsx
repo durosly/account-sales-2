@@ -10,11 +10,15 @@ import { FaTimes } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaTelegram } from "react-icons/fa";
 import ShowNotificationStatus from "./__components/show-notification-status";
+import AdminNoticeModel from "@/models/admin-notice";
+import NoticeModal from "./__components/notice";
 
 export const dynamic = "force-dynamic";
 
 async function PublicLayout({ children }) {
 	const session = await getServerSession(options);
+
+	const notice = await AdminNoticeModel.findOne({ status: "active" });
 
 	return (
 		<div className="drawer max-md:block">
@@ -117,6 +121,10 @@ async function PublicLayout({ children }) {
 				</div>
 				{/* Page content here */}
 				<main>{children}</main>
+
+				{/* Notice Modal */}
+
+				{notice && <NoticeModal notice={notice} />}
 
 				{session?.user ? null : (
 					<footer className="footer p-10 bg-base-200 text-base-content">
