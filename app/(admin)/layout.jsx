@@ -6,6 +6,7 @@ import { NavigationEvents } from "../components/navigation-event";
 import { FaTimes } from "react-icons/fa";
 import { BsCurrencyDollar } from "react-icons/bs";
 import HandleNotificationTopic from "../components/handle-notification-topic";
+import { AiOutlineNotification } from "react-icons/ai";
 
 export const dynamic = "force-dynamic";
 
@@ -107,11 +108,18 @@ function AdminLayout({ children }) {
 							</Link>
 						</li>
 						<li>
+							<Link href="/admin/notifications">
+								<AiOutlineNotification className="w-5 h-5" />
+								<span>Notification</span>
+							</Link>
+						</li>
+						<li>
 							<Link href="/admin/currencies">
 								<BsCurrencyDollar className="w-5 h-5" />
 								<span>Currencies</span>
 							</Link>
 						</li>
+
 						<li>
 							<LogoutBtn>
 								<SlLogout className="w-5 h-5" />
