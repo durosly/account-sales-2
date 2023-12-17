@@ -21,28 +21,19 @@ function UserBalance() {
 	} = useQuery({
 		queryKey: ["rate"],
 		queryFn: () => axios(`/api/rates`),
-		enabled: !!queryResponse?.balance,
+		enabled: !!queryResponse?.balance && !isPending,
 	});
 
 	const rateResponse = rate?.data?.data || {};
 
 	return (
 		<>
-			<p className="text-xl font-semibold">
-				{isPending ? (
-					<Skeleton />
-				) : (
-					<span>
-						&#8358; {commaNumber(queryResponse?.balance || 0)}
-					</span>
-				)}
-			</p>
 			{isPendingRate ? (
-				<p className="text-sm max-w-[100px]">
+				<p className="text-xl max-w-[100px]">
 					<Skeleton />
 				</p>
 			) : (
-				<p className="text-sm">
+				<p className="text-xl font-semibold">
 					${" "}
 					{commaNumber(
 						Number(
@@ -51,6 +42,16 @@ function UserBalance() {
 					)}
 				</p>
 			)}
+
+			<p className="text-xs">
+				{isPending ? (
+					<Skeleton />
+				) : (
+					<span>
+						&#8358; {commaNumber(queryResponse?.balance || 0)}
+					</span>
+				)}
+			</p>
 		</>
 	);
 }

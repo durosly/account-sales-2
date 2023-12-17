@@ -370,7 +370,7 @@ function AddServices({ countries }) {
 								htmlFor="price"
 								className="label"
 							>
-								Price
+								Price ($)
 							</label>
 							<CurrencyInput
 								id="price"

@@ -1,4 +1,5 @@
 import connectMongo from "@/lib/connectDB";
+import CurrencyRateModel from "@/models/rate";
 import ServiceModel from "@/models/service";
 import { CreateServiceSchema } from "@/validators/service";
 import { NextResponse } from "next/server";
@@ -18,11 +19,22 @@ async function createService(request) {
 
 		await connectMongo();
 
+		const rate = await CurrencyRateModel.findOne({ currency: "USD" });
+
+		if (!rate) {
+			return NextResponse.json({
+				status: false,
+				message: "Please, define rate",
+			});
+		}
+
+		const nPrice = valid.data.price * rate.amount; // convert to naira
+
 		const service = await ServiceModel.create({
 			name: valid.data.name,
 			categoryId: valid.data.category,
 			subCategoryId: valid.data.subCategory,
-			price: valid.data.price,
+			price: nPrice,
 			country: valid.data.country,
 			details: valid.data.details,
 		});

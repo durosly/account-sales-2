@@ -3,19 +3,20 @@ import { handleClientError } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRef, useState } from "react";
-import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
 import { FaPencilAlt } from "react-icons/fa";
 
-function ServiceUpdateBtn({ id }) {
-	const [price, setPrice] = useState("");
+function EditServiceName({ id }) {
+	const [newName, setNewName] = useState("");
 	const queryClient = useQueryClient();
 	let toastId = useRef(null);
 
 	const { isPending, mutate, isError, error } = useMutation({
-		mutationFn: (price) => {
-			toastId.current = toast.loading("Updating service price...");
-			return axios.put(`/api/admin/service/${id}`, { price });
+		mutationFn: (data) => {
+			toastId.current = toast.loading("Updating service name...");
+			return axios.put(`/api/admin/service/${id}/update-name`, {
+				name: data,
+			});
 		},
 		// make sure to _return_ the Promise from the query invalidation
 		// so that the mutation stays in `pending` state until the refetch is finished
@@ -25,9 +26,9 @@ function ServiceUpdateBtn({ id }) {
 			});
 		},
 		onSuccess: () => {
-			toast.success("Service price updated", { id: toastId.current });
-			setPrice("");
-			document.getElementById(`service-update-modal-${id}`).close();
+			toast.success("Service name updated", { id: toastId.current });
+			setNewName("");
+			document.getElementById(`service-name-update-modal-${id}`).close();
 		},
 		onError: (error) => {
 			const message = handleClientError(error);
@@ -38,60 +39,63 @@ function ServiceUpdateBtn({ id }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		if (!price) {
-			return toast.error("Price cannot be empty");
+		if (!newName) {
+			return toast.error("Please, enter new name");
 		}
 
-		mutate(price);
+		mutate(newName);
 	}
 
 	return (
 		<>
 			<button
-				className="btn btn-sm md:btn-md btn-primary btn-square btn-outline"
+				className="btn btn-xs"
 				onClick={() =>
 					document
-						.getElementById(`service-update-modal-${id}`)
+						.getElementById(`service-name-update-modal-${id}`)
 						.showModal()
 				}
 			>
 				<FaPencilAlt />
 			</button>
-			{/* Open the modal using document.getElementById('ID').showModal() method */}
 
 			<dialog
-				id={`service-update-modal-${id}`}
+				id={`service-name-update-modal-${id}`}
 				className="modal"
 			>
 				<div className="modal-box">
+					<form method="dialog">
+						{/* if there is a button in form, it will close the modal */}
+						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+							✕
+						</button>
+					</form>
 					<h3 className="font-bold text-lg mb-2">
-						Update Service price
+						Update Service name
 					</h3>
 					<form onSubmit={handleSubmit}>
 						<div className="form-control mb-5">
 							<label
-								htmlFor="price"
+								htmlFor="name"
 								className="label"
 							>
-								Price ($)
+								<span className="label-text-alt">New name</span>
 							</label>
-
-							<CurrencyInput
-								id="price"
-								name="price"
-								placeholder="Price..."
-								decimalsLimit={2}
+							<input
+								type="text"
 								className="input input-bordered"
-								value={price}
-								disabled={isPending}
-								onValueChange={(value) => setPrice(value)}
+								name="name"
+								id="name"
+								value={newName}
+								onChange={(e) => setNewName(e.target.value)}
 							/>
 						</div>
+
 						<button
 							disabled={isPending}
 							className="btn btn-primary"
 						>
-							Update price
+							Update name
 						</button>
 					</form>
 					{isPending ? (
@@ -116,4 +120,4 @@ function ServiceUpdateBtn({ id }) {
 	);
 }
 
-export default ServiceUpdateBtn;
+export default EditServiceName;

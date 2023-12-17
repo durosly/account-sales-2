@@ -1,16 +1,32 @@
 "use client";
-import { DateTime } from "luxon";
-import ServiceDeleteBtn from "./service-delete-btn";
-import ServiceUpdateBtn from "./service-update-btn";
-import commaNumber from "comma-number";
-import ServiceQuantity from "./service-quantity";
-import Image from "next/image";
 import global from "@/images/global.png";
 import truncateString from "@/utils/shared/trunc";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import commaNumber from "comma-number";
+import { DateTime } from "luxon";
+import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
+import EditServiceName from "./edit-service-name";
+import ServiceDeleteBtn from "./service-delete-btn";
+import ServiceQuantity from "./service-quantity";
+import ServiceUpdateBtn from "./service-update-btn";
 
 function ServiceRow({ item }) {
 	const { createdAt, name, _id, categoryId, price, country, subCategoryId } =
 		item;
+
+	// Load currency rate
+	const {
+		isPending: isPendingRate,
+
+		data: rate,
+	} = useQuery({
+		queryKey: ["rate"],
+		queryFn: () => axios(`/api/rates`),
+	});
+
+	const rateResponse = rate?.data?.data || {};
 
 	return (
 		<tr>
@@ -27,13 +43,26 @@ function ServiceRow({ item }) {
 					<span className={`fi fi-${country.toLowerCase()}`}></span>
 				)}
 				<span className="ml-1">{name}</span>
+				<EditServiceName id={_id} />
 			</td>
 			<td>
 				<ServiceQuantity id={_id} />
 			</td>
 			<td>{categoryId?.name || "nil"}</td>
 			<td>{subCategoryId?.name || "nil"}</td>
-			<td>{commaNumber(price)}</td>
+			<td>
+				{isPendingRate ? (
+					<Skeleton className="w-10" />
+				) : (
+					<>
+						{commaNumber(
+							Number(price / (rateResponse?.amount || 1)).toFixed(
+								2
+							)
+						)}
+					</>
+				)}
+			</td>
 			<td>
 				{DateTime.fromISO(createdAt).toLocaleString(
 					DateTime.DATETIME_SHORT

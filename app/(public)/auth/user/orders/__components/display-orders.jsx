@@ -54,7 +54,7 @@ function DisplayOrders() {
 								<th>Date/Time</th>
 								<th>Service/Category</th>
 								<th>Quantity</th>
-								<th>Charge(&#8358;)</th>
+								<th>Charge(&#8358;/$)</th>
 								<th>Status</th>
 							</tr>
 						</thead>

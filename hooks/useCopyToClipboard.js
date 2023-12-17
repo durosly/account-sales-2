@@ -7,14 +7,14 @@ export function useCopyToClipboard() {
 	const copy = async (text) => {
 		if (typeof window === "undefined") return;
 
-		if (!navigator?.clipboard) {
+		if (!window.navigator?.clipboard) {
 			console.warn("Clipboard not supported");
 			return false;
 		}
 
 		// Try to save to clipboard then save it in the state if worked
 		try {
-			await navigator.clipboard.writeText(text);
+			await window.navigator.clipboard.writeText(text);
 			setCopiedText(text);
 			toast("copied");
 			return true;

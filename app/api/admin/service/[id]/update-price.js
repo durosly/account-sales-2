@@ -1,4 +1,5 @@
 import connectMongo from "@/lib/connectDB";
+import CurrencyRateModel from "@/models/rate";
 import ServiceModel from "@/models/service";
 import isValidObjectId from "@/utils/backend/verify-mongodb-id";
 import { NextResponse } from "next/server";
@@ -36,7 +37,19 @@ async function updateServicePrice(request, { params: { id } }) {
 
 		await connectMongo();
 
-		const service = await ServiceModel.findByIdAndUpdate(id, { price });
+		const rate = await CurrencyRateModel.findOne({ currency: "USD" });
+
+		if (!rate) {
+			return NextResponse.json({
+				status: false,
+				message: "Please, define rate",
+			});
+		}
+
+		const nPrice = price * rate.amount; // convert to naira
+		const service = await ServiceModel.findByIdAndUpdate(id, {
+			price: nPrice,
+		});
 
 		return NextResponse.json({
 			status: true,
