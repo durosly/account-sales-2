@@ -3,24 +3,28 @@ import TransactionModel from "@/models/transactions";
 import UserModel from "@/models/user";
 import addNotification from "@/utils/backend/add-notification";
 import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
-import validateRequest from "@/utils/backend/verify-hash";
 import commaNumber from "comma-number";
 import { DateTime } from "luxon";
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
 async function handleCryptoCheckout(request) {
 	try {
-		const body = await request.json();
-		const headersList = headers();
-		const signature = headersList.get("x-nowpayments-sig");
+		// const body = await request.json();
+		// const headersList = headers();
+		// const signature = headersList.get("x-nowpayments-sig");
 
-		const isValid = validateRequest(body, signature);
+		// const isValid = validateRequest(body, signature);
 
-		if (!isValid) {
-			// This response is not from NOWPayments; discard
+		const searchParams = request.nextUrl.searchParams;
+		const token = searchParams.get("token");
+		const request_id = searchParams.get("request_id");
+		const transaction_id = searchParams.get("transaction_id");
+		const status = searchParams.get("status");
+
+		if (token !== process.env.FPAYMENT_TOKEN) {
+			// This response is not from FPayments; discard
 			return NextResponse.json(
 				{
 					status: false,
@@ -30,22 +34,20 @@ async function handleCryptoCheckout(request) {
 			);
 		}
 
-		if (body.payment_status !== "finished") {
+		if (status !== "completed") {
 			return NextResponse.json(
 				{
 					status: false,
 					message: "Not successful",
 				},
-				{ status: 401 }
+				{ status: 402 }
 			);
 		}
-
-		const { invoice_id, order_id } = body;
 
 		await connectMongo();
 
 		const exist = await TransactionModel.findOne({
-			ownRef: order_id,
+			ownRef: request_id,
 		});
 
 		if (!exist) {
@@ -54,7 +56,7 @@ async function handleCryptoCheckout(request) {
 					status: false,
 					message: "Something went wrong",
 				},
-				{ status: 400 }
+				{ status: 404 }
 			);
 		}
 
@@ -65,7 +67,7 @@ async function handleCryptoCheckout(request) {
 			});
 		}
 
-		exist.transactionId = invoice_id;
+		exist.transactionId = transaction_id;
 		exist.status = "completed";
 		const amount = exist.amount;
 

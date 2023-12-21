@@ -10,14 +10,14 @@ import { NextResponse } from "next/server";
 
 async function generateInvoice(request) {
 	try {
-		const { currency, amt } = await request.json();
+		const { amt } = await request.json();
 
-		if (!currency) {
-			return NextResponse.json(
-				{ status: false, message: "No currency selected" },
-				{ status: 400 }
-			);
-		}
+		// if (!currency) {
+		// 	return NextResponse.json(
+		// 		{ status: false, message: "No currency selected" },
+		// 		{ status: 400 }
+		// 	);
+		// }
 		if (!amt) {
 			return NextResponse.json(
 				{ status: false, message: "No amount not specified" },
@@ -64,22 +64,21 @@ async function generateInvoice(request) {
 			amount: amt * rate.amount,
 		});
 
-		const data = await axios.post(
-			"https://api.nowpayments.io/v1/invoice",
+		const data = await axios(
+			"https://fpayment.co/api/AddInvoice.php",
+
 			{
-				order_id: transaction.ownRef,
-				price_amount: amt,
-				price_currency: "usd",
-				order_description: title,
-				ipn_callback_url:
-					"https://www.smvaults.com/api/transactions/checkout/crypto",
-				success_url:
-					"https://www.smvaults.com/auth/user/funds/crypto/success",
-				cancel_url: "https://www.smvaults.com/auth/user/funds",
-			},
-			{
-				headers: {
-					"x-api-key": process.env.NOWPAYMENTS_API_KEY,
+				params: {
+					address_wallet: process.env.FPAYMENT_WALLET,
+					token_wallet: process.env.FPAYMENT_TOKEN,
+					name: `Account Funding`,
+					description: `Funding of ${session.user.name} account with ${amt} USD`,
+					amount: amt,
+					request_id: transaction.ownRef,
+					callback:
+						"https://www.smvaults.com/api/transactions/checkout/crypto",
+					return_url:
+						"https://www.smvaults.com/auth/user/funds/crypto",
 				},
 			}
 		);

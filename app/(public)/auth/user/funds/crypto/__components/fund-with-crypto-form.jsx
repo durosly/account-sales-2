@@ -1,21 +1,16 @@
 "use client";
 import { handleClientError } from "@/lib/utils";
-import { Listbox, Transition } from "@headlessui/react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
+import commaNumber from "comma-number";
 import { useRouter } from "next/navigation";
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { LuChevronsUpDown } from "react-icons/lu";
-import Skeleton from "react-loading-skeleton";
 
-function FundWithCryptoForm({ rate, crypto }) {
+function FundWithCryptoForm({ rate }) {
 	const router = useRouter();
 	const [amt, setAmt] = useState("");
-	const [selected, setSelected] = useState(null);
 
 	let toastId = useRef(null);
 
@@ -28,7 +23,7 @@ function FundWithCryptoForm({ rate, crypto }) {
 		// so that the mutation stays in `pending` state until the refetch is finished
 
 		onSuccess: (data) => {
-			router.push(data.data.invoice.invoice_url);
+			router.push(data.data.invoice.data.url_payment);
 			toast.success("Request created", { id: toastId.current });
 		},
 		onError: (error) => {
@@ -37,24 +32,24 @@ function FundWithCryptoForm({ rate, crypto }) {
 		},
 	});
 
-	const {
-		isPending: isMinPayoutPending,
-		isError,
-		data,
-	} = useQuery({
-		queryKey: ["min-price", { selected }],
-		queryFn: () =>
-			axios(
-				`/api/user/fund/crypto/get-min-payment?currency=${selected.code}`
-			),
-		enabled: !!selected,
-	});
+	// const {
+	// 	isPending: isMinPayoutPending,
+	// 	isError,
+	// 	data,
+	// } = useQuery({
+	// 	queryKey: ["min-price", { selected }],
+	// 	queryFn: () =>
+	// 		axios(
+	// 			`/api/user/fund/crypto/get-min-payment?currency=${selected.code}`
+	// 		),
+	// 	enabled: !!selected,
+	// });
 
-	const queryResponse = data?.data || {};
+	// const queryResponse = data?.data || {};
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		mutate({ amt, currency: selected.code });
+		mutate({ amt });
 	}
 
 	return (
@@ -62,9 +57,9 @@ function FundWithCryptoForm({ rate, crypto }) {
 			<form onSubmit={handleSubmit}>
 				<p className="flex gap-2 text-xs mb-2">
 					<span className="font-bold">Naira/Dollar:</span>
-					<span>{rate.amount}</span>
+					<span>{commaNumber(rate.amount)}</span>
 				</p>
-				<div className="form-control">
+				{/* <div className="form-control">
 					<Listbox
 						value={selected}
 						onChange={setSelected}
@@ -146,7 +141,7 @@ function FundWithCryptoForm({ rate, crypto }) {
 							</Transition>
 						</div>
 					</Listbox>
-				</div>
+				</div> */}
 
 				<div className="form-control">
 					<label
@@ -161,51 +156,15 @@ function FundWithCryptoForm({ rate, crypto }) {
 						name="amount"
 						placeholder="Amount..."
 						decimalsLimit={2}
-						disabled={!selected}
 						className="input input-bordered"
 						value={amt}
 						onValueChange={(value) => setAmt(value)}
 					/>
+					<span className="text-xs mt-2">Minimum deposit is $10</span>
 				</div>
-				{selected && amt && !isMinPayoutPending && (
-					<div className="form-control my-5 bg-base-200 rounded-xl p-5">
-						<div className="flex gap-2 bg-primary/10 p-3 w-10 rounded-full">
-							<Image
-								src={`https://nowpayments.io/${selected.logo_url}`}
-								width={20}
-								height={20}
-								className="object-contain"
-								alt={selected.name}
-							/>
-						</div>
-						{isError ? (
-							<p className="text-error">
-								Error loading minimum payment
-							</p>
-						) : (
-							<p>
-								Minimum payment is ${" "}
-								{Math.max(queryResponse.fiat_equivalent, 10)}
-							</p>
-						)}
-						{amt < Math.max(queryResponse.fiat_equivalent, 10) && (
-							<p className="text-error">Amount is too low</p>
-						)}
-					</div>
-				)}
-				{selected && amt && isMinPayoutPending && (
-					<p className="mt-5">
-						<Skeleton className="h-10" />
-					</p>
-				)}
 
 				<button
-					disabled={
-						!amt ||
-						isPending ||
-						isMinPayoutPending ||
-						amt < Math.max(queryResponse.fiat_equivalent, 10)
-					}
+					disabled={!amt || isPending || amt < 10}
 					className="btn btn-primary btn-block mt-5"
 				>
 					Pay now
