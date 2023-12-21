@@ -2,12 +2,13 @@
 import { handleClientError } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import commaNumber from "comma-number";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import { useRef, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import toast from "react-hot-toast";
 
-function FundAccountForm({ user }) {
+function FundAccountForm({ user, rate }) {
 	const [amt, setAmt] = useState("");
 
 	let toastId = useRef(null);
@@ -32,7 +33,7 @@ function FundAccountForm({ user }) {
 	const config = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: Date.now(),
-		amount: amt,
+		amount: amt * rate.amount,
 		currency: "NGN",
 		payment_options: "card,mobilemoney,ussd,banktransfer",
 		customer: {
@@ -79,13 +80,19 @@ function FundAccountForm({ user }) {
 				<CurrencyInput
 					id="amount"
 					name="amount"
-					placeholder="Amount..."
+					placeholder="Amount (USD)..."
 					decimalsLimit={2}
 					disabled={isPending}
 					className="input input-bordered"
 					value={amt}
 					onValueChange={(value) => setAmt(value)}
 				/>
+				{amt && (
+					<p className="text-xs ml-2 mt-2">
+						&#8358;
+						{commaNumber(amt * rate.amount)}
+					</p>
+				)}
 
 				<button
 					disabled={isPending}
