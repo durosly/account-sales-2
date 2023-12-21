@@ -85,6 +85,7 @@ function FundAccountForm({ user, rate }) {
 					disabled={isPending}
 					className="input input-bordered"
 					value={amt}
+					prefix="$"
 					onValueChange={(value) => setAmt(value)}
 				/>
 				{amt && (
