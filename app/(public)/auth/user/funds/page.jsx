@@ -15,7 +15,7 @@ async function AddFundsPage() {
 						className="btn btn-primary btn-block"
 					>
 						<IoMdCard />
-						Card, transfer, USSD, etc
+						Card, transfer, Naira, etc
 					</Link>
 					<Link
 						href="/auth/user/funds/crypto"
