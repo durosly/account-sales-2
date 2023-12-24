@@ -16,7 +16,7 @@ const baseUrl = process.env.NEXT_PUBLIC_URL
 	? `https://${process.env.NEXT_PUBLIC_URL}`
 	: "";
 
-export const VerifyEmail = ({ email, validationCode = "tt226-5398x" }) => (
+export const VerifyEmail = ({ email, validationCode }) => (
 	<Html>
 		<Head />
 		<Preview>Your E-mail verification code</Preview>

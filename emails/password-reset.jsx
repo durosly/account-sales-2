@@ -14,7 +14,7 @@ const baseUrl = process.env.NEXT_PUBLIC_URL
 	? `https://${process.env.NEXT_PUBLIC_URL}`
 	: "";
 
-export const passwordResetEmail = ({ email, token = "tt226-5398x" }) => (
+export const passwordResetEmail = ({ email, token }) => (
 	<Html>
 		<Head />
 		<Preview>Password reset</Preview>
