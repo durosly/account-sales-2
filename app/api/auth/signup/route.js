@@ -44,14 +44,16 @@ async function signupUser(request) {
 			password: data.data.password,
 		});
 		const expires = DateTime.now().plus({ hours: 1 }).toISO();
+		const code = generateRandomNumber()
+		
 		const email_v = await EmailModel.create({
 			email: data.data.email,
-			code: generateRandomNumber(),
+			code,
 			expires_at: expires,
 		});
 
 		const htmlEmail = render(
-			VerifyEmail({ email: email_v.id, validationCode: email_v.code })
+			VerifyEmail({ email: email_v.id, validationCode: code })
 		);
 
 		const options = {
