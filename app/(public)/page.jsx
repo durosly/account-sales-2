@@ -38,7 +38,7 @@ function Home() {
 					</p>
 					<div className="space-x-3">
 						<Link
-							href="/signup"
+							href="/auth?action=signup"
 							className="btn btn-sm max-md:btn-block md:btn-md btn-primary"
 						>
 							Try us now
