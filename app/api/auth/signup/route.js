@@ -40,25 +40,28 @@ async function signupUser(request) {
 
 		const user = await UserModel.create({
 			name: data.data.name,
-			email: data.data.email,
+			email: data.data.email.toLowerCase(),
 			password: data.data.password,
 		});
 		const expires = DateTime.now().plus({ hours: 1 }).toISO();
-		const code = generateRandomNumber()
-		
+		const code = generateRandomNumber();
+
 		const email_v = await EmailModel.create({
-			email: data.data.email,
+			email: data.data.email.toLowerCase(),
 			code,
 			expires_at: expires,
 		});
 
 		const htmlEmail = render(
-			VerifyEmail({ email: email_v.id, validationCode: code })
+			<VerifyEmail
+				email={email_v.id}
+				validationCode={code}
+			/>
 		);
 
 		const options = {
 			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
-			to: user.email,
+			to: user.email.toLowerCase(),
 			subject: "Verify email address",
 			html: htmlEmail,
 		};

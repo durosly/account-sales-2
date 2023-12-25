@@ -37,12 +37,15 @@ async function resendEmailHandler(request) {
 		);
 
 		const htmlEmail = render(
-			VerifyEmail({ email: email_v.id, code: code })
+			<VerifyEmail
+				email={email_v.id}
+				validationCode={code}
+			/>
 		);
 
 		const options = {
 			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
-			to: email,
+			to: email.toLowerCase(),
 			subject: "Verify email address",
 			html: htmlEmail,
 		};
