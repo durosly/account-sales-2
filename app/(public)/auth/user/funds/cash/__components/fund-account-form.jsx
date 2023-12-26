@@ -33,7 +33,7 @@ function FundAccountForm({ user, rate }) {
 	const config = {
 		public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY,
 		tx_ref: Date.now(),
-		amount: amt * rate.amount,
+		amount: amt,
 		currency: "NGN",
 		payment_options: "card,mobilemoney,ussd,banktransfer",
 		customer: {
@@ -80,7 +80,7 @@ function FundAccountForm({ user, rate }) {
 				<CurrencyInput
 					id="amount"
 					name="amount"
-					placeholder="Amount (USD)..."
+					placeholder="Amount (NGN)..."
 					decimalsLimit={2}
 					disabled={isPending}
 					className="input input-bordered"
@@ -90,8 +90,7 @@ function FundAccountForm({ user, rate }) {
 				/>
 				{amt && (
 					<p className="text-xs ml-2 mt-2">
-						&#8358;
-						{commaNumber(amt * rate.amount)}
+						${commaNumber(amt / rate.amount)}
 					</p>
 				)}
 
