@@ -90,7 +90,7 @@ function FundAccountForm({ user, rate }) {
 				/>
 				{amt && (
 					<p className="text-xs ml-2 mt-2">
-						${commaNumber(amt / rate.amount)}
+						${commaNumber(Number(amt / rate.amount).toFixed(2))}
 					</p>
 				)}
 
