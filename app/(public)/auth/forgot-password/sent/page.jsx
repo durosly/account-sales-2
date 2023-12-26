@@ -8,7 +8,10 @@ function ForgotPasswordEmailSentPage() {
 				<div className="w-14 flex justify-center items-center aspect-square rounded-full bg-success/20">
 					<BsCheckLg className="w-10 h-10 stroke-current" />
 				</div>
-				<p>Check your inbox for recovery link</p>
+				<p>
+					Check your inbox for recovery link. If it doesn&apos;t
+					appear, check your spam folder
+				</p>
 				<Link
 					className="btn btn-primary btn-block"
 					href="/auth?action=login"
