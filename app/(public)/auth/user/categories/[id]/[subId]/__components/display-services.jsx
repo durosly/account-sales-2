@@ -89,7 +89,7 @@ function DisplayServices({ id, categoryCover, subId }) {
 								<div className="flex gap-1 items-center p-2 rounded-md text-blue-500 border border-blue-500">
 									<span>Available:</span>
 									<span className="font-bold">
-										{commaNumber(s.quantity)}
+										{commaNumber(parseInt(s.quantity))}
 									</span>
 								</div>
 								<div className="flex gap-1 items-center p-2 rounded-md text-yellow-500 border border-yellow-500">

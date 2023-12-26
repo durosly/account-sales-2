@@ -42,7 +42,7 @@ async function addAccountToService(request, { params: { id } }) {
 			}
 		});
 
-		service.quantity += data.length;
+		service.quantity += parseInt(data.length);
 		await service.save();
 
 		await ServiceItemModel.insertMany(data);
