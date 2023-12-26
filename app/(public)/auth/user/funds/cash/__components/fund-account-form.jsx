@@ -41,6 +41,7 @@ function FundAccountForm({ user, rate }) {
 			name: user?.name || "nil",
 		},
 		customizations: {
+			title: "Smvaults FLW",
 			description: "Payment for funding of user account",
 			logo: "https://www.smvaults.com/favicon.ico",
 		},
