@@ -43,17 +43,17 @@ function SignupForm() {
 				});
 				// localStorage.setItem("VERIFICATION_EMAIL", data.data.email);
 				// router.push("/auth?action=login");
-				setInputs({
-					email: "",
-					name: "",
-					password: "",
-				});
+				// setInputs({
+				// 	email: "",
+				// 	name: "",
+				// 	password: "",
+				// });
 
 				setIsLoading(true);
 
 				const res = await signIn("credentials", {
 					redirect: false,
-					...info,
+					...{ email: inputs.email, password: inputs.password },
 				});
 
 				if (res && res.ok && !res?.error) {
