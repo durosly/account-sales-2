@@ -71,8 +71,8 @@ async function signupUser(request) {
 			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
 			to: user.email.toLowerCase(),
 			subject: "Verify email address",
-			html: htmlEmail,
-			// html: `<p>Code is ${code}</p>`,
+			// html: htmlEmail,
+			html: `<p>Code is ${code}</p>`,
 			text: textEmail,
 		};
 
