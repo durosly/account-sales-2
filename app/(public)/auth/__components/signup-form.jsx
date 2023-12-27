@@ -1,6 +1,7 @@
 "use client";
 import { handleClientError } from "@/lib/utils";
 import { UserSignupSchema } from "@/validators/signup";
+import { signIn } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -47,6 +48,20 @@ function SignupForm() {
 					name: "",
 					password: "",
 				});
+
+				setIsLoading(true);
+
+				const res = await signIn("credentials", {
+					redirect: false,
+					...info,
+				});
+
+				if (res && res.ok && !res?.error) {
+					toast.success("Login successful", { id: toastId });
+					router.push("/auth/user");
+					router.refresh();
+					// setIsLoading(false);
+				}
 			} else {
 				throw new Error(resData.message);
 			}
