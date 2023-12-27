@@ -48,6 +48,7 @@ async function resendEmailHandler(request) {
 			to: email.toLowerCase(),
 			subject: "Verify email address",
 			html: htmlEmail,
+			text: `CODE: ${code}`,
 		};
 
 		await transporter.sendMail(options);

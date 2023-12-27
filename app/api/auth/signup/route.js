@@ -64,6 +64,7 @@ async function signupUser(request) {
 			to: user.email.toLowerCase(),
 			subject: "Verify email address",
 			html: htmlEmail,
+			text: `CODE: ${code}`,
 		};
 
 		await transporter.sendMail(options);
