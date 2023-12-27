@@ -41,7 +41,12 @@ function SignupForm() {
 					id: toastId,
 				});
 				// localStorage.setItem("VERIFICATION_EMAIL", data.data.email);
-				router.push("/auth?action=login");
+				// router.push("/auth?action=login");
+				setInputs({
+					email: "",
+					name: "",
+					password: "",
+				});
 			} else {
 				throw new Error(resData.message);
 			}
