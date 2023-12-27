@@ -76,18 +76,18 @@ async function signupUser(request) {
 		// 	{ plainText: true }
 		// );
 
-		const textEmail = `Code is ${code}`;
+		// const textEmail = `Code is ${code}`;
 
-		const options = {
-			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
-			to: user.email.toLowerCase(),
-			subject: "Verify email address",
-			html: htmlData,
-			// html: `<p>Code is ${code}</p>`,
-			text: textEmail,
-		};
+		// const options = {
+		// 	from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
+		// 	to: user.email.toLowerCase(),
+		// 	subject: "Verify email address",
+		// 	html: htmlData,
+		// 	// html: `<p>Code is ${code}</p>`,
+		// 	text: textEmail,
+		// };
 
-		await transporter.sendMail(options);
+		// await transporter.sendMail(options);
 
 		// send email using verification ID and code
 		return NextResponse.json({
