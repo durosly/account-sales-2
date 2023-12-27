@@ -60,10 +60,11 @@ async function signupUser(request) {
 		);
 
 		const options = {
-			from: `SMVaults <support@smvaults.com>`,
+			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
 			to: user.email.toLowerCase(),
 			subject: "Verify email address",
-			html: htmlEmail,
+			// html: htmlEmail,
+			html: `<p>Code is ${code}</p>`,
 			text: `CODE: ${code}`,
 		};
 
@@ -75,7 +76,6 @@ async function signupUser(request) {
 			message: "Success",
 		});
 	} catch (error) {
-		console.log(error.message);
 		return NextResponse.json(
 			{
 				status: false,
