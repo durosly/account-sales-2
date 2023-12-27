@@ -44,7 +44,7 @@ async function resendEmailHandler(request) {
 		);
 
 		const options = {
-			from: `${process.env.SMTP_USERNAME}`,
+			from: `SMVaults <support@smvaults.com>`,
 			to: email.toLowerCase(),
 			subject: "Verify email address",
 			html: htmlEmail,
