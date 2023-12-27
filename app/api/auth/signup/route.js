@@ -41,24 +41,25 @@ async function signupUser(request) {
 			name: data.data.name,
 			email: data.data.email.toLowerCase(),
 			password: data.data.password,
+			is_verified: true,
 		});
-		const expires = DateTime.now().plus({ hours: 1 }).toISO();
-		const code = generateRandomNumber();
+		// const expires = DateTime.now().plus({ hours: 1 }).toISO();
+		// const code = generateRandomNumber();
 
-		const email_v = await EmailModel.create({
-			email: data.data.email.toLowerCase(),
-			code,
-			expires_at: expires,
-		});
+		// const email_v = await EmailModel.create({
+		// 	email: data.data.email.toLowerCase(),
+		// 	code,
+		// 	expires_at: expires,
+		// });
 
-		let htmlData = await getTemplate("verify-email.html");
+		// let htmlData = await getTemplate("verify-email.html");
 
-		const link = `${
-			process.env.NEXT_PUBLIC_URL
-		}/email-verification/${data.data.email.toLowerCase()}/${code}`;
+		// const link = `${
+		// 	process.env.NEXT_PUBLIC_URL
+		// }/email-verification/${data.data.email.toLowerCase()}/${code}`;
 
-		htmlData = htmlData.replace(/\[link\]/g, link);
-		htmlData = htmlData.replace(/\[code\]/g, code);
+		// htmlData = htmlData.replace(/\[link\]/g, link);
+		// htmlData = htmlData.replace(/\[code\]/g, code);
 
 		// const htmlEmail = render(
 		// 	<VerifyEmail

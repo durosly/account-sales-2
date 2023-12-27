@@ -37,9 +37,11 @@ function SignupForm() {
 			const resData = response.data;
 
 			if (resData.status) {
-				toast.success("Signup successful", { id: toastId });
-				localStorage.setItem("VERIFICATION_EMAIL", data.data.email);
-				router.push("/email-verification");
+				toast.success("Signup successful. Login to continue", {
+					id: toastId,
+				});
+				// localStorage.setItem("VERIFICATION_EMAIL", data.data.email);
+				router.push("/auth?action=login");
 			} else {
 				throw new Error(resData.message);
 			}
