@@ -56,16 +56,24 @@ async function signupUser(request) {
 			<VerifyEmail
 				email={email_v.id}
 				validationCode={code}
-			/>
+			/>,
+			{ pretty: true }
+		);
+		const textEmail = render(
+			<VerifyEmail
+				email={email_v.id}
+				validationCode={code}
+			/>,
+			{ plainText: true }
 		);
 
 		const options = {
 			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
 			to: user.email.toLowerCase(),
 			subject: "Verify email address",
-			// html: htmlEmail,
-			html: `<p>Code is ${code}</p>`,
-			text: `CODE: ${code}`,
+			html: htmlEmail,
+			// html: `<p>Code is ${code}</p>`,
+			text: textEmail,
 		};
 
 		await transporter.sendMail(options);

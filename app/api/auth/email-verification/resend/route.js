@@ -40,7 +40,15 @@ async function resendEmailHandler(request) {
 			<VerifyEmail
 				email={email_v.id}
 				validationCode={code}
-			/>
+			/>,
+			{ pretty: true }
+		);
+		const textEmail = render(
+			<VerifyEmail
+				email={email_v.id}
+				validationCode={code}
+			/>,
+			{ plainText: true }
 		);
 
 		const options = {
@@ -48,7 +56,7 @@ async function resendEmailHandler(request) {
 			to: email.toLowerCase(),
 			subject: "Verify email address",
 			html: htmlEmail,
-			text: `CODE: ${code}`,
+			text: textEmail,
 		};
 
 		await transporter.sendMail(options);
