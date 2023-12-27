@@ -44,7 +44,7 @@ async function resendEmailHandler(request) {
 		);
 
 		const options = {
-			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
+			from: `${process.env.SMTP_USERNAME}`,
 			to: email.toLowerCase(),
 			subject: "Verify email address",
 			html: htmlEmail,

@@ -60,7 +60,7 @@ async function signupUser(request) {
 		);
 
 		const options = {
-			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
+			from: `${process.env.SMTP_USERNAME}`,
 			to: user.email.toLowerCase(),
 			subject: "Verify email address",
 			html: htmlEmail,
