@@ -1,13 +1,12 @@
-import { NextResponse } from "next/server";
-import { DateTime } from "luxon";
 import connectMongo from "@/lib/connectDB";
+import generateRandomNumber from "@/lib/generate-random";
+import getTemplate from "@/lib/get-email-template";
+import transporter from "@/lib/transporter";
+import EmailModel from "@/models/email-verification";
 import UserModel from "@/models/user";
 import { UserSignupSchema } from "@/validators/signup";
-import EmailModel from "@/models/email-verification";
-import generateRandomNumber from "@/lib/generate-random";
-import transporter from "@/lib/transporter";
-import { render } from "@react-email/render";
-import VerifyEmail from "@/emails/verify-email";
+import { DateTime } from "luxon";
+import { NextResponse } from "next/server";
 
 async function signupUser(request) {
 	try {
@@ -52,27 +51,38 @@ async function signupUser(request) {
 			expires_at: expires,
 		});
 
-		const htmlEmail = render(
-			<VerifyEmail
-				email={email_v.id}
-				validationCode={code}
-			/>,
-			{ pretty: true }
-		);
-		const textEmail = render(
-			<VerifyEmail
-				email={email_v.id}
-				validationCode={code}
-			/>,
-			{ plainText: true }
-		);
+		let htmlData = await getTemplate("verify-email.html");
+
+		const link = `${
+			process.env.NEXT_PUBLIC_URL
+		}/email-verification/${data.data.email.toLowerCase()}/${code}`;
+
+		htmlData = htmlData.replace(/\[link\]/g, link);
+		htmlData = htmlData.replace(/\[code\]/g, code);
+
+		// const htmlEmail = render(
+		// 	<VerifyEmail
+		// 		email={email_v.id}
+		// 		validationCode={code}
+		// 	/>,
+		// 	{ pretty: true }
+		// );
+		// const textEmail = render(
+		// 	<VerifyEmail
+		// 		email={email_v.id}
+		// 		validationCode={code}
+		// 	/>,
+		// 	{ plainText: true }
+		// );
+
+		const textEmail = `Code is ${code}`;
 
 		const options = {
 			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
 			to: user.email.toLowerCase(),
 			subject: "Verify email address",
-			// html: htmlEmail,
-			html: `<p>Code is ${code}</p>`,
+			html: htmlData,
+			// html: `<p>Code is ${code}</p>`,
 			text: textEmail,
 		};
 
@@ -84,6 +94,7 @@ async function signupUser(request) {
 			message: "Success",
 		});
 	} catch (error) {
+		console.log(error.message);
 		return NextResponse.json(
 			{
 				status: false,

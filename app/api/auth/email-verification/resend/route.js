@@ -1,12 +1,11 @@
-import { NextResponse } from "next/server";
-import { DateTime } from "luxon";
 import connectMongo from "@/lib/connectDB";
-import UserModel from "@/models/user";
-import EmailModel from "@/models/email-verification";
 import generateRandomNumber from "@/lib/generate-random";
+import getTemplate from "@/lib/get-email-template";
 import transporter from "@/lib/transporter";
-import { render } from "@react-email/render";
-import VerifyEmail from "@/emails/verify-email";
+import EmailModel from "@/models/email-verification";
+import UserModel from "@/models/user";
+import { DateTime } from "luxon";
+import { NextResponse } from "next/server";
 
 async function resendEmailHandler(request) {
 	try {
@@ -36,26 +35,23 @@ async function resendEmailHandler(request) {
 			}
 		);
 
-		const htmlEmail = render(
-			<VerifyEmail
-				email={email_v.id}
-				validationCode={code}
-			/>,
-			{ pretty: true }
-		);
-		const textEmail = render(
-			<VerifyEmail
-				email={email_v.id}
-				validationCode={code}
-			/>,
-			{ plainText: true }
-		);
+		let htmlData = await getTemplate("verify-email.html");
+
+		const link = `${
+			process.env.NEXT_PUBLIC_URL
+		}/email-verification/${email.toLowerCase()}/${code}`;
+
+		htmlData = htmlData.replace(/\[link\]/g, link);
+		htmlData = htmlData.replace(/\[code\]/g, code);
+
+		const textEmail = `Code is ${code}`;
 
 		const options = {
-			from: `SMVaults <support@smvaults.com>`,
+			from: `${process.env.SMTP_INFO} <${process.env.SMTP_USERNAME}>`,
 			to: email.toLowerCase(),
 			subject: "Verify email address",
-			html: htmlEmail,
+			html: htmlData,
+			// html: `<p>Code is ${code}</p>`,
 			text: textEmail,
 		};
 
