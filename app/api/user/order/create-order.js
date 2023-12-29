@@ -12,12 +12,6 @@ import addNotification from "@/utils/backend/add-notification";
 
 async function createOrder(request) {
 	try {
-		return NextResponse.json({
-			status: false,
-			message:
-				"Service is currently under maintenance. Please bear with us",
-		});
-
 		const body = await request.json();
 
 		const valid = CreateOrderSchema.safeParse(body);
@@ -56,6 +50,25 @@ async function createOrder(request) {
 			});
 		}
 
+		await connectMongo();
+
+		const serviceItems = await ServiceItemModel.find({
+			status: "new",
+			serviceId: valid.data.service,
+		})
+			.sort("-createdAt")
+			.limit(valid.data.quantity);
+
+		if (serviceItems.length === 0) {
+			service.quantity = 0;
+			await service.save();
+
+			return NextResponse.json(
+				{ status: false, message: "No service available" },
+				{ status: 404 }
+			);
+		}
+
 		const user = await UserModel.findById(id);
 		// check if user balance is enough (substract from balance)
 		if (user.balance < charge) {
@@ -67,22 +80,6 @@ async function createOrder(request) {
 		user.balance -= charge;
 		await user.save();
 		// TODO: send notification (user, admin)
-
-		await connectMongo();
-
-		const serviceItems = await ServiceItemModel.find({
-			status: "new",
-			serviceId: valid.data.service,
-		})
-			.sort("-createdAt")
-			.limit(valid.data.quantity);
-
-		if (serviceItems.length === 0) {
-			return NextResponse.json(
-				{ status: false, message: "No service available" },
-				{ status: 404 }
-			);
-		}
 
 		const ids = serviceItems.map((item) => item._id);
 
