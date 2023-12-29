@@ -65,6 +65,7 @@ async function handleCheckout(request) {
 			userEmail: email,
 			amount,
 			transactionId: txRef,
+			status: "completed",
 		});
 
 		// TODO: fund user account
