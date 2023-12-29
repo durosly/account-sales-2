@@ -12,6 +12,12 @@ import addNotification from "@/utils/backend/add-notification";
 
 async function createOrder(request) {
 	try {
+		return NextResponse.json({
+			status: false,
+			message:
+				"Service is currently under maintenance. Please bear with us",
+		});
+
 		const body = await request.json();
 
 		const valid = CreateOrderSchema.safeParse(body);
