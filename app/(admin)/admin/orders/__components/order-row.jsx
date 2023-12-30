@@ -17,6 +17,7 @@ function OrderRow({ item, count }) {
 		charge,
 		status,
 		info,
+		userId: { name, email },
 	} = item;
 
 	// Load currency rate
@@ -64,7 +65,21 @@ function OrderRow({ item, count }) {
 						</>
 					)}
 				</td>
-				<td>{status}</td>
+				<td>
+					<p>{email}</p>
+					<p className="badge">{name}</p>
+				</td>
+				<td>
+					<span
+						className={`badge ${
+							status === "success"
+								? "badge-success"
+								: "badge-warning"
+						}`}
+					>
+						{status}
+					</span>
+				</td>
 			</tr>
 		</>
 	);

@@ -74,6 +74,7 @@ function DisplayOrders() {
 								<th>Service/Category</th>
 								<th>Quality</th>
 								<th>Charge</th>
+								<th>User</th>
 								<th>Status</th>
 							</tr>
 						</thead>
@@ -85,7 +86,7 @@ function DisplayOrders() {
 									.fill(3)
 									.map((_, i) => (
 										<tr key={i}>
-											<td colSpan={6}>
+											<td colSpan={7}>
 												<Skeleton />
 											</td>
 										</tr>
@@ -93,7 +94,7 @@ function DisplayOrders() {
 							) : isError ? (
 								<tr>
 									<td
-										colSpan={6}
+										colSpan={7}
 										className="text-error font-bold"
 									>
 										{error}

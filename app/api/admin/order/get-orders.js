@@ -34,7 +34,7 @@ async function getOrders(request) {
 		const orders = await OrderModel.paginate(query, {
 			page,
 			sort: { createdAt: -1 },
-			populate: ["categoryId", "serviceId", "serviceItemIds"],
+			populate: ["categoryId", "serviceId", "serviceItemIds", "userId"],
 		});
 
 		return NextResponse.json({
