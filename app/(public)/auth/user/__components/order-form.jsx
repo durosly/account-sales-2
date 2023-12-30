@@ -42,7 +42,7 @@ function OrderForm({ cId, sId, price }) {
 
 	let toastId = useRef(null);
 
-	const { isPending, mutate } = useMutation({
+	const { isPending, mutate, error, isError } = useMutation({
 		mutationFn: (order) => {
 			toastId.current = toast.loading("Creating order");
 			return axios.post("/api/user/order", order);
@@ -180,7 +180,8 @@ function OrderForm({ cId, sId, price }) {
 					id="amount"
 					name="quantity"
 					placeholder="Quantity..."
-					decimalsLimit={2}
+					decimalsLimit={0}
+					decimalScale={0}
 					className="input input-bordered"
 					value={entry.quantity}
 					onValueChange={(value, name) =>
@@ -197,18 +198,25 @@ function OrderForm({ cId, sId, price }) {
 					<span className="font-bold">
 						&#8358; {commaNumber(charge)}
 					</span>
-					<span className="font-bold">
-						${" "}
-						{commaNumber(
-							Number(
-								charge / (rateResponse?.amount || 1)
-							).toFixed(2)
-						)}
-					</span>
+					{isPendingRate ? (
+						<span className="loading loading-spinner"></span>
+					) : (
+						<span className="font-bold">
+							${" "}
+							{commaNumber(
+								Number(charge / rateResponse?.amount).toFixed(2)
+							)}
+						</span>
+					)}
 				</p>
 			</div>
+
+			{isError && (
+				<p className="text-error my-2">{handleClientError(error)}</p>
+			)}
+
 			<button
-				disabled={!entry.quantity || isPending}
+				disabled={!entry.quantity || isPending || isPendingRate}
 				className="btn btn-primary"
 			>
 				Place order
