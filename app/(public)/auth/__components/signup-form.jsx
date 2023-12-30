@@ -88,7 +88,7 @@ function SignupForm() {
 					<span className="label-text">Fullname</span>
 				</label>
 				<div className="relative">
-					<SlUser className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
+					<SlUser className="absolute left-4 top-1/2 -translate-y-1/2 opacity-50" />
 					<input
 						type="text"
 						name="name"
@@ -114,7 +114,7 @@ function SignupForm() {
 					<span className="label-text">E-mail</span>
 				</label>
 				<div className="relative">
-					<SlEnvolope className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
+					<SlEnvolope className="absolute left-4 top-1/2 -translate-y-1/2 opacity-50" />
 					<input
 						type="email"
 						name="email"
@@ -140,7 +140,7 @@ function SignupForm() {
 					<span className="label-text">Password</span>
 				</label>
 				<div className="relative">
-					<SlLock className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
+					<SlLock className="absolute left-4 top-1/2 -translate-y-1/2 opacity-50" />
 					<input
 						name="password"
 						id="s-password"
@@ -158,10 +158,14 @@ function SignupForm() {
 					/>
 					<button
 						onClick={() => setShow((prev) => !prev)}
-						className="absolute right-4 top-1/2 -translate-y-1/2 fill-black"
+						className="absolute right-4 top-1/2 -translate-y-1/2 opacity-50"
 						type="button"
 					>
-						{show ? <BsEyeSlash /> : <BsEye />}
+						{show ? (
+							<BsEyeSlash className="opacity-50" />
+						) : (
+							<BsEye className="opacity-50" />
+						)}
 					</button>
 				</div>
 			</div>

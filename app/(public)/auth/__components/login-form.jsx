@@ -61,7 +61,7 @@ function LoginForm() {
 					<span className="label-text">E-mail</span>
 				</label>
 				<div className="relative">
-					<SlEnvolope className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
+					<SlEnvolope className="absolute left-4 top-1/2 -translate-y-1/2 opacity-50" />
 					<input
 						type="email"
 						name="email"
@@ -86,12 +86,12 @@ function LoginForm() {
 					<span className="label-text">Password</span>
 				</label>
 				<div className="relative">
-					<SlLock className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
+					<SlLock className="absolute left-4 top-1/2 -translate-y-1/2 opacity-50" />
 					<input
 						type={show ? "text" : "password"}
 						name="password"
 						id="password"
-						className="input input-bordered w-full text-black font-bold pl-11 pr-11"
+						className="input input-bordered w-full font-bold pl-11 pr-11"
 						placeholder="Passowrd..."
 						value={info.password}
 						onChange={(e) =>
@@ -107,7 +107,11 @@ function LoginForm() {
 						className="absolute right-4 top-1/2 -translate-y-1/2 text-black"
 						type="button"
 					>
-						{show ? <BsEyeSlash /> : <BsEye />}
+						{show ? (
+							<BsEyeSlash className="opacity-50" />
+						) : (
+							<BsEye className="opacity-50" />
+						)}
 					</button>
 				</div>
 			</div>
