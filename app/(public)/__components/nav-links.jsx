@@ -42,13 +42,13 @@ async function NavLinks() {
 			) : (
 				<>
 					<li>
-						<Link href="/auth?action=login">
+						<Link href="/auth">
 							<SlLogin className="w-5 h-5 lg:hidden" />
 							<span>Login</span>
 						</Link>
 					</li>
 					<li>
-						<Link href="/auth?action=signup">
+						<Link href="/auth/signup">
 							<SlPeople className="w-5 h-5 lg:hidden" />
 							<span>Signup</span>
 						</Link>

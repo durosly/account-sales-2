@@ -93,6 +93,6 @@ export const options = {
 	},
 	pages: {
 		signIn: "/auth",
-		signUp: "/auth",
+		signUp: "/auth/signup",
 	},
 };

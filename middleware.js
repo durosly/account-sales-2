@@ -10,7 +10,10 @@ function middleware(request) {
 	}
 
 	if (path.startsWith("/api/admin") && token?.account_type !== "admin") {
-		return NextResponse.json({ status: false, message: "authorized" });
+		return NextResponse.json(
+			{ status: false, message: "authorized" },
+			{ status: 401 }
+		);
 	}
 }
 

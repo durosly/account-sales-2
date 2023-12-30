@@ -106,13 +106,13 @@ async function PublicLayout({ children }) {
 						) : (
 							<>
 								<Link
-									href="/auth?action=signup"
+									href="/auth/signup"
 									className="btn btn-sm md:btn-md btn-ghost max-sm:hidden"
 								>
 									Create Account
 								</Link>
 								<Link
-									href="/auth?action=login"
+									href="/auth"
 									className="btn btn-sm md:btn-md btn-primary"
 								>
 									<SlLogin />

@@ -49,16 +49,16 @@ function LoginForm() {
 	return (
 		<form
 			action="/login"
-			className="login-form mb-5"
+			className="bg-base-200 p-8 rounded-md"
 			onSubmit={makeLoginRequest}
 		>
-			<h2 className="text-2xl font-bold mb-5 text-center">Login</h2>
+			<h2 className="text-2xl font-bold mb-5">Login</h2>
 			<div className="form-control">
 				<label
 					htmlFor="email"
 					className="label"
 				>
-					<span className="label-text text-white">E-mail</span>
+					<span className="label-text">E-mail</span>
 				</label>
 				<div className="relative">
 					<SlEnvolope className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
@@ -83,7 +83,7 @@ function LoginForm() {
 					htmlFor="password"
 					className="label"
 				>
-					<span className="label-text text-white">Password</span>
+					<span className="label-text">Password</span>
 				</label>
 				<div className="relative">
 					<SlLock className="absolute left-4 top-1/2 -translate-y-1/2 fill-black" />
@@ -114,15 +114,26 @@ function LoginForm() {
 			<div className="text-center mb-5">
 				<button
 					disabled={isLoading}
-					className="btn btn-neutral btn-wide !rounded-xl"
+					className="btn btn-primary btn-block"
 				>
 					Login
 				</button>
 			</div>
+			<p className="mt-5 text-sm">
+				Don&apos;t have an account?{" "}
+				<Link
+					href="/auth/signup"
+					className="link link-primary"
+				>
+					Signup
+				</Link>
+				.
+			</p>
+
 			<div className="text-center">
 				<Link
 					href="/auth/forgot-password"
-					className="link"
+					className="link text-sm"
 				>
 					Forgot password?
 				</Link>

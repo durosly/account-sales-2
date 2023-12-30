@@ -3,6 +3,7 @@ import { handleClientError } from "@/lib/utils";
 import { UserSignupSchema } from "@/validators/signup";
 import { signIn } from "next-auth/react";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -75,8 +76,8 @@ function SignupForm() {
 	return (
 		<form
 			action="/signup"
-			className="signup-form"
 			onSubmit={handleSubmit}
+			className="bg-base-200 p-8 rounded-md"
 		>
 			<h2 className="text-2xl font-bold mb-5">Sign Up</h2>
 			<div className="form-control">
@@ -93,6 +94,7 @@ function SignupForm() {
 						name="name"
 						id="name"
 						className="input w-full input-bordered font-bold pl-11"
+						placeholder="John Nice..."
 						value={inputs.name}
 						onChange={(e) =>
 							setInputs({
@@ -118,6 +120,7 @@ function SignupForm() {
 						name="email"
 						id="s-email"
 						className="input w-full input-bordered font-bold pl-11"
+						placeholder="nice@gmail.com..."
 						value={inputs.email}
 						onChange={(e) =>
 							setInputs({
@@ -164,10 +167,21 @@ function SignupForm() {
 			</div>
 			<button
 				disabled={isLoading}
-				className="btn btn-primary btn-wide !rounded-xl"
+				className="btn btn-primary btn-block"
 			>
 				Signup
 			</button>
+
+			<p className="mt-5 text-sm">
+				Already have an account?{" "}
+				<Link
+					href="/auth"
+					className="link link-primary"
+				>
+					Login
+				</Link>
+				.
+			</p>
 		</form>
 	);
 }
