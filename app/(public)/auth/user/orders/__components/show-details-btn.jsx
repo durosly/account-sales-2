@@ -62,8 +62,9 @@ function ShowDetailsBtn({ id, items }) {
 											.split(",")
 											.map((data, i) => {
 												if (data) {
-													const items =
-														data.split(":");
+													const items = data
+														.replace(/,/g, "")
+														.split(":");
 
 													return (
 														<p
