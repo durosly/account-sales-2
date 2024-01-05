@@ -1,5 +1,6 @@
 import connectMongo from "@/lib/connectDB";
 import ServiceModel from "@/models/service";
+import isValidObjectId from "@/utils/backend/verify-mongodb-id";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -17,11 +18,33 @@ async function getServices(request) {
 		}
 
 		const q = searchParams.get("q");
+		const c = searchParams.get("c");
+		const s = searchParams.get("s");
 
-		const query = {};
+		if (s !== "all" && !isValidObjectId(c)) {
+			return NextResponse.json(
+				{ status: false, message: "Category ID is not valid" },
+				{ status: 400 }
+			);
+		}
+		if (c !== "all" && !isValidObjectId(c)) {
+			return NextResponse.json(
+				{ status: false, message: "Sub Category ID is not valid" },
+				{ status: 400 }
+			);
+		}
+
+		const query = { quantity: { $gt: 0 } };
 
 		if (!!q) {
 			query.name = { $regex: q, $options: "i" };
+		}
+
+		if (!!c && c !== "all") {
+			query.categoryId = c;
+		}
+		if (!!s && s !== "all") {
+			query.subCategoryId = s;
 		}
 
 		await connectMongo();
@@ -29,14 +52,21 @@ async function getServices(request) {
 		let services = [];
 
 		if (page === "all") {
-			services = await ServiceModel.find({}).populate(
+			const q = {};
+			if (!!c && c !== "all") {
+				q.categoryId = c;
+			}
+			if (!!s && s !== "all") {
+				q.subCategoryId = s;
+			}
+			services = await ServiceModel.find(q).populate(
 				"categoryId",
 				"subCategoryId"
 			);
 		} else {
 			services = await ServiceModel.paginate(query, {
 				page,
-				sort: { createdAt: -1 },
+				sort: { name: -1 },
 				populate: ["categoryId", "subCategoryId"],
 			});
 		}

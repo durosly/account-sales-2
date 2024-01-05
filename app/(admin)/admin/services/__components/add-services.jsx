@@ -73,7 +73,7 @@ function AddServices({ countries }) {
 		// so that the mutation stays in `pending` state until the refetch is finished
 		onSettled: async () => {
 			return await queryClient.invalidateQueries({
-				queryKey: ["services"],
+				queryKey: ["service"],
 			});
 		},
 		onSuccess: () => {

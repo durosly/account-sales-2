@@ -1,28 +1,21 @@
 "use client";
+import { handleClientError } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import commaNumber from "comma-number";
-import { useState } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Skeleton from "react-loading-skeleton";
-import ServiceRow from "./service-row";
+import SubCategoryList from "./sub-category-list";
 
 function DisplayServices() {
-	const [page, setPage] = useState(1);
-	const [query, setQuery] = useState("");
-	const { isPending, isError, data, error, isFetching, isPlaceholderData } =
-		useQuery({
-			queryKey: ["services", page, query],
-			queryFn: () => axios(`/api/admin/service?page=${page}&q=${query}`),
-			placeholderData: (previousData) => previousData,
-		});
+	const { isPending, isError, data, error } = useQuery({
+		queryKey: ["category", "all"],
+		queryFn: () => axios(`/api/admin/category?page=all`),
+	});
 
 	const queryResponse = data?.data?.data || {};
-	const { docs, limit, totalDocs, hasNextPage, hasPrevPage } = queryResponse;
 
 	return (
 		<>
-			<form
+			{/* <form
 				action=""
 				className="px-5 mb-5 mt-5"
 			>
@@ -36,25 +29,47 @@ function DisplayServices() {
 					/>
 					<button className="btn join-item ">Search</button>
 				</div>
-			</form>
+			</form> */}
 
-			<div className="text-right flex font-bold">
-				<div className="w-72 ml-auto pr-5">
-					{isPending ? (
-						<Skeleton />
-					) : (
-						<span>
-							{Math.max(1, limit * (page - 1))} -{" "}
-							{limit * (page - 1) + docs?.length || 0} of{" "}
-							{commaNumber(totalDocs)}
-						</span>
-					)}
-				</div>
+			<div className="join join-vertical w-full">
+				{isError ? (
+					<p className="text-error">{handleClientError(error)}</p>
+				) : isPending ? (
+					Array(4)
+						.fill(3)
+						.map((_, i) => (
+							<div
+								className="h-12"
+								key={i}
+							>
+								<Skeleton />
+							</div>
+						))
+				) : queryResponse && queryResponse.length > 0 ? (
+					queryResponse.map((category) => (
+						<div
+							key={category._id}
+							className="collapse collapse-arrow join-item border border-base-300"
+						>
+							<input
+								type="radio"
+								name="my-accordion-4"
+							/>
+							<div className="collapse-title text-xl font-medium">
+								{category.name}
+							</div>
+							<div className="collapse-content">
+								<SubCategoryList categoryId={category._id} />
+							</div>
+						</div>
+					))
+				) : (
+					<p>No categories yet</p>
+				)}
 			</div>
 
-			<div className="overflow-x-auto border-y mb-10">
+			{/* <div className="overflow-x-auto border-y mb-10">
 				<table className="table table-zebra">
-					{/* head */}
 					<thead>
 						<tr>
 							<th></th>
@@ -68,7 +83,6 @@ function DisplayServices() {
 						</tr>
 					</thead>
 					<tbody>
-						{/* row 1 */}
 						{isPending ? (
 							Array(4)
 								.fill(3)
@@ -135,7 +149,7 @@ function DisplayServices() {
 				>
 					<FiChevronRight />
 				</button>
-			</div>
+			</div> */}
 		</>
 	);
 }

@@ -6,7 +6,6 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 async function getSubCategories(request, { params: { id } }) {
-	console.log(id);
 	try {
 		const { searchParams } = new URL(request.url);
 		const page = searchParams.get("page");

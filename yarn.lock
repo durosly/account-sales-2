@@ -2278,6 +2278,7 @@ __metadata:
     react-currency-input-field: "npm:^3.6.12"
     react-dom: "npm:^18"
     react-email: "npm:1.9.5"
+    react-fast-marquee: "npm:^1.6.2"
     react-hot-toast: "npm:^2.4.1"
     react-icons: "npm:^4.12.0"
     react-loading-skeleton: "npm:^3.3.1"
@@ -7620,6 +7621,16 @@ __metadata:
   bin:
     email: dist/source/index.js
   checksum: f2df4527e2d3257d2ed4facfa5cb151e5e37e3e241fdeeb4e75046b1f23a12748e73f3855c73ccf3701a51c96b0d5f942398040daf34ed506441285d06e0fb21
+  languageName: node
+  linkType: hard
+
+"react-fast-marquee@npm:^1.6.2":
+  version: 1.6.2
+  resolution: "react-fast-marquee@npm:1.6.2"
+  peerDependencies:
+    react: ">= 16.8.0 || 18.0.0"
+    react-dom: ">= 16.8.0 || 18.0.0"
+  checksum: 4baddd8e81f4ca746d08f748f443cc49dc6d18cb2c4bd152e8bd5b0a74165756ad83cfd9f5ad45d553b40b6cc4ca1cd4ddbd1e904133dddaca6194ed180d8e30
   languageName: node
   linkType: hard
 

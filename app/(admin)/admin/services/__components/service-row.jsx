@@ -48,8 +48,7 @@ function ServiceRow({ item }) {
 			<td>
 				<ServiceQuantity id={_id} />
 			</td>
-			<td>{categoryId?.name || "nil"}</td>
-			<td>{subCategoryId?.name || "nil"}</td>
+
 			<td>
 				{isPendingRate ? (
 					<Skeleton className="w-10" />
