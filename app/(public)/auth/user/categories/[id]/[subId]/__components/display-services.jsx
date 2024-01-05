@@ -36,7 +36,7 @@ function DisplayServices({ id, categoryCover, subId }) {
 			{isPending ? (
 				<Skeleton count={5} />
 			) : isError ? (
-				<p>{handleClientError(error)}</p>
+				<p className="text-error">{handleClientError(error)}</p>
 			) : serviceResponse && serviceResponse.length > 0 ? (
 				<ul className="space-y-5">
 					{serviceResponse.map((s) => (

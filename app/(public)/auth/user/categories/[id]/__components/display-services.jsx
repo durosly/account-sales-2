@@ -24,6 +24,24 @@ function DisplaySubCategories({ id, categoryCover }) {
 				<p>{handleClientError(error)}</p>
 			) : serviceResponse && serviceResponse.length > 0 ? (
 				<ul className="space-y-5">
+					<li
+						key={"all-sub-category"}
+						className="border rounded-xl p-5 flex gap-2 items-center"
+					>
+						<div className="relative w-6 h-6">
+							<Image
+								src={`/images/${"like-icon.png"}`}
+								fill
+								className="object-contain"
+							/>
+						</div>
+						<Link
+							href={`/auth/user/categories/${id}/all`}
+							className="flex items-center gap-2"
+						>
+							<p className="uppercase font-bold">All</p>
+						</Link>
+					</li>
 					{serviceResponse.map((s) => (
 						<li
 							key={s._id}

@@ -21,9 +21,15 @@ async function getServices(request) {
 		const c = searchParams.get("c");
 		const s = searchParams.get("s");
 
-		if (!isValidObjectId(c)) {
+		if (s !== "all" && !isValidObjectId(c)) {
 			return NextResponse.json(
 				{ status: false, message: "Category ID is not valid" },
+				{ status: 400 }
+			);
+		}
+		if (c !== "all" && !isValidObjectId(c)) {
+			return NextResponse.json(
+				{ status: false, message: "Sub Category ID is not valid" },
 				{ status: 400 }
 			);
 		}
@@ -34,10 +40,10 @@ async function getServices(request) {
 			query.name = { $regex: q, $options: "i" };
 		}
 
-		if (!!c) {
+		if (!!c && c !== "all") {
 			query.categoryId = c;
 		}
-		if (!!s) {
+		if (!!s && s !== "all") {
 			query.subCategoryId = s;
 		}
 
@@ -47,10 +53,10 @@ async function getServices(request) {
 
 		if (page === "all") {
 			const q = {};
-			if (!!c) {
+			if (!!c && c !== "all") {
 				q.categoryId = c;
 			}
-			if (!!s) {
+			if (!!s && s !== "all") {
 				q.subCategoryId = s;
 			}
 			services = await ServiceModel.find(q).populate(
