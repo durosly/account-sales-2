@@ -13,6 +13,8 @@ import ShowNotificationStatus from "./__components/show-notification-status";
 import AdminNoticeModel from "@/models/admin-notice";
 import NoticeModal from "./__components/notice";
 import connectMongo from "@/lib/connectDB";
+import MarqueMsg from "../components/marque-msg";
+import AdminTopNoticeModel from "@/models/top-notification";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +24,7 @@ async function PublicLayout({ children }) {
 	await connectMongo();
 
 	const notice = await AdminNoticeModel.findOne({ status: "active" });
+	const tNotice = await AdminTopNoticeModel.findOne({ status: "active" });
 
 	return (
 		<div className="drawer max-md:block">
@@ -36,6 +39,7 @@ async function PublicLayout({ children }) {
 			<NavigationEvents />
 			<div className="drawer-content flex flex-col">
 				{/* Navbar */}
+				{tNotice && <MarqueMsg msg={tNotice.body} />}
 				<div
 					className={`w-full navbar ${session?.user && "border-b"} `}
 				>

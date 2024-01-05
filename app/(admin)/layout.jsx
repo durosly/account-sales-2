@@ -114,6 +114,12 @@ function AdminLayout({ children }) {
 							</Link>
 						</li>
 						<li>
+							<Link href="/admin/top-notifications">
+								<AiOutlineNotification className="w-5 h-5" />
+								<span>Top Notification</span>
+							</Link>
+						</li>
+						<li>
 							<Link href="/admin/currencies">
 								<BsCurrencyDollar className="w-5 h-5" />
 								<span>Currencies</span>
