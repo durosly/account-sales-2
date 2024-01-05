@@ -1,5 +1,7 @@
 import connectMongo from "@/lib/connectDB";
+import CategoryModel from "@/models/category";
 import ServiceModel from "@/models/service";
+import SubCategoryModel from "@/models/sub-category";
 import isValidObjectId from "@/utils/backend/verify-mongodb-id";
 import { NextResponse } from "next/server";
 
@@ -49,22 +51,46 @@ async function getServices(request) {
 
 		await connectMongo();
 
-		let services = [];
+		let data = [];
 
 		if (page === "all") {
-			const q = {};
+			const cq = {};
+			const scq = {};
+
 			if (!!c && c !== "all") {
-				q.categoryId = c;
+				cq._id = c;
 			}
 			if (!!s && s !== "all") {
-				q.subCategoryId = s;
+				scq._id = s;
 			}
-			services = await ServiceModel.find(q).populate(
-				"categoryId",
-				"subCategoryId"
-			);
+
+			const categories = await CategoryModel.find(cq);
+			const cat = [];
+			for (const category of JSON.parse(JSON.stringify(categories))) {
+				const subCat = [];
+				scq.category = category._id;
+				const subCategories = await SubCategoryModel.find(scq);
+
+				for (const subCategory of JSON.parse(
+					JSON.stringify(subCategories)
+				)) {
+					const list = [];
+					const items = await ServiceModel.find({
+						subCategoryId: subCategory._id,
+					});
+					for (const item of JSON.parse(JSON.stringify(items))) {
+						list.push(item);
+					}
+
+					subCat.push({ ...subCategory, items: list });
+				}
+
+				cat.push({ ...category, items: subCat });
+			}
+
+			data = cat;
 		} else {
-			services = await ServiceModel.paginate(query, {
+			data = await ServiceModel.paginate(query, {
 				page,
 				sort: { name: -1 },
 				populate: ["categoryId", "subCategoryId"],
@@ -74,7 +100,8 @@ async function getServices(request) {
 		return NextResponse.json({
 			status: false,
 			message: "success",
-			data: services,
+
+			data,
 		});
 	} catch (error) {
 		return NextResponse.json(

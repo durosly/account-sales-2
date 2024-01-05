@@ -1,10 +1,9 @@
-import { SlChart, SlTrophy, SlWallet } from "react-icons/sl";
 import { options } from "@/auth/options";
 import { getServerSession } from "next-auth";
-import OrderForm from "./__components/order-form";
-import UserBalance from "./__components/user-balance";
-import UserOrdersCount from "./__components/user-orders-count";
+import { SlWallet } from "react-icons/sl";
+import { TiInfoOutline } from "react-icons/ti";
 import Categories from "./__components/categories";
+import UserBalance from "./__components/user-balance";
 
 async function UserDashboardPage() {
 	const session = await getServerSession(options);
@@ -23,6 +22,22 @@ async function UserDashboardPage() {
 						<p className="text-sm uppercase">Account balance</p>
 						<UserBalance />
 					</div>
+				</div>
+			</div>
+
+			<div className="px-10 mb-10">
+				<div className="px-5 rounded-box text-sm flex gap-3 flex-wrap items-center bg-base-200 py-10">
+					<TiInfoOutline className="h-5 w-5" />
+					<p>
+						For Email and 2fa, please visit{" "}
+						<a
+							href="https://smvaults.xyz"
+							target="_blank"
+							className="link link-primary"
+						>
+							smvaults.xyz
+						</a>
+					</p>
 				</div>
 			</div>
 

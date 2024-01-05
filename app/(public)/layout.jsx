@@ -165,12 +165,12 @@ async function PublicLayout({ children }) {
 							>
 								Telegram
 							</Link>
-							<Link
-								href="/services"
+							<a
+								href="https://smvaults.xyz"
 								className="link link-hover"
 							>
-								And many more...
-							</Link>
+								Emails and 2fa
+							</a>
 						</nav>
 						{/* <nav>
 						<header className="footer-title">Company</header>

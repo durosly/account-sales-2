@@ -1,5 +1,6 @@
 import NavLink from "@/app/components/active-links";
 import DisplayOrders from "./__components/display-orders";
+import { TiInfoOutline } from "react-icons/ti";
 
 function OrdersPage() {
 	return (
@@ -39,6 +40,21 @@ function OrdersPage() {
 				</NavLink>
 			</div>
 
+			<div className="px-10 mb-10">
+				<div className="px-5 rounded-box text-sm flex gap-3 flex-wrap items-center bg-base-200 py-10">
+					<TiInfoOutline className="h-5 w-5" />
+					<p>
+						For Email and 2fa, please visit{" "}
+						<a
+							href="https://smvaults.xyz"
+							target="_blank"
+							className="link link-primary"
+						>
+							smvaults.xyz
+						</a>
+					</p>
+				</div>
+			</div>
 			<DisplayOrders />
 		</>
 	);

@@ -6,7 +6,9 @@ import connectMongo from "@/lib/connectDB";
 
 async function servicesPage({ params: { id, subId } }) {
 	await connectMongo();
-	const category = await CategoryModel.findById(id);
+
+	let category = { cover: "like-icon.png", name: "All categories" };
+	if (id !== "all") category = await CategoryModel.findById(id);
 
 	if (!category) {
 		notFound();

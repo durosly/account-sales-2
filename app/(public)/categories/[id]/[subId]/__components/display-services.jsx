@@ -36,87 +36,156 @@ function DisplayServices({ id, categoryCover, subId }) {
 			{isPending ? (
 				<Skeleton count={5} />
 			) : isError ? (
-				<p>{handleClientError(error)}</p>
+				<p className="text-error">{handleClientError(error)}</p>
 			) : serviceResponse && serviceResponse.length > 0 ? (
-				<ul className="space-y-5">
-					{serviceResponse.map((s) => (
-						<li
-							key={s._id}
-							className="space-y-5 border rounded-2xl p-5"
-						>
-							<div>
-								<div className="flex gap-2 mb-2">
-									<div className="relative w-6 h-6 flex-shrink-0">
-										<Image
-											src={`/images/${
-												categoryCover || "like-icon.png"
-											}`}
-											fill
-											className="object-contain"
-										/>
-									</div>
-									<p className="uppercase font-bold">
-										{s.name}
-									</p>
-								</div>
-								<p className="italic">{s.details}</p>
+				serviceResponse.map((category) => (
+					<div
+						key={category._id}
+						className="bg-base-200 p-5 rounded-box"
+					>
+						<div className="flex gap-2 items-center">
+							<div className="relative w-10 h-10">
+								<Image
+									src={`/images/${
+										category?.cover || "like-icon.png"
+									}`}
+									fill
+									className="object-contain"
+								/>
 							</div>
-							<div className="flex flex-wrap gap-2">
-								<div className="flex gap-1 items-center p-2 rounded-md text-red-500 border border-red-500">
-									<span>Price:</span>
-									<span className="font-bold">
-										&#8358;{commaNumber(s.price)}
-									</span>
-								</div>
-								<div className="flex gap-1 items-center p-2 rounded-md text-green-500 border border-green-500">
-									<span className="font-bold">
-										{isPendingRate ? (
-											<Skeleton className="w-10" />
-										) : (
-											<>
-												$
-												{commaNumber(
-													Number(
-														s.price /
-															(rateResponse?.amount ||
-																1)
-													).toFixed(2)
-												)}
-											</>
-										)}
-									</span>
-								</div>
-								<div className="flex gap-1 items-center p-2 rounded-md text-blue-500 border border-blue-500">
-									<span>Available:</span>
-									<span className="font-bold">
-										{commaNumber(s.quantity)}
-									</span>
-								</div>
-								<div className="flex gap-1 items-center p-2 rounded-md text-yellow-500 border border-yellow-500">
-									<span>Country:</span>
-									{s.country === "global" ? (
-										<Image
-											src={global}
-											width={20}
-											height={20}
-											className="inline-block"
-										/>
-									) : (
-										<span
-											className={`fi fi-${s.country.toLowerCase()}`}
-										></span>
-									)}
-								</div>
-							</div>
+							<h2 className="text-2xl font-bold">
+								{category.name}
+							</h2>
+						</div>
+						<div className="space-y-2 mt-4">
+							{category.items.length > 0 ? (
+								category.items.map((subCategory) => (
+									<div
+										key={subCategory._id}
+										className="bg-base-100 p-2 rounded-box"
+									>
+										<h3>{subCategory.name}</h3>
 
-							<ServicePurchase
-								sId={s._id}
-								cId={id}
-								price={s.price}
-							/>
-						</li>
-					))}
-				</ul>
+										<ul className="space-y-5 mt-5">
+											{subCategory.items.length > 0 ? (
+												subCategory.items.map((s) => (
+													<li
+														key={s._id}
+														className="space-y-5 bg-base-200 border rounded-2xl p-5"
+													>
+														<div>
+															<div className="flex gap-2 mb-2">
+																<div className="relative w-6 h-6 flex-shrink-0">
+																	<Image
+																		src={`/images/${
+																			category?.cover ||
+																			"like-icon.png"
+																		}`}
+																		fill
+																		className="object-contain"
+																	/>
+																</div>
+																<p className="uppercase font-bold">
+																	{s.name}
+																</p>
+															</div>
+															<p className="italic">
+																{s.details}
+															</p>
+														</div>
+														<div className="flex flex-wrap gap-2">
+															<div className="flex gap-1 items-center p-2 rounded-md text-red-500 border border-red-500">
+																<span>
+																	Price:
+																</span>
+																<span className="font-bold">
+																	&#8358;
+																	{commaNumber(
+																		s.price
+																	)}
+																</span>
+															</div>
+															<div className="flex gap-1 items-center p-2 rounded-md text-green-500 border border-green-500">
+																<span className="font-bold">
+																	{isPendingRate ? (
+																		<Skeleton className="w-10" />
+																	) : (
+																		<>
+																			$
+																			{commaNumber(
+																				Number(
+																					s.price /
+																						(rateResponse?.amount ||
+																							1)
+																				).toFixed(
+																					2
+																				)
+																			)}
+																		</>
+																	)}
+																</span>
+															</div>
+															<div className="flex gap-1 items-center p-2 rounded-md text-blue-500 border border-blue-500">
+																<span>
+																	Available:
+																</span>
+																<span className="font-bold">
+																	{commaNumber(
+																		parseInt(
+																			s.quantity
+																		)
+																	)}
+																</span>
+															</div>
+															<div className="flex gap-1 items-center p-2 rounded-md text-yellow-500 border border-yellow-500">
+																<span>
+																	Country:
+																</span>
+																{s.country ===
+																"global" ? (
+																	<Image
+																		src={
+																			global
+																		}
+																		width={
+																			20
+																		}
+																		height={
+																			20
+																		}
+																		className="inline-block"
+																	/>
+																) : (
+																	<span
+																		className={`fi fi-${s?.country?.toLowerCase()}`}
+																	></span>
+																)}
+															</div>
+														</div>
+
+														<ServicePurchase
+															sId={s._id}
+															cId={id}
+															price={s.price}
+														/>
+													</li>
+												))
+											) : (
+												<li className="text-xs italic">
+													-- No service added yet --
+												</li>
+											)}
+										</ul>
+									</div>
+								))
+							) : (
+								<p className="text-xs italic">
+									-- No service added yet --
+								</p>
+							)}
+						</div>
+					</div>
+				))
 			) : (
 				<p>No service available</p>
 			)}
