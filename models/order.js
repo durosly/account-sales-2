@@ -8,6 +8,8 @@ import ServiceItemModel from "./service-item";
 
 const orderSchema = new mongoose.Schema({
 	categoryId: { type: mongoose.Schema.Types.ObjectId, ref: CategoryModel },
+	categoryName: { type: String, default: "nil" },
+	serviceName: { type: String, default: "nil" },
 	serviceId: { type: mongoose.Schema.Types.ObjectId, ref: ServiceModel },
 	userId: { type: mongoose.Schema.Types.ObjectId, ref: UserModel },
 	serviceItemIds: [

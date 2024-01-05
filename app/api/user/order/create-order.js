@@ -24,7 +24,9 @@ async function createOrder(request) {
 		}
 
 		// calc charge
-		const service = await ServiceModel.findById(valid.data.service);
+		const service = await ServiceModel.findById(
+			valid.data.service
+		).populate("categoryId");
 		if (!service) {
 			return NextResponse.json(
 				{ status: false, message: "Invalid service specified" },
@@ -86,6 +88,8 @@ async function createOrder(request) {
 		const order = await OrderModel.create({
 			serviceId: valid.data.service,
 			categoryId: valid.data.category,
+			categoryName: service?.categoryId?.name || "nil",
+			serviceName: service.name,
 			serviceItemIds: ids,
 			quantity: valid.data.quantity,
 			charge,

@@ -1,9 +1,8 @@
-import { NextResponse } from "next/server";
 import connectMongo from "@/lib/connectDB";
 import CategoryModel from "@/models/category";
-import isValidObjectId from "@/utils/backend/verify-mongodb-id";
-import OrderModel from "@/models/order";
 import ServiceModel from "@/models/service";
+import isValidObjectId from "@/utils/backend/verify-mongodb-id";
+import { NextResponse } from "next/server";
 
 async function deleteCategory(_, { params: { id } }) {
 	try {
@@ -19,8 +18,6 @@ async function deleteCategory(_, { params: { id } }) {
 
 		// find services to delete
 		await ServiceModel.deleteMany({ categoryId: id });
-		// find orders to delete
-		await OrderModel.deleteMany({ categoryId: id });
 
 		return NextResponse.json({
 			status: false,

@@ -1,5 +1,4 @@
 import connectMongo from "@/lib/connectDB";
-import OrderModel from "@/models/order";
 import ServiceModel from "@/models/service";
 import isValidObjectId from "@/utils/backend/verify-mongodb-id";
 import { NextResponse } from "next/server";
@@ -15,9 +14,6 @@ async function deleteService(_, { params: { id } }) {
 		await connectMongo();
 
 		const service = await ServiceModel.findByIdAndDelete(id);
-
-		// find orders to delete
-		await OrderModel.deleteMany({ categoryId: service.categoryId });
 
 		return NextResponse.json({
 			status: false,

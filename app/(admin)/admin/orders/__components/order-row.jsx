@@ -10,6 +10,8 @@ function OrderRow({ item, count }) {
 	const {
 		createdAt,
 		_id,
+		serviceName,
+		categoryName,
 		categoryId,
 		serviceId,
 		serviceItemIds,
@@ -43,7 +45,8 @@ function OrderRow({ item, count }) {
 					)}
 				</td>
 				<td>
-					{serviceId.name}/{categoryId.name}
+					{serviceId?.name || serviceName}/
+					{categoryId?.name || categoryName}
 					<ShowDetailsBtn
 						id={_id}
 						details={info}

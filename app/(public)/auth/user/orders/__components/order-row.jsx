@@ -11,6 +11,8 @@ function OrderRow({ item, count }) {
 		createdAt,
 		_id,
 		categoryId,
+		serviceName,
+		categoryName,
 		serviceId,
 		serviceItemIds,
 		quantity,
@@ -50,7 +52,8 @@ function OrderRow({ item, count }) {
 					)}
 				</td>
 				<td>
-					{serviceId?.name}/{categoryId?.name}
+					{serviceId?.name || serviceName}/
+					{categoryId?.name || categoryName}
 				</td>
 
 				<td>{commaNumber(quantity)}</td>
