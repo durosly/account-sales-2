@@ -21,7 +21,15 @@ function ServiceStat({ serviceId, type }) {
 	}
 
 	const { isPending, isError, data, error, isFetching } = useQuery({
-		queryKey: ["analytics", "service", type, range, start_date, end_date],
+		queryKey: [
+			"analytics",
+			"service",
+			serviceId,
+			type,
+			range,
+			start_date,
+			end_date,
+		],
 		queryFn: () =>
 			axios(
 				`/api/admin/analytics/service/${serviceId}?type=${type}&start=${start_date}&end=${end_date}&range=${range}`
