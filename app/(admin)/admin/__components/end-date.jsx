@@ -2,6 +2,7 @@
 
 import { useContext } from "react";
 import { StatisticsContext } from "../context";
+import { DateTime } from "luxon";
 
 function EndDate() {
 	const {
@@ -13,6 +14,8 @@ function EndDate() {
 		dispatch({ type: "UPDATE_END_DATE", payload: e.target.value });
 	}
 
+	const maxDate = DateTime.now().toISODate();
+
 	return (
 		<input
 			className="input input-bordered"
@@ -22,6 +25,7 @@ function EndDate() {
 			value={end_date}
 			onChange={handleChange}
 			disabled={range !== "interval-range"}
+			max={maxDate}
 		/>
 	);
 }

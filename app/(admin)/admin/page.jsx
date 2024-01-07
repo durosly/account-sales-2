@@ -7,6 +7,7 @@ import EndDate from "./__components/end-date";
 import NumberOfOrders from "./__components/number-of-orders";
 import NumberOfUsers from "./__components/number-of-users";
 import StartDate from "./__components/start-date";
+import Categories from "./__components/categories";
 
 function AdminDashboard() {
 	return (
@@ -80,46 +81,7 @@ function AdminDashboard() {
 					</div>
 
 					<div className="mt-10 space-y-2">
-						<div className="border p-5 rounded">
-							<div className="flex gap-5">
-								<div className="relative w-10 h-10 ">
-									<Image
-										src="/images/like-icon.png"
-										fill
-										sizes="40px"
-										className="object-contain"
-										alt="category"
-									/>
-								</div>
-								<h3 className="font-bold text-2xl">Category</h3>
-							</div>
-							<div>
-								<h4 className="font-bold">Sub category</h4>
-								<ul className="mt-2">
-									<li className="flex flex-wrap gap-5 justify-between border-b last:border-b-0 py-3">
-										<p>Lorem ipsum dolor sit.</p>
-										<div className="flex flex-wrap gap-2">
-											<p className="badge">📈 300</p>
-											<p className="badge">🚀 300</p>
-										</div>
-									</li>
-									<li className="flex flex-wrap gap-5 justify-between border-b last:border-b-0 py-3">
-										<p>Lorem ipsum dolor sit.</p>
-										<div className="flex flex-wrap gap-2">
-											<p className="badge">📈 300</p>
-											<p className="badge">🚀 300</p>
-										</div>
-									</li>
-									<li className="flex flex-wrap gap-5 justify-between border-b last:border-b-0 py-3">
-										<p>Lorem ipsum dolor sit.</p>
-										<div className="flex flex-wrap gap-2">
-											<p className="badge">📈 300</p>
-											<p className="badge">🚀 300</p>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
+						<Categories />
 					</div>
 				</div>
 			</ContextWrapper>
