@@ -7,6 +7,7 @@ const serviceItemSchema = new mongoose.Schema({
 	serviceId: { type: mongoose.Schema.Types.ObjectId, ref: ServiceModel },
 	instruction: String,
 	info: String,
+	price: Number,
 	createdAt: { type: Date, default: Date.now },
 	status: { type: String, enum: ["new", "sold"], default: "new" },
 });

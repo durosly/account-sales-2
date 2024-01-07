@@ -38,6 +38,7 @@ async function addAccountToService(request, { params: { id } }) {
 					serviceId: id,
 					instruction,
 					info: item,
+					price: service.price,
 				});
 			}
 		});
