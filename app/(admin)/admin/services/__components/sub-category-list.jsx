@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import ServiceList from "./service-list";
+import { Disclosure } from "@headlessui/react";
+import { IoChevronUp } from "react-icons/io5";
 
 function SubCategoryList({ categoryId }) {
 	const { isPending, isError, data } = useQuery({
@@ -23,24 +25,29 @@ function SubCategoryList({ categoryId }) {
 				<p>An error occurred while fetching the subcategories.</p>
 			) : queryResponse && queryResponse.length > 0 ? (
 				queryResponse.map((subCategory) => (
-					<div
+					<Disclosure
 						key={subCategory._id}
-						className="collapse collapse-arrow join-item border border-base-300"
+						className=""
 					>
-						<input
-							type="radio"
-							name="my-accordion-3"
-						/>
-						<div className="collapse-title text-xl font-medium">
-							{subCategory.name}
-						</div>
-						<div className="collapse-content">
-							<ServiceList
-								categoryId={categoryId}
-								subCategoryId={subCategory._id}
-							/>
-						</div>
-					</div>
+						{({ open }) => (
+							<>
+								<Disclosure.Button className="flex w-full justify-between rounded-lg bg-primary/10 px-4 py-2 text-left hover:bg-primary/20">
+									<span>{subCategory.name}</span>
+									<IoChevronUp
+										className={`${
+											open ? "rotate-180 transform" : ""
+										} h-5 w-5`}
+									/>
+								</Disclosure.Button>
+								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm">
+									<ServiceList
+										categoryId={categoryId}
+										subCategoryId={subCategory._id}
+									/>
+								</Disclosure.Panel>
+							</>
+						)}
+					</Disclosure>
 				))
 			) : (
 				<p>No sub category</p>
