@@ -28,9 +28,9 @@ async function updateServicePrice(request, { params: { id } }) {
 			);
 		}
 
-		if (Number(price) < 1) {
+		if (Number(price) <= 0) {
 			return NextResponse.json(
-				{ status: false, message: "Price must be greater than 1" },
+				{ status: false, message: "Price must be greater than 0" },
 				{ status: 400 }
 			);
 		}
