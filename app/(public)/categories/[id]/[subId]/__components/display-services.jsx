@@ -32,7 +32,7 @@ function DisplayServices({ id, categoryCover, subId }) {
 	const rateResponse = rate?.data?.data || {};
 
 	return (
-		<div className="p-5 sm:p-10 mb-10 mt-5 max-w-4xl mx-auto ">
+		<div className="p-5 sm:p-10 mb-10 mt-5 max-w-4xl mx-auto space-y-4">
 			{isPending ? (
 				<Skeleton count={5} />
 			) : isError ? (
