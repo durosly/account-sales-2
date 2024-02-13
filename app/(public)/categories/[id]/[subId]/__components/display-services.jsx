@@ -68,108 +68,110 @@ function DisplayServices({ id, categoryCover, subId }) {
 
 										<ul className="space-y-5 mt-5">
 											{subCategory.items.length > 0 ? (
-												subCategory.items.map((s) => (
-													<li
-														key={s._id}
-														className="space-y-5 bg-base-200 border rounded-2xl p-5"
-													>
-														<div>
-															<div className="flex gap-2 mb-2">
-																<div className="relative w-6 h-6 flex-shrink-0">
-																	<Image
-																		src={`/images/${
-																			category?.cover ||
-																			"like-icon.png"
-																		}`}
-																		fill
-																		className="object-contain"
-																	/>
+												subCategory.items.map((s) =>
+													parseInt(s.quantity) > 0 ? (
+														<li
+															key={s._id}
+															className="space-y-5 bg-base-200 border rounded-2xl p-5"
+														>
+															<div>
+																<div className="flex gap-2 mb-2">
+																	<div className="relative w-6 h-6 flex-shrink-0">
+																		<Image
+																			src={`/images/${
+																				category?.cover ||
+																				"like-icon.png"
+																			}`}
+																			fill
+																			className="object-contain"
+																		/>
+																	</div>
+																	<p className="uppercase font-bold">
+																		{s.name}
+																	</p>
 																</div>
-																<p className="uppercase font-bold">
-																	{s.name}
+																<p className="italic">
+																	{s.details}
 																</p>
 															</div>
-															<p className="italic">
-																{s.details}
-															</p>
-														</div>
-														<div className="flex flex-wrap gap-2">
-															<div className="flex gap-1 items-center p-2 rounded-md text-red-500 border border-red-500">
-																<span>
-																	Price:
-																</span>
-																<span className="font-bold">
-																	&#8358;
-																	{commaNumber(
-																		s.price
-																	)}
-																</span>
-															</div>
-															<div className="flex gap-1 items-center p-2 rounded-md text-green-500 border border-green-500">
-																<span className="font-bold">
-																	{isPendingRate ? (
-																		<Skeleton className="w-10" />
+															<div className="flex flex-wrap gap-2">
+																<div className="flex gap-1 items-center p-2 rounded-md text-red-500 border border-red-500">
+																	<span>
+																		Price:
+																	</span>
+																	<span className="font-bold">
+																		&#8358;
+																		{commaNumber(
+																			s.price
+																		)}
+																	</span>
+																</div>
+																<div className="flex gap-1 items-center p-2 rounded-md text-green-500 border border-green-500">
+																	<span className="font-bold">
+																		{isPendingRate ? (
+																			<Skeleton className="w-10" />
+																		) : (
+																			<>
+																				$
+																				{commaNumber(
+																					Number(
+																						s.price /
+																							(rateResponse?.amount ||
+																								1)
+																					).toFixed(
+																						2
+																					)
+																				)}
+																			</>
+																		)}
+																	</span>
+																</div>
+																<div className="flex gap-1 items-center p-2 rounded-md text-blue-500 border border-blue-500">
+																	<span>
+																		Available:
+																	</span>
+																	<span className="font-bold">
+																		{commaNumber(
+																			parseInt(
+																				s.quantity
+																			)
+																		)}
+																	</span>
+																</div>
+																<div className="flex gap-1 items-center p-2 rounded-md text-yellow-500 border border-yellow-500">
+																	<span>
+																		Country:
+																	</span>
+																	{s.country ===
+																	"global" ? (
+																		<Image
+																			src={
+																				global
+																			}
+																			width={
+																				20
+																			}
+																			height={
+																				20
+																			}
+																			className="inline-block"
+																		/>
 																	) : (
-																		<>
-																			$
-																			{commaNumber(
-																				Number(
-																					s.price /
-																						(rateResponse?.amount ||
-																							1)
-																				).toFixed(
-																					2
-																				)
-																			)}
-																		</>
+																		<span
+																			className={`fi fi-${s?.country?.toLowerCase()}`}
+																		></span>
 																	)}
-																</span>
+																</div>
 															</div>
-															<div className="flex gap-1 items-center p-2 rounded-md text-blue-500 border border-blue-500">
-																<span>
-																	Available:
-																</span>
-																<span className="font-bold">
-																	{commaNumber(
-																		parseInt(
-																			s.quantity
-																		)
-																	)}
-																</span>
-															</div>
-															<div className="flex gap-1 items-center p-2 rounded-md text-yellow-500 border border-yellow-500">
-																<span>
-																	Country:
-																</span>
-																{s.country ===
-																"global" ? (
-																	<Image
-																		src={
-																			global
-																		}
-																		width={
-																			20
-																		}
-																		height={
-																			20
-																		}
-																		className="inline-block"
-																	/>
-																) : (
-																	<span
-																		className={`fi fi-${s?.country?.toLowerCase()}`}
-																	></span>
-																)}
-															</div>
-														</div>
 
-														<ServicePurchase
-															sId={s._id}
-															cId={id}
-															price={s.price}
-														/>
-													</li>
-												))
+															<ServicePurchase
+																sId={s._id}
+																cId={id}
+																price={s.price}
+															/>
+														</li>
+													) : null
+												)
 											) : (
 												<li className="text-xs italic">
 													-- No service added yet --
