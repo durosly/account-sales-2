@@ -1,6 +1,5 @@
-import Link from "next/link";
-import DisplayOrders from "./__components/display-orders";
 import NavLink from "@/app/components/active-links";
+import DisplayOrders from "./__components/display-orders";
 
 function OrdersPage() {
 	return (

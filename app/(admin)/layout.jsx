@@ -7,6 +7,7 @@ import { FaTimes } from "react-icons/fa";
 import { BsCurrencyDollar } from "react-icons/bs";
 import HandleNotificationTopic from "../components/handle-notification-topic";
 import { AiOutlineNotification } from "react-icons/ai";
+import { BsPerson } from "react-icons/bs";
 
 export const dynamic = "force-dynamic";
 
@@ -123,6 +124,12 @@ function AdminLayout({ children }) {
 							<Link href="/admin/currencies">
 								<BsCurrencyDollar className="w-5 h-5" />
 								<span>Currencies</span>
+							</Link>
+						</li>
+						<li>
+							<Link href="/admin/users">
+								<BsPerson className="w-5 h-5" />
+								<span>Users</span>
 							</Link>
 						</li>
 

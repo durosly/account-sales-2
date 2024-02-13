@@ -1,19 +1,25 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import paginate from "mongoose-paginate-v2";
 // import referralCodeGenerator from 'referral-code-generator';
 
-const userSchema = new mongoose.Schema({
-	balance: { type: Number, default: 0 },
-	name: String,
-	email: String,
-	password: String,
-	is_verified: { type: Boolean, default: false },
-	account_type: {
-		type: String,
-		enum: ["admin", "user"],
-		default: "user",
+const userSchema = new mongoose.Schema(
+	{
+		balance: { type: Number, default: 0 },
+		name: String,
+		email: String,
+		password: String,
+		is_verified: { type: Boolean, default: false },
+		account_type: {
+			type: String,
+			enum: ["admin", "user"],
+			default: "user",
+		},
 	},
-});
+	{ timestamp: true }
+);
+
+userSchema.plugin(paginate);
 
 userSchema.pre("save", function (next) {
 	const user = this;
