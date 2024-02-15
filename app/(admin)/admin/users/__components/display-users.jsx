@@ -103,9 +103,7 @@ function DisplayUsers() {
 										))
 									) : (
 										<tr>
-											<td colSpan={6}>
-												No category found
-											</td>
+											<td colSpan={6}>No user found</td>
 										</tr>
 									)}
 								</>
