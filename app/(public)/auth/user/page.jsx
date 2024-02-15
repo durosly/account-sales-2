@@ -31,11 +31,11 @@ async function UserDashboardPage() {
 					<p>
 						For Email and 2fa, please visit{" "}
 						<a
-							href="https://smvaults.xyz"
+							href="https://smvmail.com"
 							target="_blank"
 							className="link link-primary"
 						>
-							smvaults.xyz
+							smvmail.com
 						</a>
 					</p>
 				</div>

@@ -166,7 +166,7 @@ async function PublicLayout({ children }) {
 								Telegram
 							</Link>
 							<a
-								href="https://smvaults.xyz"
+								href="https://smvmail.com"
 								className="link link-hover"
 							>
 								Emails and 2fa
