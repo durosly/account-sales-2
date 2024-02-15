@@ -5,12 +5,10 @@ import commaNumber from "comma-number";
 import { useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Skeleton from "react-loading-skeleton";
-import { useSearchParams } from "next/navigation";
 import UserRow from "./user-row";
 // import OrderRow from "./order-row";
 
 function DisplayUsers() {
-	const searchParams = useSearchParams();
 	const [query, setQuery] = useState("");
 
 	const [page, setPage] = useState(1);
