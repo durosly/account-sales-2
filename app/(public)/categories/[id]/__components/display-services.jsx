@@ -27,8 +27,7 @@ function DisplaySubCategories({ id, categoryCover }) {
 					<li className="border rounded-xl p-5 flex gap-2 items-center">
 						<div className="relative w-6 h-6">
 							<Image
-								src={`/images/like-icon.png
-									`}
+								src={`/images/like-icon.png`}
 								fill
 								className="object-contain"
 							/>
