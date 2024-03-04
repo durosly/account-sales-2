@@ -30,21 +30,26 @@ async function servicesPage({ params: { id, subId } }) {
 			<div className="max-w-4xl mx-auto px-10 mt-5 ">
 				<div className="p-5 bg-base-200 rounded-box">
 					<div className="flex gap-2 items-center">
-						<GoAlert className="w-5 h-5" />
-						<p className="font-bold">Important notice</p>
+						<GoAlert className="w-5 h-5 text-error" />
+						<p className="font-bold text-error">Important notice</p>
 					</div>
 
 					<ul className="list-disc list-inside mt-5 space-y-2">
 						<li>
 							Secure your account by changing your password within
-							the next 12 hours of purchase. No refund or
-							replacement available after this period.
+							the next 12 hours of purchase.{" "}
+							<span className="font-bold text-error">
+								No refund
+							</span>{" "}
+							or replacement available after this period.
 						</li>
 						<li>
 							Prior to making a bulk purchase for the first time,
-							consider acquiring a single account initially to
-							ensure it aligns with your requirements before
-							committing to a larger volume.
+							consider acquiring a single account initially to{" "}
+							<span className="font-bold">
+								ensure it aligns with your requirements
+							</span>{" "}
+							before committing to a larger volume.
 						</li>
 					</ul>
 				</div>
