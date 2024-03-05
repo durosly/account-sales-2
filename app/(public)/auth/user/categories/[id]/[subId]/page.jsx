@@ -36,12 +36,19 @@ async function servicesPage({ params: { id, subId } }) {
 
 					<ul className="list-disc list-inside mt-5 space-y-2">
 						<li>
-							Secure your account by changing your password within
-							the next 12 hours of purchase.{" "}
-							<span className="font-bold text-error">
-								No refund
+							Our commitment at Smvaults includes refraining from
+							accessing customer accounts without authorization.
+							We urge customers to take steps to secure their own
+							accounts{" "}
+							<span className="font-bold">
+								(such as changing account passwords, email
+								passwords, and recovery email details)
 							</span>{" "}
-							or replacement available after this period.
+							after making a purchase. Please be aware that{" "}
+							<span className="text-error">
+								we are not responsible for any property loss
+								resulting from failure to secure your account
+							</span>
 						</li>
 						<li>
 							Prior to making a bulk purchase for the first time,
