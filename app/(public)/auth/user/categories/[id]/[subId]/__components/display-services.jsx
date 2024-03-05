@@ -102,7 +102,11 @@ function DisplayServices({ id, categoryCover, subId }) {
 																	<span className="font-bold">
 																		&#8358;
 																		{commaNumber(
-																			s.price
+																			Number(
+																				s.price
+																			).toFixed(
+																				2
+																			)
 																		)}
 																	</span>
 																</div>
