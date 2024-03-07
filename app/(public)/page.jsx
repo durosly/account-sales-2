@@ -333,6 +333,20 @@ function Home() {
 				</div>
 			</div>
 
+			<div className="my-10 px-5 relative ">
+				<h2 className="text-center mb-2">
+					How to setup facebook account after purchase
+				</h2>
+				<video
+					src="/videos/fb-tut.mp4"
+					className="aspect-video max-h-48 mx-auto"
+					controls
+				/>
+				<p className="text-center text-xs italic">
+					Play on fullscreen to get a better view
+				</p>
+			</div>
+
 			{/* Get started */}
 
 			<div className="p-7 md:p-10 rounded-xl bg-base-200 text-center mx-10 mb-20">
@@ -342,7 +356,7 @@ function Home() {
 				</h2>
 				<Link
 					href="/signup"
-					className="btn btn-primary btn-wide"
+					className="btn btn-primary sm:btn-wide"
 				>
 					Get started now
 				</Link>
