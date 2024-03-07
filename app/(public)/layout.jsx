@@ -196,12 +196,13 @@ async function PublicLayout({ children }) {
 							>
 								Terms of use
 							</Link>
-							{/* <Link
-							href="/nice"
-							className="link link-hover"
-						>
-							Privacy policy
-						</Link>
+							<Link
+								href="/faq"
+								className="link link-hover"
+							>
+								FAQ
+							</Link>
+							{/*
 						<Link
 							href="/nice"
 							className="link link-hover"
