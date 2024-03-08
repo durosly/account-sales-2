@@ -98,7 +98,10 @@ function ShowDetailsBtn({ id, items }) {
 
 										{item?.data &&
 											item?.data.map(({ key, value }) => (
-												<p className="space-x-1">
+												<p
+													key={`${key}-${value}`}
+													className="space-x-1"
+												>
 													<span className="uppercase font-bold">
 														{key}:
 													</span>
