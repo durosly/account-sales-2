@@ -9,6 +9,8 @@ import UserModel from "@/models/user";
 import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
 import ServiceItemModel from "@/models/service-item";
 import addNotification from "@/utils/backend/add-notification";
+import { checkFBStatus } from "@/lib/utils";
+import { DateTime } from "luxon";
 
 async function createOrder(request) {
 	try {
@@ -84,6 +86,48 @@ async function createOrder(request) {
 		// TODO: send notification (user, admin)
 
 		const ids = serviceItems.map((item) => item._id);
+
+		// TODO: check if service is facebook
+
+		const regex = new RegExp("facebook", "i");
+
+		if (regex.test(service.categoryId.name)) {
+			// TODO: loop through each service
+			const iterableItems = JSON.parse(JSON.stringify(serviceItems));
+
+			for (const item of iterableItems) {
+				const digitRegex = /\d{10,}/;
+				const match = item?.info.match(digitRegex);
+
+				if (match) {
+					const uid = match[0];
+					// TODO: check status of each account
+					const status = await checkFBStatus(uid);
+					// TODO: add status infomation to service item
+
+					const date = DateTime.now().toLocaleString(
+						DateTime.DATETIME_SHORT
+					);
+
+					await ServiceItemModel.findOneAndUpdate(
+						{ _id: item._id },
+						{
+							$push: {
+								data: {
+									$each: [
+										{ key: "FB status", value: status },
+										{
+											key: "FB status date",
+											value: date,
+										},
+									],
+								},
+							},
+						}
+					);
+				}
+			}
+		}
 
 		const order = await OrderModel.create({
 			serviceId: valid.data.service,

@@ -95,7 +95,7 @@ async function signupUser(request) {
 			message: "Success",
 		});
 	} catch (error) {
-		console.log(error.message);
+		// console.log(error.message);
 		return NextResponse.json(
 			{
 				status: false,

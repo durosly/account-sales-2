@@ -95,6 +95,16 @@ function ShowDetailsBtn({ id, items }) {
 													);
 												}
 											})}
+
+										{item?.data &&
+											item?.data.map(({ key, value }) => (
+												<p className="space-x-1">
+													<span className="uppercase font-bold">
+														{key}:
+													</span>
+													<span>{value}</span>
+												</p>
+											))}
 									</div>
 									<p className="font-bold my-5 flex gap-2 items-center">
 										<SlPaperClip className="w-4 h-4" />

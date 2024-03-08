@@ -9,8 +9,6 @@ async function getCategories(request) {
 		const { searchParams } = new URL(request.url);
 		const page = searchParams.get("page");
 
-		console.log(page);
-
 		if (page !== "all" && !Number(page)) {
 			return NextResponse.json(
 				{ status: false, message: "Page can only be a number" },
