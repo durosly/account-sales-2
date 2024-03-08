@@ -106,7 +106,7 @@ async function createOrder(request) {
 					// TODO: add status infomation to service item
 
 					const date = DateTime.now().toLocaleString(
-						DateTime.DATETIME_SHORT
+						DateTime.DATE_MED
 					);
 
 					await ServiceItemModel.findOneAndUpdate(
@@ -115,7 +115,10 @@ async function createOrder(request) {
 							$push: {
 								data: {
 									$each: [
-										{ key: "FB status", value: status },
+										{
+											key: "FB status",
+											value: status ? "Active" : "Dead",
+										},
 										{
 											key: "FB status date",
 											value: date,
