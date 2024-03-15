@@ -78,6 +78,19 @@ function ShowDetailsBtn({ id, items }) {
 														</p>
 													);
 											})}
+
+										{item?.data &&
+											item?.data.map(({ key, value }) => (
+												<p
+													key={`${key}-${value}`}
+													className="space-x-1"
+												>
+													<span className="uppercase font-bold">
+														{key}:
+													</span>
+													<span>{value}</span>
+												</p>
+											))}
 									</div>
 									<p className="font-bold my-5">
 										Instructions
