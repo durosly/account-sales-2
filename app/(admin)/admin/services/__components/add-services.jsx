@@ -58,8 +58,6 @@ function AddServices({ countries }) {
 
 	const subQueryResponse = sub?.data?.data || [];
 
-	console.log(subQueryResponse);
-
 	const queryClient = useQueryClient();
 
 	let toastId = useRef(null);
