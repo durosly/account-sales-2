@@ -8,6 +8,8 @@ async function getAccounts(request, { params: { id } }) {
 		const { searchParams } = new URL(request.url);
 		const page = searchParams.get("page");
 		const status = searchParams.get("status");
+		const start = searchParams.get("start");
+		const end = searchParams.get("end");
 
 		if (page !== "all" && !Number(page)) {
 			return NextResponse.json(
@@ -34,6 +36,18 @@ async function getAccounts(request, { params: { id } }) {
 
 		if (!!status && status !== "all") {
 			query.status = status;
+		}
+
+		if (!!start) {
+			const startDate = new Date(`${start}T00:00:00Z`).toISOString();
+
+			if (!!end) {
+				const endDate = new Date(`${end}T23:59:59Z`).toISOString();
+
+				query.createdAt = { $gte: startDate, $lt: endDate };
+			}
+
+			query.createdAt = { $gte: startDate };
 		}
 
 		await connectMongo();

@@ -8,11 +8,15 @@ import Skeleton from "react-loading-skeleton";
 import { handleClientError } from "@/lib/utils";
 import ItemRow from "./item-row";
 import Actions from "./actions";
+import { DateTime } from "luxon";
 
 function DisplayItems({ serviceId }) {
 	const [query, setQuery] = useState("");
+	const maxDate = DateTime.now().toISODate();
 
 	const [status, setStatus] = useState("all");
+	const [start_date, setStartDate] = useState("");
+	const [end_date, setEndDate] = useState("");
 
 	const [page, setPage] = useState(1);
 
@@ -21,7 +25,7 @@ function DisplayItems({ serviceId }) {
 			queryKey: ["items", { serviceId }, page, query],
 			queryFn: () =>
 				axios(
-					`/api/admin/service/${serviceId}/accounts?page=${page}&query=${query}&status=${status}`
+					`/api/admin/service/${serviceId}/accounts?page=${page}&query=${query}&status=${status}&start=${start_date}&end=${end_date}`
 				),
 			placeholderData: (previousData) => previousData,
 		});
@@ -46,6 +50,46 @@ function DisplayItems({ serviceId }) {
 					<button className="btn join-item ">Search</button>
 				</div>
 			</form>
+
+			<div className="flex flex-wrap justify-between gap-5 items-end px-5">
+				<div className="flex gap-2 items-end flex-wrap">
+					<div>
+						<label
+							htmlFor="start"
+							className="label"
+						>
+							Start
+						</label>
+						<input
+							className="input input-bordered"
+							type="date"
+							name="interval-start"
+							id="start"
+							value={start_date}
+							onChange={(e) => setStartDate(e.target.value)}
+							max={maxDate}
+						/>
+					</div>
+					<div>
+						<label
+							htmlFor="end"
+							className="label"
+						>
+							End
+						</label>
+						<input
+							className="input input-bordered"
+							type="date"
+							name="interval-end"
+							id="end"
+							value={end_date}
+							onChange={(e) => setEndDate(e.target.value)}
+							disabled={!start_date}
+							max={maxDate}
+						/>
+					</div>
+				</div>
+			</div>
 
 			<Actions id={serviceId} />
 
