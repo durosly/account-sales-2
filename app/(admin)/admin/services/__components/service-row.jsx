@@ -6,11 +6,13 @@ import axios from "axios";
 import commaNumber from "comma-number";
 import { DateTime } from "luxon";
 import Image from "next/image";
+import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import EditServiceName from "./edit-service-name";
 import ServiceDeleteBtn from "./service-delete-btn";
 import ServiceQuantity from "./service-quantity";
 import ServiceUpdateBtn from "./service-update-btn";
+import { FaRegEye } from "react-icons/fa";
 
 function ServiceRow({ item }) {
 	const { createdAt, name, _id, categoryId, price, country, subCategoryId } =
@@ -70,6 +72,12 @@ function ServiceRow({ item }) {
 			<td className="space-x-2 whitespace-nowrap">
 				<ServiceUpdateBtn id={_id} />
 				<ServiceDeleteBtn id={_id} />
+				<Link
+					className="btn btn-sm md:btn-md btn-primary btn-square btn-outline"
+					href={`/admin/services/${_id}/items`}
+				>
+					<FaRegEye />
+				</Link>
 			</td>
 		</tr>
 	);
