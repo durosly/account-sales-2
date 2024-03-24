@@ -6,9 +6,11 @@ import { NextResponse } from "next/server";
 function checkForUsernameSubstring(inputString) {
 	// Regular expression to match "username" substring case-insensitively
 	const regex = /username/i;
+	const regex2 = /id/i;
 
 	// Test if the input string contains the "username" substring
-	const isSubstringPresent = regex.test(inputString);
+	const isSubstringPresent =
+		regex.test(inputString) || regex2.test(inputString);
 
 	return isSubstringPresent;
 }
@@ -26,7 +28,7 @@ async function getAccounts(_, { params: { id } }) {
 
 		await connectMongo();
 
-		const items = await ServiceItemModel.find(query).limit(10);
+		const items = await ServiceItemModel.find(query).limit(20);
 
 		const list = [];
 
