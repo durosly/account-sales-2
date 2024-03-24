@@ -7,6 +7,7 @@ import ClientWrapper from "./components/client-wrapper";
 import "flag-icons/css/flag-icons.min.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import NextTransitionBar from "next-transition-bar";
 import "./globals.css";
 import { metaInfo } from "./meta";
 import HandleNotification from "./components/handle-notification";
@@ -60,6 +61,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
+				<NextTransitionBar color="#4A00FF" />
 				<HandleNotification />
 				<ClientWrapper>{children}</ClientWrapper>
 				<Toaster />

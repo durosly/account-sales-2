@@ -2292,6 +2292,7 @@ __metadata:
     mongoose-paginate-v2: "npm:1.7.4"
     next: "npm:^14.1.2"
     next-auth: "npm:^4.24.5"
+    next-transition-bar: "npm:^1.1.1"
     nodemailer: "npm:^6.9.7"
     postcss: "npm:^8"
     react: "npm:^18.2.0"
@@ -6736,6 +6737,16 @@ __metadata:
     nodemailer:
       optional: true
   checksum: 3ba2cf707903af8a0571ba9e95389e8fb110308110589dfa07c7edcfc185f92b3046474991e18f63bdf990694cda7a583cd3b020f9b58243b2c0403f341cc21a
+  languageName: node
+  linkType: hard
+
+"next-transition-bar@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "next-transition-bar@npm:1.1.1"
+  peerDependencies:
+    react: ">= 16.0.1"
+    react-dom: ">= 16.0.1"
+  checksum: e46cbb0118c98bfa5d0e767fb15eb015ce37260528237f1e3b7fce7a1ded1398b45413382aa077a4301cab30ad555d277b6c36a1ef52f90ae96b9aa84bd7ae02
   languageName: node
   linkType: hard
 

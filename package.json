@@ -31,6 +31,7 @@
 		"mongoose-paginate-v2": "1.7.4",
 		"next": "^14.1.2",
 		"next-auth": "^4.24.5",
+		"next-transition-bar": "^1.1.1",
 		"nodemailer": "^6.9.7",
 		"react": "^18.2.0",
 		"react-currency-input-field": "^3.6.12",
