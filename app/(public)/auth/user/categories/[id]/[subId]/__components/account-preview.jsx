@@ -96,7 +96,7 @@ function AccountPreview({ serviceId }) {
 							{isPending
 								? Array(4)
 										.fill(3)
-										.map((_, i) => <Skeleton />)
+										.map((_, i) => <Skeleton key={i} />)
 								: null}
 
 							{isError ? (
