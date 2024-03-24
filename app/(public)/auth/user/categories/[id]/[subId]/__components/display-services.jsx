@@ -178,11 +178,13 @@ function DisplayServices({ id, categoryCover, subId }) {
 																	}
 																/>
 
-																<AccountPreview
-																	serviceId={
-																		s._id
-																	}
-																/>
+																{s?.showPreview && (
+																	<AccountPreview
+																		serviceId={
+																			s._id
+																		}
+																	/>
+																)}
 															</div>
 														</li>
 													) : null

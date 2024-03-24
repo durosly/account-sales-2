@@ -14,6 +14,7 @@ const serviceSchema = new mongoose.Schema({
 	price: Number,
 	country: String,
 	details: String,
+	showPreview: { type: Boolean, default: false },
 	quantity: { type: Number, default: 0, min: 0 },
 	createdAt: { type: Date, default: Date.now },
 });

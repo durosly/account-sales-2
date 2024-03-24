@@ -42,6 +42,16 @@ async function createOrder(request) {
 			);
 		}
 
+		if (!service?.showPreview) {
+			return NextResponse.json(
+				{
+					status: false,
+					message: "Preview mode not available for this service",
+				},
+				{ status: 403 }
+			);
+		}
+
 		if (service.quantity < choice.length) {
 			return NextResponse.json(
 				{ status: false, message: "Not enough to meet this demand" },

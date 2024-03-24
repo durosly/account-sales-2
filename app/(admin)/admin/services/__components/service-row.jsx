@@ -13,10 +13,19 @@ import ServiceDeleteBtn from "./service-delete-btn";
 import ServiceQuantity from "./service-quantity";
 import ServiceUpdateBtn from "./service-update-btn";
 import { FaRegEye } from "react-icons/fa";
+import ServiceTogglePreviewBtn from "./toggle-preview";
 
 function ServiceRow({ item }) {
-	const { createdAt, name, _id, categoryId, price, country, subCategoryId } =
-		item;
+	const {
+		createdAt,
+		name,
+		_id,
+		categoryId,
+		price,
+		country,
+		subCategoryId,
+		showPreview,
+	} = item;
 
 	// Load currency rate
 	const {
@@ -72,6 +81,10 @@ function ServiceRow({ item }) {
 			<td className="space-x-2 whitespace-nowrap">
 				<ServiceUpdateBtn id={_id} />
 				<ServiceDeleteBtn id={_id} />
+				<ServiceTogglePreviewBtn
+					id={_id}
+					previewStatus={showPreview}
+				/>
 				<Link
 					className="btn btn-sm md:btn-md btn-primary btn-square btn-outline"
 					href={`/admin/services/${_id}/items`}
