@@ -8,6 +8,7 @@ import Image from "next/image";
 
 import Skeleton from "react-loading-skeleton";
 import ServicePurchase from "./service-purchase-form";
+import AccountPreview from "./account-preview";
 
 function DisplayServices({ id, categoryCover, subId }) {
 	// Load services
@@ -168,11 +169,21 @@ function DisplayServices({ id, categoryCover, subId }) {
 																</div>
 															</div>
 
-															<ServicePurchase
-																sId={s._id}
-																cId={id}
-																price={s.price}
-															/>
+															<div className="flex gap-5 flex-wrap">
+																<ServicePurchase
+																	sId={s._id}
+																	cId={id}
+																	price={
+																		s.price
+																	}
+																/>
+
+																<AccountPreview
+																	serviceId={
+																		s._id
+																	}
+																/>
+															</div>
 														</li>
 													) : null
 												)
