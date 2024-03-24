@@ -135,7 +135,7 @@ function AccountPreview({ serviceId }) {
 								</p>
 							</div>
 						)}
-						<div className="modal-action">
+						<div className="modal-action max-sm:justify-center">
 							{!isPending && results && results.length > 0 && (
 								<button
 									onClick={() => handleSubmit()}
