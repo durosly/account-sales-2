@@ -40,6 +40,7 @@ async function getAccounts(_, { params: { id } }) {
 				if (hasUsername) {
 					const accountInfo = entry.split(":")[1].trim();
 					list.push({ id: item._id, username: accountInfo });
+					break;
 				}
 			}
 		}
