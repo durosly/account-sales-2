@@ -91,7 +91,7 @@ function DisplayServices({ id, categoryCover, subId }) {
 																		{s.name}
 																	</p>
 																</div>
-																<p className="italic">
+																<p className="italic [overflow-wrap:_break-word]">
 																	{s.details}
 																</p>
 															</div>
