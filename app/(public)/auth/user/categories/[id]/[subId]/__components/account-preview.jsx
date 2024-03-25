@@ -7,8 +7,9 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
-function AccountPreview({ serviceId }) {
+function AccountPreview({ serviceId, link, cover }) {
 	const router = useRouter();
 	const [showModal, setShowModal] = useState(false);
 	const [choice, setChoice] = useState([]);
@@ -115,16 +116,29 @@ function AccountPreview({ serviceId }) {
 										key={item.id}
 										className="flex flex-wrap items-center gap-3"
 									>
+										<div className="relative w-10 h-10">
+											<Image
+												src={`/images/${cover}`}
+												fill
+												className="object-contain"
+											/>
+										</div>
+										<a
+											href={`${link}/${item.username}`}
+											className="font-bold"
+											target="_blank"
+										>
+											{item.username}
+										</a>
 										<input
 											type="checkbox"
-											className="checkbox checkbox-sm"
+											className="checkbox checkbox-sm ml-auto"
 											disabled={isMutationPending}
 											checked={choice.includes(item.id)}
 											onChange={() =>
 												handleChoiceChange(item.id)
 											}
 										/>
-										<span>{item.username}</span>
 									</li>
 								))}
 						</ul>

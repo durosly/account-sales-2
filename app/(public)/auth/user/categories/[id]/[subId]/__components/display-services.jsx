@@ -183,6 +183,12 @@ function DisplayServices({ id, categoryCover, subId }) {
 																		serviceId={
 																			s._id
 																		}
+																		link={
+																			category.link
+																		}
+																		cover={
+																			category.cover
+																		}
 																	/>
 																)}
 															</div>
