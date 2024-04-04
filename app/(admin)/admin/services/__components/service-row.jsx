@@ -24,6 +24,7 @@ function ServiceRow({ item }) {
 		price,
 		country,
 		subCategoryId,
+		details,
 		showPreview,
 	} = item;
 
@@ -79,7 +80,10 @@ function ServiceRow({ item }) {
 				)}
 			</td>
 			<td className="space-x-2 whitespace-nowrap">
-				<ServiceUpdateBtn id={_id} />
+				<ServiceUpdateBtn
+					id={_id}
+					data={{ details }}
+				/>
 				<ServiceDeleteBtn id={_id} />
 				<ServiceTogglePreviewBtn
 					id={_id}

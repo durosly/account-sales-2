@@ -1,123 +1,78 @@
 "use client";
-import { handleClientError } from "@/lib/utils";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { useRef, useState } from "react";
-import CurrencyInput from "react-currency-input-field";
-import toast from "react-hot-toast";
+
+import { useState } from "react";
 import { FaPencilAlt } from "react-icons/fa";
+import UpdateServicePrice from "./update-service-price";
+import UpdateServiceDetails from "./update-service-details";
 
-function ServiceUpdateBtn({ id }) {
-	const [price, setPrice] = useState("");
-	const queryClient = useQueryClient();
-	let toastId = useRef(null);
-
-	const { isPending, mutate, isError, error } = useMutation({
-		mutationFn: (price) => {
-			toastId.current = toast.loading("Updating service price...");
-			return axios.put(`/api/admin/service/${id}`, { price });
-		},
-		// make sure to _return_ the Promise from the query invalidation
-		// so that the mutation stays in `pending` state until the refetch is finished
-		onSettled: async () => {
-			return await queryClient.invalidateQueries({
-				queryKey: ["services"],
-			});
-		},
-		onSuccess: () => {
-			toast.success("Service price updated", { id: toastId.current });
-			setPrice("");
-			document.getElementById(`service-update-modal-${id}`).close();
-		},
-		onError: (error) => {
-			const message = handleClientError(error);
-			toast.error(message, { id: toastId.current });
-		},
-	});
-
-	function handleSubmit(e) {
-		e.preventDefault();
-
-		if (!price) {
-			return toast.error("Price cannot be empty");
-		}
-
-		mutate(price);
-	}
+function ServiceUpdateBtn({ id, data }) {
+	const [showModal, setShowModal] = useState(false);
+	const [tab, setTab] = useState("price");
 
 	return (
 		<>
 			<button
 				className="btn btn-sm md:btn-md btn-primary btn-square btn-outline"
-				onClick={() =>
-					document
-						.getElementById(`service-update-modal-${id}`)
-						.showModal()
-				}
+				onClick={() => setShowModal(true)}
 			>
 				<FaPencilAlt />
 			</button>
-			{/* Open the modal using document.getElementById('ID').showModal() method */}
 
-			<dialog
-				id={`service-update-modal-${id}`}
-				className="modal"
-			>
-				<div className="modal-box">
-					<form method="dialog">
-						{/* if there is a button in form, it will close the modal */}
-						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+			{showModal && (
+				<dialog className="modal modal-open modal-bottom sm:modal-middle">
+					<div className="modal-box">
+						<button
+							onClick={() => setShowModal(false)}
+							className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+						>
 							✕
 						</button>
-					</form>
-					<h3 className="font-bold text-lg mb-2">
-						Update Service price
-					</h3>
-					<form onSubmit={handleSubmit}>
-						<div className="form-control mb-5">
-							<label
-								htmlFor="price"
-								className="label"
-							>
-								Price ($)
-							</label>
 
-							<CurrencyInput
-								id="price"
-								name="price"
-								placeholder="Price..."
-								decimalsLimit={2}
-								className="input input-bordered"
-								value={price}
-								disabled={isPending}
-								onValueChange={(value) => setPrice(value)}
-							/>
-						</div>
-						<button
-							disabled={isPending}
-							className="btn btn-primary"
+						<div
+							role="tablist"
+							className="tabs tabs-lifted"
 						>
-							Update price
-						</button>
-					</form>
-					{isPending ? (
-						<div>
-							<span className="loading loading-spinner"></span>
+							<input
+								type="radio"
+								role="tab"
+								className="tab"
+								aria-label="Price"
+								onChange={() => setTab("price")}
+								checked={tab === "price"}
+							/>
+							{tab === "price" && (
+								<div
+									role="tabpanel"
+									className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+								>
+									<UpdateServicePrice id={id} />
+								</div>
+							)}
+
+							<input
+								type="radio"
+								role="tab"
+								className="tab"
+								aria-label="Details"
+								onChange={() => setTab("details")}
+								checked={tab === "details"}
+							/>
+
+							{tab === "details" && (
+								<div
+									role="tabpanel"
+									className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+								>
+									<UpdateServiceDetails
+										id={id}
+										details={data.details}
+									/>
+								</div>
+							)}
 						</div>
-					) : null}
-
-					{isError ? (
-						<p className="text-error">{handleClientError(error)}</p>
-					) : null}
-				</div>
-
-				<form
-					method="dialog"
-					className="modal-backdrop"
-				>
-					<button disabled={isPending}>close</button>
-				</form>
-			</dialog>
+					</div>
+				</dialog>
+			)}
 		</>
 	);
 }
