@@ -4,6 +4,9 @@ import axios from "axios";
 import commaNumber from "comma-number";
 import Skeleton from "react-loading-skeleton";
 import EditUserBalance from "./edit-user-balance";
+import truncateString from "@/utils/shared/trunc";
+import Link from "next/link";
+import { LuLink } from "react-icons/lu";
 
 function UserRow({ item, count }) {
 	const { _id, name, email, is_verified, balance } = item;
@@ -24,7 +27,15 @@ function UserRow({ item, count }) {
 		<>
 			<tr>
 				<th>{count}</th>
-				<td>{_id}</td>
+				<td>
+					<Link
+						href={`/admin/users/${_id}`}
+						className="link link-hover"
+					>
+						<LuLink className="inline-block mr-1" />
+						{truncateString(_id, 14, "middle")}
+					</Link>
+				</td>
 				<td>
 					<div className="flex gap-2 items-center">
 						<span
