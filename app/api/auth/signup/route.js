@@ -26,7 +26,10 @@ async function signupUser(request) {
 			);
 		}
 
-		const emailTaken = await UserModel.findOne({ email: data.data.email });
+		const emailTaken = await UserModel.findOne({
+			email: data.data.email.toLowerCase(),
+		});
+
 		if (emailTaken) {
 			return NextResponse.json(
 				{
