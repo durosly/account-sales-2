@@ -33,7 +33,7 @@ export const options = {
 				//
 				// const { email, password } = credentials
 				const user = await UserModel.findOne({
-					email: credentials?.email,
+					email: credentials?.email.toLowerCase(),
 				});
 
 				// TODO: check auth type before logging in
