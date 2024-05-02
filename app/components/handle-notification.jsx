@@ -9,9 +9,11 @@ import toast from "react-hot-toast";
 
 function HandleNotification() {
 	// const messaging = getMessaging(app);
-	const messaging = async () => (await isSupported()) && getMessaging(app);
 
 	useEffect(() => {
+		const messaging = async () =>
+			(await isSupported()) && getMessaging(app);
+
 		const unsubscribe = onMessage(messaging, (payload) => {
 			const { notification } = payload;
 			toast.custom((t) => (
@@ -43,7 +45,7 @@ function HandleNotification() {
 			// Unsubscribe the listener when the component unmounts
 			unsubscribe();
 		};
-	}, [messaging]);
+	}, []);
 
 	return null;
 }
