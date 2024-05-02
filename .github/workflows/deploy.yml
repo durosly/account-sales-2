@@ -20,6 +20,9 @@ jobs:
             FIREBASE_AUTH_PROVIDER_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_CERT_URL }}
             FIREBASE_CLIENT_CERT_URL: ${{ secrets.FIREBASE_CLIENT_CERT_URL }}
             FIREBASE_UNIVERSE_DOMAIN: ${{ secrets.FIREBASE_UNIVERSE_DOMAIN }}
+            NEXT_PUBLIC_URL: ${{ secrets.NEXT_PUBLIC_URL }}
+            NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+            NEXTAUTH_URL: ${{ secrets.NEXT_PUBLIC_URL }}
 
         steps:
             - name: Checkout Master Branch
