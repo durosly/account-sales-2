@@ -1,0 +1,42 @@
+name: Build and Deploy
+
+on:
+    push:
+        branches:
+            - master
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Master Branch
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+                  ref: master
+
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "20.x"
+
+            - name: Install Dependencies
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: install
+
+            - name: Build Website
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: build
+
+            - name: Install SSH Key
+              uses: shimataro/ssh-key-action@v2
+              with:
+                  key: ${{ secrets.SSH_KEY }}
+                  known_hosts: "unnecessary"
+
+            - name: Adding Known Hosts
+              run: ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+
+            - name: Deploy with rsync
+              run: rsync -avz --delete . ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.TARGET_DIRECTORY }}
