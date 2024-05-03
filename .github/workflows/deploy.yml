@@ -23,6 +23,7 @@ jobs:
             NEXT_PUBLIC_URL: ${{ secrets.NEXT_PUBLIC_URL }}
             NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
             NEXTAUTH_URL: ${{ secrets.NEXT_PUBLIC_URL }}
+            NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY }}
 
         steps:
             - name: Checkout Master Branch
