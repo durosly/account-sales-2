@@ -4,6 +4,8 @@ import { options } from "@/auth/options";
 import CurrencyRateModel from "@/models/rate";
 import connectMongo from "@/lib/connectDB";
 
+export const dynamic = "force-dynamic";
+
 async function AddFundsPage() {
 	const session = await getServerSession(options);
 
