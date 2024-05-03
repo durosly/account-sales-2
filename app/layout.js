@@ -5,8 +5,6 @@ import { Toaster } from "react-hot-toast";
 import "react-loading-skeleton/dist/skeleton.css";
 import ClientWrapper from "./components/client-wrapper";
 import "flag-icons/css/flag-icons.min.css";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTransitionBar from "next-transition-bar";
 import "./globals.css";
 import { metaInfo } from "./meta";
@@ -65,8 +63,6 @@ export default function RootLayout({ children }) {
 				<HandleNotification />
 				<ClientWrapper>{children}</ClientWrapper>
 				<Toaster />
-				<Analytics />
-				<SpeedInsights />
 			</body>
 		</html>
 	);
