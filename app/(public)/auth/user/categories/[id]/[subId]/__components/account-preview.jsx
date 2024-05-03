@@ -123,13 +123,26 @@ function AccountPreview({ serviceId, link, cover }) {
 												className="object-contain"
 											/>
 										</div>
-										<a
-											href={`${link}/${item.username}`}
-											className="font-bold"
-											target="_blank"
-										>
-											{item.username}
-										</a>
+										<div className="flex flex-col">
+											<a
+												href={`${link}/${item.username}`}
+												className="font-bold"
+												target="_blank"
+											>
+												{item.username}
+											</a>
+											<span
+												className={`badge badge-xs ${
+													item.status
+														? "badge-success"
+														: "badge-error"
+												}`}
+											>
+												{item.status
+													? "active"
+													: "dead"}
+											</span>
+										</div>
 										<input
 											type="checkbox"
 											className="checkbox checkbox-sm ml-auto"

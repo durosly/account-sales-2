@@ -1,4 +1,6 @@
 import connectMongo from "@/lib/connectDB";
+import { checkFBStatus } from "@/lib/utils";
+import ServiceModel from "@/models/service";
 import ServiceItemModel from "@/models/service-item";
 import isValidObjectId from "@/utils/backend/verify-mongodb-id";
 import { NextResponse } from "next/server";
@@ -28,6 +30,11 @@ async function getAccounts(_, { params: { id } }) {
 
 		await connectMongo();
 
+		const service = await ServiceModel.findById(id).populate("categoryId");
+
+		const fbRegex = new RegExp("facebook", "i");
+		const isFb = fbRegex.test(service.categoryId.name);
+
 		const items = await ServiceItemModel.find(query).limit(20);
 
 		const list = [];
@@ -39,7 +46,15 @@ async function getAccounts(_, { params: { id } }) {
 
 				if (hasUsername) {
 					const accountInfo = entry.split(":")[1].trim();
-					list.push({ id: item._id, username: accountInfo });
+
+					const data = { id: item._id, username: accountInfo };
+
+					if (isFb) {
+						const status = await checkFBStatus(accountInfo);
+						data.status = status;
+					}
+
+					list.push(data);
 					break;
 				}
 			}
@@ -51,10 +66,13 @@ async function getAccounts(_, { params: { id } }) {
 			data: list,
 		});
 	} catch (error) {
-		return NextResponse.json({
-			status: false,
-			message: `An error occured: ${error.message}`,
-		});
+		return Response.json(
+			{
+				status: false,
+				message: `An error occured: ${error.message}`,
+			},
+			{ status: 400 }
+		);
 	}
 }
 
