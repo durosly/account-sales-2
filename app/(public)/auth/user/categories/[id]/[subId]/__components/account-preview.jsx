@@ -131,17 +131,21 @@ function AccountPreview({ serviceId, link, cover }) {
 											>
 												{item.username}
 											</a>
-											<span
-												className={`badge badge-xs ${
-													item.status
-														? "badge-success"
-														: "badge-error"
-												}`}
-											>
-												{item.status
-													? "active"
-													: "dead"}
-											</span>
+											{Object.keys(item).includes(
+												"status"
+											) && (
+												<span
+													className={`badge badge-xs ${
+														item.status
+															? "badge-success"
+															: "badge-error"
+													}`}
+												>
+													{item.status
+														? "active"
+														: "dead"}
+												</span>
+											)}
 										</div>
 										<input
 											type="checkbox"
