@@ -23,8 +23,7 @@ function Categories() {
 					.map((_, i) => (
 						<div
 							key={i}
-							className="border rounded-2xl block p-5 text-center w-[calc((100%_-_2.5rem)_/_2)] sm:w-[calc((100%_-_2_*_2.5rem)_/_3)] md:w-[calc((100%_-_3_*_2.5rem)_/_4)]"
-						>
+							className="border rounded-2xl block p-5 text-center w-[calc((100%_-_2.5rem)_/_2)] sm:w-[calc((100%_-_2_*_2.5rem)_/_3)] md:w-[calc((100%_-_3_*_2.5rem)_/_4)]">
 							<div className="relative w-12 h-12 mx-auto">
 								<Skeleton />
 							</div>
@@ -39,14 +38,9 @@ function Categories() {
 				<>
 					<Link
 						href={`/categories/all/all`}
-						className="border rounded-2xl block p-5 text-center w-[calc((100%_-_2.5rem)_/_2)] sm:w-[calc((100%_-_2_*_2.5rem)_/_3)] md:w-[calc((100%_-_3_*_2.5rem)_/_4)]"
-					>
+						className="border rounded-2xl block p-5 text-center w-[calc((100%_-_2.5rem)_/_2)] sm:w-[calc((100%_-_2_*_2.5rem)_/_3)] md:w-[calc((100%_-_3_*_2.5rem)_/_4)]">
 						<div className="relative w-12 h-12 mx-auto mb-2">
-							<Image
-								src={`/images/${"like-icon.png"}`}
-								fill
-								className="object-contain"
-							/>
+							<Image src={`/images/${"like-icon.png"}`} fill className="object-contain" alt="" />
 						</div>
 						<p className="font-bold">All services</p>
 					</Link>
@@ -54,14 +48,9 @@ function Categories() {
 						<Link
 							href={`/categories/${c._id}`}
 							key={c._id}
-							className="border rounded-2xl block p-5 text-center w-[calc((100%_-_2.5rem)_/_2)] sm:w-[calc((100%_-_2_*_2.5rem)_/_3)] md:w-[calc((100%_-_3_*_2.5rem)_/_4)]"
-						>
+							className="border rounded-2xl block p-5 text-center w-[calc((100%_-_2.5rem)_/_2)] sm:w-[calc((100%_-_2_*_2.5rem)_/_3)] md:w-[calc((100%_-_3_*_2.5rem)_/_4)]">
 							<div className="relative w-12 h-12 mx-auto mb-2">
-								<Image
-									src={`/images/${c.cover}`}
-									fill
-									className="object-contain"
-								/>
+								<Image src={`/images/${c.cover}`} fill className="object-contain" alt="" />
 							</div>
 							<p className="font-bold">{c.name}</p>
 						</Link>
