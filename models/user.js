@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
 		is_verified: { type: Boolean, default: false },
 		account_type: {
 			type: String,
-			enum: ["admin", "user"],
+			enum: ["admin", "user", "worker"],
 			default: "user",
 		},
 	},
