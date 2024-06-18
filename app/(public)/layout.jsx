@@ -28,36 +28,21 @@ async function PublicLayout({ children }) {
 
 	return (
 		<div className="drawer max-md:block">
-			<input
-				id="my-drawer-3"
-				type="checkbox"
-				className="drawer-toggle"
-			/>
-			{session?.user ? (
-				<HandleNotificationTopic topic={"regular"} />
-			) : null}
+			<input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
+			{session?.user ? <HandleNotificationTopic topic={"regular"} /> : null}
 			<NavigationEvents />
 			<div className="drawer-content flex flex-col">
 				{/* Navbar */}
 				{tNotice && <MarqueMsg msg={tNotice.body} />}
-				<div
-					className={`w-full navbar ${session?.user && "border-b"} `}
-				>
+				<div className={`w-full navbar ${session?.user && "border-b"} `}>
 					<div className="navbar-start">
 						<div className="flex-none lg:hidden">
-							<label
-								htmlFor="my-drawer-3"
-								aria-label="open sidebar"
-								className="btn btn-sm btn-square btn-ghost"
-							>
+							<label htmlFor="my-drawer-3" aria-label="open sidebar" className="btn btn-sm btn-square btn-ghost">
 								<SlMenu className="inline-block w-5 h-5 stroke-current" />
 							</label>
 						</div>
 						<div className=" px-2 mx-2 md:mr-20">
-							<Link
-								href={session?.user ? "/auth/user" : "/"}
-								className="font-bold"
-							>
+							<Link href={session?.user ? "/auth/user" : "/"} className="font-bold">
 								SMvaults
 							</Link>
 						</div>
@@ -70,35 +55,23 @@ async function PublicLayout({ children }) {
 					<div className="navbar-end pr-5 space-x-4">
 						{session?.user ? (
 							<>
-								<Link
-									href="/auth/user/notifications"
-									className="btn btn-ghost btn-circle"
-								>
+								<Link href="/auth/user/notifications" className="btn btn-ghost btn-circle">
 									<div className="indicator">
 										<SlBell className="h-5 w-5" />
 										<ShowNotificationStatus />
 									</div>
 								</Link>
 								<div className="dropdown dropdown-end">
-									<label
-										tabIndex={0}
-										className="btn btn-ghost btn-circle avatar"
-									>
+									<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
 										<div className="w-10 rounded-full">
-											<img
-												alt="Tailwind CSS Navbar component"
-												src="https://picsum.photos/200"
-											/>
+											<img alt="Tailwind CSS Navbar component" src="https://picsum.photos/200" />
 										</div>
 									</label>
 									<ul
 										tabIndex={0}
-										className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-									>
+										className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
 										<li>
-											<Link href="/auth/user/account">
-												Profile
-											</Link>
+											<Link href="/auth/user/account">Profile</Link>
 										</li>
 
 										<li>
@@ -109,16 +82,10 @@ async function PublicLayout({ children }) {
 							</>
 						) : (
 							<>
-								<Link
-									href="/auth/signup"
-									className="btn btn-sm md:btn-md btn-ghost max-sm:hidden"
-								>
+								<Link href="/auth/signup" className="btn btn-sm md:btn-md btn-ghost max-sm:hidden">
 									Create Account
 								</Link>
-								<Link
-									href="/auth"
-									className="btn btn-sm md:btn-md btn-primary"
-								>
+								<Link href="/auth" className="btn btn-sm md:btn-md btn-primary">
 									<SlLogin />
 									Login
 								</Link>
@@ -131,7 +98,7 @@ async function PublicLayout({ children }) {
 
 				{/* Notice Modal */}
 
-				{notice && <NoticeModal notice={notice} />}
+				{notice && <NoticeModal notice={notice?.body} />}
 
 				{session?.user ? null : (
 					<footer className="footer p-10 bg-base-200 text-base-content">
@@ -140,35 +107,21 @@ async function PublicLayout({ children }) {
 							<p>
 								SMvaults Ltd.
 								<br />
-								<span className="text-xs italic">
-									Buy Verified Social Media Accounts
-								</span>
+								<span className="text-xs italic">Buy Verified Social Media Accounts</span>
 							</p>
 						</aside>
 						<nav>
 							<header className="footer-title">Services</header>
-							<Link
-								href="/services"
-								className="link link-hover"
-							>
+							<Link href="/services" className="link link-hover">
 								Facebook
 							</Link>
-							<Link
-								href="/services"
-								className="link link-hover"
-							>
+							<Link href="/services" className="link link-hover">
 								Tiktok
 							</Link>
-							<Link
-								href="/services"
-								className="link link-hover"
-							>
+							<Link href="/services" className="link link-hover">
 								Telegram
 							</Link>
-							<a
-								href="https://smvmail.com"
-								className="link link-hover"
-							>
+							<a href="https://smvmail.com" className="link link-hover">
 								Emails and 2fa
 							</a>
 						</nav>
@@ -190,16 +143,10 @@ async function PublicLayout({ children }) {
 					</nav> */}
 						<nav>
 							<header className="footer-title">Legal</header>
-							<Link
-								href="/terms"
-								className="link link-hover"
-							>
+							<Link href="/terms" className="link link-hover">
 								Terms of use
 							</Link>
-							<Link
-								href="/faq"
-								className="link link-hover"
-							>
+							<Link href="/faq" className="link link-hover">
 								FAQ
 							</Link>
 							{/*
@@ -214,9 +161,7 @@ async function PublicLayout({ children }) {
 							<header className="footer-title">Contacts</header>
 							<div className="flex flex-wrap gap-2 mb-5">
 								<SlEnvolope className="w-5 h-5" />
-								<a href="mailto:support@smvaults.com">
-									support@smvaults.com
-								</a>
+								<a href="mailto:support@smvaults.com">support@smvaults.com</a>
 							</div>
 							<header className="footer-title">Socials</header>
 							<div className="flex flex-wrap gap-2">
@@ -232,17 +177,9 @@ async function PublicLayout({ children }) {
 				)}
 			</div>
 			<div className="drawer-side">
-				<label
-					htmlFor="my-drawer-3"
-					aria-label="close sidebar"
-					className="drawer-overlay"
-				></label>
+				<label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
 				<div className="menu p-4 w-80 min-h-full bg-base-200 relative">
-					<label
-						htmlFor="my-drawer-3"
-						aria-label="close sidebar"
-						className="btn btn-xs btn-ghost absolute right-5 top-5 lg:hidden"
-					>
+					<label htmlFor="my-drawer-3" aria-label="close sidebar" className="btn btn-xs btn-ghost absolute right-5 top-5 lg:hidden">
 						<FaTimes />
 					</label>
 					<h2 className="text-xl font-bold text-center">smvaults</h2>
