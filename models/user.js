@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema(
 			default: "user",
 		},
 	},
-	{ timestamp: true }
+	{ timestamps: true }
 );
 
 userSchema.plugin(paginate);

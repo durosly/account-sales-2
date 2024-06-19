@@ -47,23 +47,16 @@ function LoginForm() {
 	}
 
 	return (
-		<form
-			action="/login"
-			className="bg-base-200 p-8 rounded-md"
-			onSubmit={makeLoginRequest}
-		>
+		<form action="/login" className="bg-base-200 p-8 rounded-md" onSubmit={makeLoginRequest}>
 			<h2 className="text-2xl font-bold mb-5">Login</h2>
 			<div className="form-control">
-				<label
-					htmlFor="email"
-					className="label"
-				>
+				<label htmlFor="email" className="label">
 					<span className="label-text">E-mail</span>
 				</label>
 				<div className="relative">
 					<SlEnvolope className="absolute left-4 top-1/2 -translate-y-1/2 opacity-50" />
 					<input
-						type="email"
+						type="text"
 						name="email"
 						id="email"
 						placeholder="john@doe.com..."
@@ -79,10 +72,7 @@ function LoginForm() {
 				</div>
 			</div>
 			<div className="form-control mb-5">
-				<label
-					htmlFor="password"
-					className="label"
-				>
+				<label htmlFor="password" className="label">
 					<span className="label-text">Password</span>
 				</label>
 				<div className="relative">
@@ -102,43 +92,26 @@ function LoginForm() {
 						}
 					/>
 
-					<button
-						onClick={() => setShow((prev) => !prev)}
-						className="absolute right-4 top-1/2 -translate-y-1/2 text-black"
-						type="button"
-					>
-						{show ? (
-							<BsEyeSlash className="opacity-50" />
-						) : (
-							<BsEye className="opacity-50" />
-						)}
+					<button onClick={() => setShow((prev) => !prev)} className="absolute right-4 top-1/2 -translate-y-1/2 text-black" type="button">
+						{show ? <BsEyeSlash className="opacity-50" /> : <BsEye className="opacity-50" />}
 					</button>
 				</div>
 			</div>
 			<div className="text-center mb-5">
-				<button
-					disabled={isLoading}
-					className="btn btn-primary btn-block"
-				>
+				<button disabled={isLoading} className="btn btn-primary btn-block">
 					Login
 				</button>
 			</div>
 			<p className="mt-5 text-sm">
 				Don&apos;t have an account?{" "}
-				<Link
-					href="/auth/signup"
-					className="link link-primary"
-				>
+				<Link href="/auth/signup" className="link link-primary">
 					Signup
 				</Link>
 				.
 			</p>
 
 			<div className="text-center">
-				<Link
-					href="/auth/forgot-password"
-					className="link text-sm"
-				>
+				<Link href="/auth/forgot-password" className="link text-sm">
 					Forgot password?
 				</Link>
 			</div>

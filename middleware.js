@@ -5,15 +5,20 @@ function middleware(request) {
 	const path = request.nextUrl.pathname;
 	const token = request.nextauth.token;
 
-	if (path.startsWith("/auth/user") && token?.account_type === "admin") {
+	if (path.startsWith("/auth/user") && (token?.account_type === "admin" || token?.account_type === "worker")) {
 		return NextResponse.redirect(new URL("/admin", request.url));
 	}
 
-	if (path.startsWith("/api/admin") && token?.account_type !== "admin") {
-		return NextResponse.json(
-			{ status: false, message: "authorized" },
-			{ status: 401 }
-		);
+	if (path.startsWith("/admin") && token?.account_type === "worker" && !path.startsWith("/admin/orders")) {
+		return NextResponse.redirect(new URL("/admin/orders", request.url));
+	}
+
+	if (path.startsWith("/api/admin") && (token?.account_type === "admin" || token?.account_type === "worker")) {
+		return NextResponse.json({ status: false, message: "authorized" }, { status: 401 });
+	}
+
+	if (path.startsWith("/api/admin") && token?.account_type === "worker" && !path.startsWith("/api/admin/order")) {
+		return NextResponse.json({ status: false, message: "authorized" }, { status: 401 });
 	}
 }
 
