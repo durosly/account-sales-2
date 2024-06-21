@@ -13,11 +13,11 @@ function useRequestPermission({ topic }) {
 	});
 
 	// const messaging = getMessaging(app);
-	const messaging = async () => (await isSupported()) && getMessaging(app);
 
 	useEffect(() => {
 		async function handleNotice(topic) {
 			try {
+				const messaging = async () => (await isSupported()) && getMessaging(app);
 				const permission = await Notification.requestPermission();
 
 				if (permission === "granted") {
@@ -29,7 +29,9 @@ function useRequestPermission({ topic }) {
 
 					//
 				}
-			} catch (error) {}
+			} catch (error) {
+				console.log("Error getting token");
+			}
 		}
 
 		handleNotice(topic);
