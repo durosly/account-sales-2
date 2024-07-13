@@ -24,8 +24,6 @@ serviceItemSchema.index({
 	info: "text",
 });
 
-const ServiceItemModel =
-	mongoose.models.ServiceItem ||
-	mongoose.model("ServiceItem", serviceItemSchema);
+const ServiceItemModel = mongoose.models.ServiceItem || mongoose.model("ServiceItem", serviceItemSchema);
 
 export default ServiceItemModel;

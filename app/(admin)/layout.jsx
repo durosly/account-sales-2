@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SlGrid, SlLayers, SlDrawer, SlLogout, SlGhost } from "react-icons/sl";
+import { SlGrid, SlLayers, SlDrawer, SlLogout, SlGhost, SlSocialFacebook, SlTarget, SlBell, SlBulb } from "react-icons/sl";
 import LogoutBtn from "../components/logout-btn";
 import "easymde/dist/easymde.min.css";
 import { NavigationEvents } from "../components/navigation-event";
@@ -86,17 +86,27 @@ async function AdminLayout({ children }) {
 									</Link>
 								</li>
 								<li>
-									<Link href="/admin/notifications">
-										<AiOutlineNotification className="w-5 h-5" />
-										<span>Notification</span>
-									</Link>
+									<details open>
+										<summary>
+											<AiOutlineNotification className="w-5 h-5" /> <span>Notifications</span>
+										</summary>
+										<ul>
+											<li>
+												<Link href="/admin/notifications">
+													<SlBell className="w-5 h-5" />
+													<span>Main</span>
+												</Link>
+											</li>
+											<li>
+												<Link href="/admin/top-notifications">
+													<SlBulb className="w-5 h-5" />
+													<span>Top</span>
+												</Link>
+											</li>
+										</ul>
+									</details>
 								</li>
-								<li>
-									<Link href="/admin/top-notifications">
-										<AiOutlineNotification className="w-5 h-5" />
-										<span>Top Notification</span>
-									</Link>
-								</li>
+
 								<li>
 									<Link href="/admin/currencies">
 										<BsCurrencyDollar className="w-5 h-5" />
@@ -114,6 +124,21 @@ async function AdminLayout({ children }) {
 										<SlGhost className="w-5 h-5" />
 										<span>Worker</span>
 									</Link>
+								</li>
+								<li>
+									<details open>
+										<summary>
+											<SlTarget className="w-5 h-5" /> <span>Dead accounts</span>
+										</summary>
+										<ul>
+											<li>
+												<Link href="/admin/dead-accounts/fb" className="text-error">
+													<SlSocialFacebook className="w-5 h-5" />
+													<span>Dead FB accounts</span>
+												</Link>
+											</li>
+										</ul>
+									</details>
 								</li>
 							</>
 						) : null}
