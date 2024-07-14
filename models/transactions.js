@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 import paginate from "mongoose-paginate-v2";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 // import referralCodeGenerator from 'referral-code-generator';
 
 const transactionSchema = new mongoose.Schema({
 	userEmail: { type: String },
 	transactionId: String,
-	ownRef: { type: String, default: () => uuid() },
+	ownRef: { type: String, default: () => uuidv4() },
 	type: { type: String, enum: ["reg", "crypto"], default: "reg" },
 	status: {
 		type: String,
@@ -19,8 +19,6 @@ const transactionSchema = new mongoose.Schema({
 
 transactionSchema.plugin(paginate);
 
-const TransactionModel =
-	mongoose.models.Transaction ||
-	mongoose.model("Transaction", transactionSchema);
+const TransactionModel = mongoose.models.Transaction || mongoose.model("Transaction", transactionSchema);
 
 export default TransactionModel;
