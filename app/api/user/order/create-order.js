@@ -1,16 +1,15 @@
 import { options } from "@/auth/options";
 import connectMongo from "@/lib/connectDB";
+import { checkFBStatus } from "@/lib/utils";
 import OrderModel from "@/models/order";
 import ServiceModel from "@/models/service";
-import { getServerSession } from "next-auth";
-import { CreateOrderSchema } from "@/validators/order";
-import { NextResponse } from "next/server";
-import UserModel from "@/models/user";
-import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
 import ServiceItemModel from "@/models/service-item";
+import UserModel from "@/models/user";
 import addNotification from "@/utils/backend/add-notification";
-import { checkFBStatus } from "@/lib/utils";
+import pushNotifyAdmin from "@/utils/backend/push-notify-admin";
+import { CreateOrderSchema } from "@/validators/order";
 import { DateTime } from "luxon";
+import { getServerSession } from "next-auth";
 
 async function createOrder(request) {
 	try {
@@ -19,28 +18,21 @@ async function createOrder(request) {
 		const valid = CreateOrderSchema.safeParse(body);
 
 		if (!valid.success) {
-			return NextResponse.json(
-				{ status: false, message: valid.error.issues[0].message },
-				{ status: 400 }
-			);
+			return Response.json({ status: false, message: valid.error.issues[0].message }, { status: 400 });
 		}
 
 		// calc charge
-		const service = await ServiceModel.findById(
-			valid.data.service
-		).populate("categoryId");
+		const service = await ServiceModel.findById(valid.data.service).populate("categoryId");
 		if (!service) {
-			return NextResponse.json(
-				{ status: false, message: "Invalid service specified" },
-				{ status: 403 }
-			);
+			return Response.json({ status: false, message: "Invalid service specified" }, { status: 403 });
+		}
+
+		if (!service.availableForSale) {
+			return Response.json({ status: false, message: "Service not available at the moment" }, { status: 403 });
 		}
 
 		if (service.quantity < valid.data.quantity) {
-			return NextResponse.json(
-				{ status: false, message: "Not enough to meet this demand" },
-				{ status: 403 }
-			);
+			return Response.json({ status: false, message: "Not enough to meet this demand" }, { status: 403 });
 		}
 
 		let charge = Number(service.price * valid.data.quantity);
@@ -48,10 +40,13 @@ async function createOrder(request) {
 		const id = session?.user?.id || null;
 
 		if (!id) {
-			return NextResponse.json({
-				status: false,
-				message: "No user logged in",
-			});
+			return Response.json(
+				{
+					status: false,
+					message: "No user logged in",
+				},
+				{ status: 400 }
+			);
 		}
 
 		await connectMongo();
@@ -67,19 +62,13 @@ async function createOrder(request) {
 			service.quantity = 0;
 			await service.save();
 
-			return NextResponse.json(
-				{ status: false, message: "No service available" },
-				{ status: 404 }
-			);
+			return Response.json({ status: false, message: "No service available" }, { status: 404 });
 		}
 
 		const user = await UserModel.findById(id);
 		// check if user balance is enough (substract from balance)
 		if (user.balance < charge) {
-			return NextResponse.json(
-				{ status: false, message: "Insufficient funds" },
-				{ status: 403 }
-			);
+			return Response.json({ status: false, message: "Insufficient funds" }, { status: 403 });
 		}
 		user.balance -= charge;
 		await user.save();
@@ -105,9 +94,7 @@ async function createOrder(request) {
 					const status = await checkFBStatus(uid);
 					// TODO: add status infomation to service item
 
-					const date = DateTime.now().toLocaleString(
-						DateTime.DATE_MED
-					);
+					const date = DateTime.now().toLocaleString(DateTime.DATE_MED);
 
 					await ServiceItemModel.findOneAndUpdate(
 						{ _id: item._id },
@@ -147,32 +134,25 @@ async function createOrder(request) {
 		service.quantity -= valid.data.quantity;
 		await service.save();
 
-		await pushNotifyAdmin(
-			"New order request",
-			`New order request for service "${service.name}" from ${user.name}`
-		);
+		await pushNotifyAdmin("New order request", `New order request for service "${service.name}" from ${user.name}`);
 
-		await addNotification(
-			"New order completed",
-			"Your new order has been completed",
-			session.user.id
-		);
+		await addNotification("New order completed", "Your new order has been completed", session.user.id);
 
-		await ServiceItemModel.updateMany(
-			{ _id: { $in: ids } },
-			{ status: "sold" }
-		);
+		await ServiceItemModel.updateMany({ _id: { $in: ids } }, { status: "sold" });
 
-		return NextResponse.json({
+		return Response.json({
 			status: false,
 			message: "success",
 			order,
 		});
 	} catch (error) {
-		return NextResponse.json({
-			status: false,
-			message: `An error occured: ${error.message}`,
-		});
+		return Response.json(
+			{
+				status: false,
+				message: `An error occured: ${error.message}`,
+			},
+			{ status: 500 }
+		);
 	}
 }
 

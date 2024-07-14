@@ -8,18 +8,14 @@ import ItemContext from "./__components/item-context";
 async function page({ params: { serviceId } }) {
 	await connectMongo();
 
-	const service = await ServiceModel.findById(serviceId).populate(
-		"subCategoryId"
-	);
+	const service = await ServiceModel.findById(serviceId).populate("subCategoryId");
 
 	if (!service) notFound();
 
 	return (
 		<>
 			<div className="border-b p-5 mb-5">
-				<h2 className="text-xl font-bold">
-					{service.subCategoryId.name}
-				</h2>
+				<h2 className="text-xl font-bold">{service.subCategoryId.name}</h2>
 			</div>
 
 			<ItemContext>

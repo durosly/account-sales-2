@@ -39,8 +39,7 @@ function ItemContext({ children }) {
 					addAccount,
 					removeAllAccounts,
 				},
-			}}
-		>
+			}}>
 			{children}
 		</ItemContextManager.Provider>
 	);

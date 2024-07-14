@@ -5,14 +5,14 @@ import axios from "axios";
 import { useRef } from "react";
 import toast from "react-hot-toast";
 
-function ServiceTogglePreviewBtn({ id, previewStatus }) {
+function ServiceToggleSaleBtn({ id, saleStatus }) {
 	const queryClient = useQueryClient();
 	let toastId = useRef(null);
 
 	const { isPending, mutate } = useMutation({
 		mutationFn: (status) => {
-			toastId.current = toast.loading("Updating service preview status...");
-			return axios.put(`/api/admin/service/${id}/preview-status`, {
+			toastId.current = toast.loading("Updating service sales status...");
+			return axios.put(`/api/admin/service/${id}/sales-status`, {
 				status,
 			});
 		},
@@ -24,7 +24,7 @@ function ServiceTogglePreviewBtn({ id, previewStatus }) {
 			});
 		},
 		onSuccess: async () => {
-			toast.success("Service preview status updated", {
+			toast.success("Service sales status updated", {
 				id: toastId.current,
 			});
 		},
@@ -35,16 +35,16 @@ function ServiceTogglePreviewBtn({ id, previewStatus }) {
 	});
 
 	function handleClick() {
-		mutate(!previewStatus);
+		mutate(!saleStatus);
 	}
 
 	return (
 		<>
-			<button className={`btn btn-sm md:btn-md ${previewStatus ? "" : "btn-info"} btn-outline`} disabled={isPending} onClick={handleClick}>
-				{previewStatus ? "hide" : "show"} preview
+			<button className={`btn btn-sm md:btn-md ${saleStatus ? "" : "btn-warning"} btn-outline`} disabled={isPending} onClick={handleClick}>
+				{saleStatus ? "end" : "start"} sales
 			</button>
 		</>
 	);
 }
 
-export default ServiceTogglePreviewBtn;
+export default ServiceToggleSaleBtn;

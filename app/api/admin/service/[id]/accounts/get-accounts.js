@@ -12,24 +12,15 @@ async function getAccounts(request, { params: { id } }) {
 		const end = searchParams.get("end");
 
 		if (page !== "all" && !Number(page)) {
-			return NextResponse.json(
-				{ status: false, message: "Page can only be a number" },
-				{ status: 400 }
-			);
+			return NextResponse.json({ status: false, message: "Page can only be a number" }, { status: 400 });
 		}
 
 		if (!isValidObjectId(id)) {
-			return NextResponse.json(
-				{ status: false, message: "Service ID is not valid" },
-				{ status: 400 }
-			);
+			return NextResponse.json({ status: false, message: "Service ID is not valid" }, { status: 400 });
 		}
 
 		if (status !== "all" && status !== "new" && status !== "sold") {
-			return NextResponse.json(
-				{ status: false, message: "Status is not valid" },
-				{ status: 400 }
-			);
+			return NextResponse.json({ status: false, message: "Status is not valid" }, { status: 400 });
 		}
 
 		const query = { serviceId: id };
@@ -52,10 +43,19 @@ async function getAccounts(request, { params: { id } }) {
 
 		await connectMongo();
 
-		const items = await ServiceItemModel.paginate(query, {
-			page,
-			sort: { name: -1 },
-		});
+		let items = [];
+
+		if (page !== "all") {
+			items = await ServiceItemModel.paginate(query, {
+				page,
+				sort: { name: -1 },
+			});
+		} else {
+			items = await ServiceItemModel.paginate(query, {
+				pagination: false,
+				sort: { name: -1 },
+			});
+		}
 
 		return NextResponse.json({
 			status: false,

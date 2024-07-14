@@ -14,19 +14,10 @@ import ServiceQuantity from "./service-quantity";
 import ServiceUpdateBtn from "./service-update-btn";
 import { FaRegEye } from "react-icons/fa";
 import ServiceTogglePreviewBtn from "./toggle-preview";
+import ServiceToggleSaleBtn from "./service-sale-status";
 
 function ServiceRow({ item }) {
-	const {
-		createdAt,
-		name,
-		_id,
-		categoryId,
-		price,
-		country,
-		subCategoryId,
-		details,
-		showPreview,
-	} = item;
+	const { createdAt, name, _id, categoryId, price, country, subCategoryId, details, showPreview, availableForSale } = item;
 
 	// Load currency rate
 	const {
@@ -45,12 +36,7 @@ function ServiceRow({ item }) {
 			<td>{truncateString(_id, 8, "middle")}</td>
 			<td className="">
 				{country === "global" ? (
-					<Image
-						src={global}
-						width={20}
-						height={20}
-						className="inline-block"
-					/>
+					<Image src={global} width={20} height={20} className="inline-block" alt="global" />
 				) : (
 					<span className={`fi fi-${country.toLowerCase()}`}></span>
 				)}
@@ -61,38 +47,14 @@ function ServiceRow({ item }) {
 				<ServiceQuantity id={_id} />
 			</td>
 
-			<td>
-				{isPendingRate ? (
-					<Skeleton className="w-10" />
-				) : (
-					<>
-						{commaNumber(
-							Number(price / (rateResponse?.amount || 1)).toFixed(
-								2
-							)
-						)}
-					</>
-				)}
-			</td>
-			<td>
-				{DateTime.fromISO(createdAt).toLocaleString(
-					DateTime.DATETIME_SHORT
-				)}
-			</td>
+			<td>{isPendingRate ? <Skeleton className="w-10" /> : <>{commaNumber(Number(price / (rateResponse?.amount || 1)).toFixed(2))}</>}</td>
+			<td>{DateTime.fromISO(createdAt).toLocaleString(DateTime.DATETIME_SHORT)}</td>
 			<td className="space-x-2 whitespace-nowrap">
-				<ServiceUpdateBtn
-					id={_id}
-					data={{ details }}
-				/>
+				<ServiceToggleSaleBtn id={_id} saleStatus={availableForSale} />
+				<ServiceUpdateBtn id={_id} data={{ details }} />
 				<ServiceDeleteBtn id={_id} />
-				<ServiceTogglePreviewBtn
-					id={_id}
-					previewStatus={showPreview}
-				/>
-				<Link
-					className="btn btn-sm md:btn-md btn-primary btn-square btn-outline"
-					href={`/admin/services/${_id}/items`}
-				>
+				<ServiceTogglePreviewBtn id={_id} previewStatus={showPreview} />
+				<Link className="btn btn-sm md:btn-md btn-primary btn-square btn-outline" href={`/admin/services/${_id}/items`}>
 					<FaRegEye />
 				</Link>
 			</td>

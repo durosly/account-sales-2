@@ -5,7 +5,6 @@ import isValidObjectId from "@/utils/backend/verify-mongodb-id";
 async function deleteAccount(request) {
 	try {
 		const { ids } = await request.json();
-		console.log(ids);
 
 		for (const id of ids) {
 			if (!isValidObjectId(id)) {

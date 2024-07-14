@@ -15,6 +15,7 @@ const serviceSchema = new mongoose.Schema({
 	country: String,
 	details: String,
 	showPreview: { type: Boolean, default: false },
+	availableForSale: { type: Boolean, default: true },
 	quantity: { type: Number, default: 0, min: 0 },
 	createdAt: { type: Date, default: Date.now },
 });
@@ -25,7 +26,6 @@ serviceSchema.index({
 	price: "text",
 });
 
-const ServiceModel =
-	mongoose.models.Service || mongoose.model("Service", serviceSchema);
+const ServiceModel = mongoose.models.Service || mongoose.model("Service", serviceSchema);
 
 export default ServiceModel;
