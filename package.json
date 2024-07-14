@@ -27,7 +27,7 @@
 		"luxon": "^3.4.4",
 		"mongoose": "^8.0.0",
 		"mongoose-paginate-v2": "1.7.4",
-		"next": "^14.1.2",
+		"next": "^14.2.5",
 		"next-auth": "^4.24.5",
 		"next-transition-bar": "^1.1.1",
 		"nodemailer": "^6.9.7",
