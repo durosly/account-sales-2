@@ -16,24 +16,26 @@ async function filterDeadFB() {
 		const fbCIds = fbCategory.map((category) => category.id);
 
 		const fbServices = await ServiceModel.find({ categoryId: { $in: fbCIds } });
-		const fbSIds = fbServices.map((service) => service.id);
 
-		const serviceItems = await ServiceItemModel.find({ serviceId: { $in: fbSIds }, status: "new" });
+		// const fbSIds = fbServices.map((service) => service.id);
+		for (const service of fbServices) {
+			const serviceItems = await ServiceItemModel.find({ serviceId: service.id, status: "new" });
 
-		for (const item of serviceItems) {
-			const digitRegex = /\d{10,}/;
-			const match = item?.info.match(digitRegex);
+			for (const item of serviceItems) {
+				const digitRegex = /\d{10,}/;
+				const match = item?.info.match(digitRegex);
 
-			if (match) {
-				const uid = match[0];
-				// TODO: check status of each account
-				const status = await checkFBStatus(uid);
-				// TODO: add status infomation to service item
+				if (match) {
+					const uid = match[0];
+					// TODO: check status of each account
+					const status = await checkFBStatus(uid);
+					// TODO: add status infomation to service item
 
-				if (!status) {
-					await DeadServiceItemModel.create({ ..._.omit(item, "_id") });
-					await ServiceItemModel.findByIdAndDelete(item._id);
-					await ServiceModel.findByIdAndUpdate(item.serviceId, { $inc: { quantity: -1 } });
+					if (!status) {
+						await DeadServiceItemModel.create({ ..._.omit(item, "_id") });
+						await ServiceItemModel.findByIdAndDelete(item._id);
+						await ServiceModel.findByIdAndUpdate(item.serviceId, { $inc: { quantity: -1 } });
+					}
 				}
 			}
 		}
