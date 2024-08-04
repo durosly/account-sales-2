@@ -13,7 +13,9 @@ import CopyBtn from "./__components/copy-btn";
 
 async function DeadFBAccounts() {
 	await connectMongo();
-	const deadFBAccounts = await DeadServiceItemModel.find({});
+	const deadFBAccounts = await DeadServiceItemModel.find({}).populate({
+		path: "serviceId",
+	});
 
 	return (
 		<>
@@ -39,8 +41,9 @@ async function DeadFBAccounts() {
 								<li key={account.id} className="flex gap-5">
 									<SelectAccount id={account.id} />
 									<div>
+										<h2 className="font-bold">{account.serviceId.name}</h2>
 										{account.info.split(/,/).map((item, i) => (
-											<p key={i} className="max-sm:text-xs">
+											<p key={i} className="text-sm max-sm:text-xs">
 												{/* {item.split(":").map((value, i) => (
 											<span className={`${i === 1 ? "font-bold" : ""}`} key={value}>
 												{value}
