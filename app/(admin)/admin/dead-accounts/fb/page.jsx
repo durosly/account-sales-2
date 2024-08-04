@@ -9,6 +9,7 @@ import DeleteBtn from "./__components/delete-btn";
 import DeleteSelected from "./__components/delete-selected";
 import RestoreBtn from "./__components/restore-btn";
 import RestoreSelected from "./__components/restore-selected";
+import CopyBtn from "./__components/copy-btn";
 
 async function DeadFBAccounts() {
 	await connectMongo();
@@ -28,6 +29,7 @@ async function DeadFBAccounts() {
 						<DeleteSelected />
 						{/* <button className="btn btn-success btn-outline">Restore</button> */}
 						<RestoreSelected />
+						<CopyBtn />
 					</div>
 					{deadFBAccounts.length < 1 ? (
 						<p>No dead accounts</p>

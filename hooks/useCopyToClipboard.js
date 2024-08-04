@@ -16,7 +16,7 @@ export function useCopyToClipboard() {
 		try {
 			await window.navigator.clipboard.writeText(text);
 			setCopiedText(text);
-			toast("copied");
+			toast.success("copied");
 			return true;
 		} catch (error) {
 			console.warn("Copy failed", error);
